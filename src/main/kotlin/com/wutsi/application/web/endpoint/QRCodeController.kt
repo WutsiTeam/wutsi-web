@@ -22,12 +22,12 @@ class QRCodeController(
     private val keyProvider: KeyProvider,
     private val tenantProvider: TenantProvider
 ) {
-    @GetMapping("/account/{id}.png")
-    fun account(@PathVariable id: Long): ResponseEntity<ByteArrayResource> {
+    @GetMapping("/{type}/{id}.png")
+    fun account(@PathVariable type: String, @PathVariable id: Long): ResponseEntity<ByteArrayResource> {
         val tenant = tenantProvider.get()
-        val data = QrCode(type = "ACCOUNT", value = id.toString()).encode(keyProvider)
+        val data = QrCode(type = type.uppercase(), value = id.toString()).encode(keyProvider)
 
-        val logoUrl = tenant.logos.find { it.type == "PICTORIAL" }?.let { URL(it.url) }
+        val logoUrl = tenantProvider.logo(tenant)?.let { URL(it) }
         val image = ByteArrayOutputStream()
         QrCodeImageGenerator(logoUrl).generate(data, image)
 
