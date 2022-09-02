@@ -1,6 +1,5 @@
 package com.wutsi.application.web.endpoint
 
-import com.wutsi.platform.qr.entity.EntityType
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -21,6 +20,5 @@ class OrderController : AbstractPageController() {
 
     private fun addOpenGraph(id: String, model: Model) {
         model.addAttribute("title", "Order #" + id.uppercase().takeLast(4))
-        model.addAttribute("image", getQrCodeUrl(id, EntityType.ORDER))
     }
 }

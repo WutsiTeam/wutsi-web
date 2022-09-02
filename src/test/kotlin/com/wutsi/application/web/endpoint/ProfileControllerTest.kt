@@ -7,8 +7,6 @@ import com.wutsi.platform.account.WutsiAccountApi
 import com.wutsi.platform.account.dto.Account
 import com.wutsi.platform.account.dto.Category
 import com.wutsi.platform.account.dto.GetAccountResponse
-import com.wutsi.platform.qr.WutsiQrApi
-import com.wutsi.platform.qr.dto.EncodeQRCodeResponse
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.mock.mockito.MockBean
 
@@ -16,16 +14,11 @@ internal class ProfileControllerTest : SeleniumTestSupport() {
     @MockBean
     private lateinit var accountApi: WutsiAccountApi
 
-    @MockBean
-    private lateinit var qrApi: WutsiQrApi
-
     @Test
     fun account() {
         // GIVEN
         val account = createAccount()
         doReturn(GetAccountResponse(account)).whenever(accountApi).getAccount(any())
-
-        doReturn(EncodeQRCodeResponse("111-222-333")).whenever(qrApi).encode(any())
 
         // WHEN
         navigate(url("profile?id=${account.id}"))
@@ -43,7 +36,7 @@ internal class ProfileControllerTest : SeleniumTestSupport() {
         assertElementAttribute(
             "head meta[property='og:image']",
             "content",
-            "https://wutsi-qr-server-test.herokuapp.com/image/111-222-333.png"
+            "/qr-code/1.png"
         )
 
         assertAppStoreLinksPresent()

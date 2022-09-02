@@ -18,8 +18,9 @@ import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.support.ui.Select
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.boot.web.server.LocalServerPort
-import java.util.concurrent.TimeUnit
+import org.springframework.boot.test.web.server.LocalServerPort
+import java.time.Duration
+import java.time.temporal.ChronoUnit
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
@@ -92,7 +93,7 @@ abstract class SeleniumTestSupport {
         doReturn(ListTenantResponse(tenants)).whenever(tenantApi).listTenants()
 
         this.driver = ChromeDriver(driverOptions())
-        driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS)
+        driver.manage().timeouts().implicitlyWait(Duration.of(timeout, ChronoUnit.SECONDS))
     }
 
     @AfterEach

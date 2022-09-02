@@ -41,6 +41,9 @@ wutsi:
     asset-url: https://int-wutsi.s3.amazonaws.com/static/wutsi-web
 
   platform:
+    cache:
+      name: ${wutsi.application.name}
+      type: local
     image:
       type: image-kit
       image-kit:
@@ -56,6 +59,9 @@ wutsi:
     stream:
       name: ${wutsi.application.name}
       type: local
+      subscriptions:
+        - wutsi-tenant
+        - wutsi-account
 logging:
   level:
     root: INFO

@@ -2,6 +2,13 @@ wutsi:
   application:
     asset-url: https://prod-wutsi.s3.amazonaws.com/static/wutsi-web
   platform:
+    cache:
+      type: memcached
+      memcached:
+        username: ${MEMCACHIER_USERNAME}
+        password: ${MEMCACHIER_PASSWORD}
+        servers: ${MEMCACHIER_SERVERS}
+        ttl: 86400
     security:
       api-key: "${API_KEY}"
     image:

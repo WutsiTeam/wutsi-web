@@ -2,7 +2,6 @@ package com.wutsi.application.web.endpoint
 
 import com.wutsi.platform.account.WutsiAccountApi
 import com.wutsi.platform.account.dto.Account
-import com.wutsi.platform.qr.entity.EntityType
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -37,7 +36,7 @@ class ProfileController(
     private fun addOpenGraph(account: Account, model: Model) {
         model.addAttribute("title", account.displayName)
         model.addAttribute("description", account.biography)
-        model.addAttribute("image", getQrCodeUrl(account.id.toString(), EntityType.ACCOUNT))
+        model.addAttribute("image", "/qr-code/${account.id}.png")
         model.addAttribute("site_name", account.website)
         model.addAttribute("type", "profile")
     }
