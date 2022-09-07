@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 @RequestMapping("/profile")
 class ProfileController(
-    private val accountApi: WutsiAccountApi,
+    private val accountApi: WutsiAccountApi
 ) : AbstractPageController() {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(ProfileController::class.java)

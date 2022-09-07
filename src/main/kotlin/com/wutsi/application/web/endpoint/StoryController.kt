@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam
 @RequestMapping("/story")
 class StoryController(
     private val blogApi: WutsiBlogApi,
-    private val imageService: ImageService,
+    private val imageService: ImageService
 ) : AbstractPageController() {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(StoryController::class.java)

@@ -45,6 +45,6 @@ internal class StoryControllerTest : SeleniumTestSupport() {
         id = 1,
         title = "39 Carat Neckless",
         summary = "Steal her heart!",
-        thumbnailUrl = "https://www.volusion.com/blog/content/images/2021/07/Product-Photos.jpg",
+        thumbnailUrl = "https://www.volusion.com/blog/content/images/2021/07/Product-Photos.jpg"
     )
 }

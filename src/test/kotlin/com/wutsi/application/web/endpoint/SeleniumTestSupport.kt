@@ -68,7 +68,7 @@ abstract class SeleniumTestSupport {
                 Logo(
                     type = "WORDMARK",
                     url = "https://int-wutsi.s3.amazonaws.com/static/wutsi-tenant-server/tenants/1/logos/wordmark.png"
-                ),
+                )
             ),
             countries = listOf("CM"),
             languages = listOf("en", "fr"),
@@ -78,7 +78,7 @@ abstract class SeleniumTestSupport {
             currency = "XAF",
             domainName = "www.wutsi.com",
             webappUrl = "www.wutsi.app",
-            installAndroidUrl = "https://play.google.com/store/apps/details?id=com.wutsi.wutsi_wallet",
+            installAndroidUrl = "https://play.google.com/store/apps/details?id=com.wutsi.wutsi_wallet"
         )
         doReturn(GetTenantResponse(tenant)).whenever(tenantApi).getTenant(any())
 
@@ -87,7 +87,7 @@ abstract class SeleniumTestSupport {
                 id = 1,
                 name = "Wutsi",
                 domainName = "www.wutsi.com",
-                webappUrl = "www.wutsi.app",
+                webappUrl = "www.wutsi.app"
             )
         )
         doReturn(ListTenantResponse(tenants)).whenever(tenantApi).listTenants()
@@ -142,10 +142,11 @@ abstract class SeleniumTestSupport {
     }
 
     protected fun assertElementAttribute(selector: String, name: String, value: String?) {
-        if (value == null)
+        if (value == null) {
             assertNull(driver.findElement(By.cssSelector(selector)).getAttribute(name))
-        else
+        } else {
             assertEquals(value, driver.findElement(By.cssSelector(selector)).getAttribute(name))
+        }
     }
 
     protected fun assertElementAttributeStartsWith(selector: String, name: String, value: String) {

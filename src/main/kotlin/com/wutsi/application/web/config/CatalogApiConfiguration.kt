@@ -32,15 +32,16 @@ class CatalogApiConfiguration(
                 tracingRequestInterceptor,
                 tenantIdRequestInterceptor,
                 FeignAuthorizationRequestInterceptor(tokenProvider),
-                FeignAcceptLanguageInterceptor(request),
+                FeignAcceptLanguageInterceptor(request)
             ),
             errorDecoder = Custom5XXErrorDecoder()
         )
 
     @Bean("CatalogEnvironment")
     fun environment(): com.wutsi.ecommerce.catalog.Environment =
-        if (env.acceptsProfiles(Profiles.of("prod")))
+        if (env.acceptsProfiles(Profiles.of("prod"))) {
             com.wutsi.ecommerce.catalog.Environment.PRODUCTION
-        else
+        } else {
             com.wutsi.ecommerce.catalog.Environment.SANDBOX
+        }
 }

@@ -16,7 +16,7 @@ class WutsiBlogApiBuilder {
         retryMaxAttempts: Int = 5,
         connectTimeoutMillis: Long = 15000,
         readTimeoutMillis: Long = 15000,
-        followRedirects: Boolean = true,
+        followRedirects: Boolean = true
     ) = feign.Feign.builder()
         .client(feign.okhttp.OkHttpClient())
         .encoder(feign.jackson.JacksonEncoder(mapper))

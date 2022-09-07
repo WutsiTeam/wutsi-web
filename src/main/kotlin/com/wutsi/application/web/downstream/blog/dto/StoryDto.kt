@@ -29,5 +29,5 @@ data class StoryDto(
     val liveDateTime: Date? = null,
     val socialMediaMessage: String? = null,
     val scheduledPublishDateTime: Date? = null,
-    val publishToSocialMedia: Boolean = false,
+    val publishToSocialMedia: Boolean = false
 )

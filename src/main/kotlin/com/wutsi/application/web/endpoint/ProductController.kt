@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam
 @RequestMapping("/product")
 class ProductController(
     private val catalogApi: WutsiCatalogApi,
-    private val imageService: ImageService,
+    private val imageService: ImageService
 ) : AbstractPageController() {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(ProductController::class.java)
