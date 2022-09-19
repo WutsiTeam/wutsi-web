@@ -14,6 +14,7 @@ class TransactionController : AbstractPageController() {
     @GetMapping
     fun index(@RequestParam id: String, model: Model): String {
         model.addAttribute("downloadText", "Install the App to open the transaction")
+        addOpenGraph(id, model)
         return "default"
     }
 
