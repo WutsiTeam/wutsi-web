@@ -55,6 +55,8 @@ abstract class SeleniumTestSupport {
 
     @BeforeEach
     fun setUp() {
+        this.driver = ChromeDriver(driverOptions())
+
         this.url = "http://localhost:$port"
 
         val tenant = Tenant(
@@ -92,7 +94,6 @@ abstract class SeleniumTestSupport {
         )
         doReturn(ListTenantResponse(tenants)).whenever(tenantApi).listTenants()
 
-        this.driver = ChromeDriver(driverOptions())
         driver.manage().timeouts().implicitlyWait(Duration.of(timeout, ChronoUnit.SECONDS))
     }
 
