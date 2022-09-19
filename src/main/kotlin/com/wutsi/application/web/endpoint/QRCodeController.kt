@@ -1,9 +1,9 @@
 package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.shared.service.TenantProvider
-import com.wutsi.platform.qrcode.KeyProvider
-import com.wutsi.platform.qrcode.QrCode
-import com.wutsi.platform.qrcode.QrCodeImageGenerator
+import com.wutsi.platform.core.qrcode.KeyProvider
+import com.wutsi.platform.core.qrcode.QrCode
+import com.wutsi.platform.core.qrcode.QrCodeImageGenerator
 import org.springframework.core.io.ByteArrayResource
 import org.springframework.http.HttpHeaders.CONTENT_DISPOSITION
 import org.springframework.http.MediaType.IMAGE_PNG_VALUE
