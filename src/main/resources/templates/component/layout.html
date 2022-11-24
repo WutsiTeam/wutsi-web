@@ -120,10 +120,55 @@
         </a>
     </div>
     <div class="button" id="button-twitter" th:if="${member.twitterId}">
-        <a th:href="'https://www.twitterId.com/' + ${member.twitterId}">
+        <a th:href="'https://www.twitter.com/' + ${member.twitterId}">
             <img th:src="${assetUrl} + '/assets/images/social/twitter.png'"
         </a>
     </div>
+</div>
+
+<!-- ##################### -->
+<!-- Toolbar               -->
+<!-- ##################### -->
+<div th:fragment="toolbar(member)" class="border padding toolbar">
+    <div class="button" id="button-phone">
+        <a th:href="'tel:' + ${member.phoneNumber}">
+            <div class="icon">
+                <i class="fa-solid fa-phone"></i>
+            </div>
+            <span th:text="#{widget.business-toolbar.call}">Call</span>
+        </a>
+    </div>
+    <div class="button" id="button-message" th:if="${member.whatsapp}">
+        <a th:href="'https://wa.me/' + ${member.phoneNumber}">
+            <div class="icon">
+                <i class="fa-regular fa-message"></i>
+            </div>
+            <span th:text="#{widget.business-toolbar.chat}">Chat</span>
+        </a>
+    </div>
+    <div class="button" id="button-share">
+        <a href="#" onclick="return share()">
+            <div class="icon">
+                <i class="fa-solid fa-arrow-up-from-bracket"></i>
+            </div>
+            <span th:text="#{widget.business-toolbar.share}">Share</span>
+        </a>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        function share() {
+            navigator.share(
+                {
+                    title: document.title,
+                    url: document.querySelector("link[rel='canonical']").getAttribute("href")
+                }
+            );
+        }
+
+        /*]]>*/
+    </script>
 </div>
 
 <!-- ################# -->

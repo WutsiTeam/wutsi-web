@@ -51,19 +51,19 @@ internal class UserControllerTest : SeleniumTestSupport() {
         )
 
         // Toolbar
-        assertElementPresent("#button-phone")
-        assertElementPresent("#button-message")
-        assertElementPresent("#button-share")
-
-        // Social button
-        assertElementPresent("#button-facebook")
-        assertElementPresent("#button-twitter")
-        assertElementPresent("#button-instagram")
-        assertElementPresent("#button-youtube")
-
-        // Products
-        assertElementPresent("#product-${products[0].id}")
-        assertElementPresent("#product-${products[1].id}")
+//        assertElementPresent("#button-phone")
+//        assertElementPresent("#button-message")
+//        assertElementPresent("#button-share")
+//
+//        // Social button
+//        assertElementPresent("#button-facebook")
+//        assertElementPresent("#button-twitter")
+//        assertElementPresent("#button-instagram")
+//        assertElementPresent("#button-youtube")
+//
+//        // Products
+//        assertElementPresent("#product-${products[0].id}")
+//        assertElementPresent("#product-${products[1].id}")
 //        assertAppStoreLinksPresent()
     }
 }

@@ -487,3 +487,13 @@ a.sso-button:hover {
 .product-card a {
     text-decoration: none;
 }
+
+/* ==== PRODUCT DETAILS ====== */
+.product h1 {
+    font-size: 2em;
+}
+
+.product .price {
+    color: var(--highlight-color);
+    font-size: 1.5em;
+}

@@ -6,21 +6,36 @@
 
 <body class="product">
 
-<div class="container offset-md-2 col-md-8 col-sm-12 content-main margin-top">
+<div class="container col-md-12 col-sm-12 content-main margin-top">
     <div class="border main-content">
+        <div class="row padding"></div>
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-4">
+            <div class="col-12 col-sm-12 col-md-6">
                 PICTURE
             </div>
-            <div class="col-12 col-sm-12 col-md-8">
-                <h1 class="padding" th:text="${product.title}">Title</h1>
-                <div class="title" th:if="${product.price}" th:text="${product.price}">10.000 FCFA</div>
-                <div class="summary" th:if="${product.summary}" th:text="${product.summary}">This is the summary</div>
-                <div class="description" th:if="${product.summary}" th:text="${product.description}">This is the
-                    description
+            <div class="col-12 col-sm-12 col-md-6">
+                <div class="padding">
+                    <h1 th:text="${product.title}">Title</h1>
+
+                    <div class="price" th:if="${product.price}" th:text="${product.price}">10.000 FCFA</div>
+
+                    <p class="summary" th:if="${product.summary}" th:text="${product.summary}">
+                        This is the summary
+                    </p>
+
+                    <div th:if="${device.isMobile()}">
+                        <div th:replace="component/layout :: toolbar(${merchant})"></div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="row" th:if="${product.description}">
+            <div class="col">
+                <div class="padding" th:text="${product.description}">Description</div>
+            </div>
+        </div>
+
         <div th:replace="component/layout :: social-toolbar(${merchant})"></div>
     </div>
 </div>
