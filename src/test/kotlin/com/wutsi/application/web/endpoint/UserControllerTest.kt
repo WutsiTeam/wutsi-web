@@ -51,7 +51,7 @@ internal class UserControllerTest : SeleniumTestSupport() {
         )
 
         // Toolbar
-        assertElementPresent("#button-call")
+        assertElementPresent("#button-phone")
         assertElementPresent("#button-message")
         assertElementPresent("#button-share")
 

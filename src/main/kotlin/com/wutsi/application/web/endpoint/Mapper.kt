@@ -60,6 +60,8 @@ class Mapper(
         id = product.id,
         title = product.title,
         price = DecimalFormat(country.monetaryFormat).format(product.price),
+        url = toProductUrl(product.id, product.title),
+        quantity = product.quantity,
         thumbnailUrl = product.thumbnailUrl?.let {
             imageService.transform(
                 url = it,
@@ -80,7 +82,7 @@ class Mapper(
         summary = product.summary,
         description = product.description,
         quantity = product.quantity,
-        url = "/p/${product.id}/" + HandleGenerator.generate(product.title),
+        url = toProductUrl(product.id, product.title),
         thumbnailUrl = product.thumbnail?.url?.let {
             imageService.transform(
                 url = it,
@@ -95,7 +97,10 @@ class Mapper(
         pictures = product.pictures.map { toPictureMapper(it) }
     )
 
-    fun toPictureMapper(picture: PictureSummary) = PictureModel(
+    private fun toPictureMapper(picture: PictureSummary) = PictureModel(
         url = picture.url
     )
+
+    private fun toProductUrl(id: Long, title: String): String =
+        "/p/$id/" + HandleGenerator.generate(title)
 }
