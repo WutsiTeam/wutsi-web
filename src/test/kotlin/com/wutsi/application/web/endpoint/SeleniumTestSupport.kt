@@ -1,14 +1,5 @@
 package com.wutsi.application.web.endpoint
 
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.whenever
-import com.wutsi.platform.tenant.WutsiTenantApi
-import com.wutsi.platform.tenant.dto.GetTenantResponse
-import com.wutsi.platform.tenant.dto.ListTenantResponse
-import com.wutsi.platform.tenant.dto.Logo
-import com.wutsi.platform.tenant.dto.Tenant
-import com.wutsi.platform.tenant.dto.TenantSummary
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.openqa.selenium.By
@@ -17,7 +8,6 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.support.ui.Select
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.boot.test.web.server.LocalServerPort
 import java.time.Duration
 import java.time.temporal.ChronoUnit
@@ -37,9 +27,6 @@ abstract class SeleniumTestSupport {
 
     protected lateinit var driver: WebDriver
 
-    @MockBean
-    private lateinit var tenantApi: WutsiTenantApi
-
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
         options.addArguments("--disable-web-security") // To prevent CORS issues
@@ -58,41 +45,6 @@ abstract class SeleniumTestSupport {
         this.driver = ChromeDriver(driverOptions())
 
         this.url = "http://localhost:$port"
-
-        val tenant = Tenant(
-            id = 1,
-            name = "Wutsi",
-            logos = listOf(
-                Logo(
-                    type = "PICTORIAL",
-                    url = "https://int-wutsi.s3.amazonaws.com/static/wutsi-tenant-server/tenants/1/logos/pictorial-round.png"
-                ),
-                Logo(
-                    type = "WORDMARK",
-                    url = "https://int-wutsi.s3.amazonaws.com/static/wutsi-tenant-server/tenants/1/logos/wordmark.png"
-                )
-            ),
-            countries = listOf("CM"),
-            languages = listOf("en", "fr"),
-            numberFormat = "#,###,##0",
-            currencySymbol = "FXAF",
-            monetaryFormat = "#,###,##0 FCFA",
-            currency = "XAF",
-            domainName = "www.wutsi.com",
-            webappUrl = "www.wutsi.app",
-            installAndroidUrl = "https://play.google.com/store/apps/details?id=com.wutsi.wutsi_wallet"
-        )
-        doReturn(GetTenantResponse(tenant)).whenever(tenantApi).getTenant(any())
-
-        val tenants = listOf(
-            TenantSummary(
-                id = 1,
-                name = "Wutsi",
-                domainName = "www.wutsi.com",
-                webappUrl = "www.wutsi.app"
-            )
-        )
-        doReturn(ListTenantResponse(tenants)).whenever(tenantApi).listTenants()
 
         driver.manage().timeouts().implicitlyWait(Duration.of(timeout, ChronoUnit.SECONDS))
     }

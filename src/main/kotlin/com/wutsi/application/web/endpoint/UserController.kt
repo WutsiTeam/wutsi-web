@@ -117,8 +117,7 @@ class UserController(
             imageService.transform(
                 url = it,
                 transformation = Transformation(
-                    dimension = Dimension(height = PRODUCT_THUMBNAIL_HEIGHT, width = PRODUCT_THUMBNAIL_WIDTH),
-                    focus = Focus.FACE
+                    dimension = Dimension(height = PRODUCT_THUMBNAIL_HEIGHT, width = PRODUCT_THUMBNAIL_WIDTH)
                 )
             )
         }
