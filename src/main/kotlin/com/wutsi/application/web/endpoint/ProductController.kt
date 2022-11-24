@@ -21,6 +21,7 @@ class ProductController : AbstractController() {
 
         model.addAttribute("page", createPage(product))
         model.addAttribute("product", mapper.toProductModel(product, country))
+        model.addAttribute("merchant", mapper.toMemberModel(merchant))
         return "product"
     }
 
