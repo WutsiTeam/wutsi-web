@@ -20,7 +20,7 @@ internal class UserControllerTest : SeleniumTestSupport() {
     private lateinit var marketplaceManagerApi: MarketplaceManagerApi
 
     @Test
-    fun account() {
+    fun user() {
         // GIVEN
         val account = Fixtures.createMember(id = 1, business = true, storeId = 111L)
         doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(any())
@@ -50,6 +50,18 @@ internal class UserControllerTest : SeleniumTestSupport() {
             account.pictureUrl
         )
 
+        // Toolbar
+        assertElementPresent("#button-call")
+        assertElementPresent("#button-message")
+        assertElementPresent("#button-share")
+
+        // Social button
+        assertElementPresent("#button-facebook")
+        assertElementPresent("#button-twitter")
+        assertElementPresent("#button-instagram")
+        assertElementPresent("#button-youtube")
+
+        // Products
         assertElementPresent("#product-${products[0].id}")
         assertElementPresent("#product-${products[1].id}")
 //        assertAppStoreLinksPresent()

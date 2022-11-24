@@ -46,7 +46,12 @@ object Fixtures {
         category = Category(
             id = 555,
             title = "Ads"
-        )
+        ),
+        facebookId = "ray.sponsible",
+        twitterId = "ray.sponsible",
+        youtubeId = "ray.sponsible",
+        instagramId = "ray.sponsible",
+        website = "https://www.ray-sponsible.com"
     )
 
     fun createPlaceSummary(id: Long = -1, name: String = "Yaounde") = PlaceSummary(

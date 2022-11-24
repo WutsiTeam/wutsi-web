@@ -30,7 +30,7 @@
                     <span th:text="#{widget.business-toolbar.call}">Call</span>
                 </a>
             </div>
-            <div class="button" id="button-whatsapp" th:if="${member.whatsapp}">
+            <div class="button" id="button-message" th:if="${member.whatsapp}">
                 <a th:href="'https://wa.me/' + ${member.phoneNumber}">
                     <div class="icon">
                         <i class="fa-regular fa-message"></i>
