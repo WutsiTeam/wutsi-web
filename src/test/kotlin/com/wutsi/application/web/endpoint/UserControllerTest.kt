@@ -6,6 +6,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
+import com.wutsi.marketplace.manager.dto.SearchProductResponse
 import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import org.junit.jupiter.api.Test
@@ -28,7 +29,7 @@ internal class UserControllerTest : SeleniumTestSupport() {
             Fixtures.createProductSummary(id = 11L, title = "This is a nice product", "http://www.google.ca/1.png"),
             Fixtures.createProductSummary(id = 22L, title = "Product 2", "http://www.google.ca/2.png")
         )
-        doReturn(products).whenever(marketplaceManagerApi).searchProduct(any())
+        doReturn(SearchProductResponse(products)).whenever(marketplaceManagerApi).searchProduct(any())
 
         // WHEN
         navigate(url("u/${account.id}"))
