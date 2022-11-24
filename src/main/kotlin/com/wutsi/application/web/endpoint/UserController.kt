@@ -55,13 +55,23 @@ class UserController(
         title = member.displayName,
         description = member.biography,
         imageUrl = member.pictureUrl,
-        assetUrl = assetUrl
+        assetUrl = assetUrl,
+        canonicalUrl = "$serverUrl/u/${member.id}"
     )
 
     private fun toMemberModel(member: Member) = MemberModel(
         id = member.id,
         displayName = member.displayName,
         biography = member.biography,
+        category = member.category?.title,
+        location = member.city?.longName,
+        phoneNumber = member.phoneNumber,
+        whatsapp = member.whatsapp,
+        facebookId = member.facebookId,
+        instagramId = member.instagramId,
+        twitterId = member.twitterId,
+        youtubeId = member.youtubeId,
+        website = member.website,
         pictureUrl = member.pictureUrl?.let {
             imageService.transform(
                 url = it,
@@ -70,9 +80,7 @@ class UserController(
                     dimension = Dimension(width = 64, height = 64)
                 )
             )
-        },
-        category = member.category?.title,
-        location = member.city?.longName
+        }
     )
 
     private fun findMember(id: Long): Member {

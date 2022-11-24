@@ -6,5 +6,12 @@ data class MemberModel(
     val category: String? = null,
     val pictureUrl: String? = null,
     val location: String? = null,
-    val biography: String? = null
+    val biography: String? = null,
+    val phoneNumber: String? = null,
+    val whatsapp: Boolean = false,
+    val website: String? = null,
+    val facebookId: String? = null,
+    val twitterId: String? = null,
+    val youtubeId: String? = null,
+    val instagramId: String? = null
 )

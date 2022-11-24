@@ -21,6 +21,47 @@
             </div>
         </div>
 
+        <div class="border padding toolbar" th:if="${device.isMobile()}">
+            <div class="button" id="button-phone">
+                <a th:href="'tel:' + ${member.phoneNumber}">
+                    <div class="icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <span th:text="#{widget.business-toolbar.call}">Call</span>
+                </a>
+            </div>
+            <div class="button" id="button-whatsapp" th:if="${member.whatsapp}">
+                <a th:href="'https://wa.me/' + ${member.phoneNumber}">
+                    <div class="icon">
+                        <i class="fa-regular fa-message"></i>
+                    </div>
+                    <span th:text="#{widget.business-toolbar.chat}">Chat</span>
+                </a>
+            </div>
+            <div class="button" id="button-share">
+                <a href="#" onclick="return share()">
+                    <div class="icon">
+                        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                    </div>
+                    <span th:text="#{widget.business-toolbar.share}">Sare</span>
+                </a>
+            </div>
+
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+
+                function share() {
+                    navigator.share(
+                        {
+                            title: /*[[${member.displayName}]]*/ '',
+                            url: /*[[${page.canonicalUrl}]]*/ ''
+                        }
+                    );
+                }
+
+                /*]]>*/
+            </script>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="product-card col-6 col-md-4 col-lg-3 border" th:each="product : ${products}"
@@ -35,11 +76,13 @@
                 </div>
             </div>
         </div>
+
+        <div th:replace="component/layout :: social-toolbar(${member})"></div>
     </div>
 </div>
 
 
-<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="component/layout :: footer"></div>
 
 </body>
 </html>

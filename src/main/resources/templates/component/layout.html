@@ -100,6 +100,32 @@
 </footer>
 
 
+<!-- ##################### -->
+<!-- Social Toolbar        -->
+<!-- ##################### -->
+<div th:fragment="social-toolbar(member)" class="border padding toolbar">
+    <div class="button" id="button-instagram" th:if="${member.instagramId}">
+        <a th:href="'https://www.instagram.com/' + ${member.instagramId}">
+            <img th:src="${assetUrl} + '/assets/images/social/instagram.png'"
+        </a>
+    </div>
+    <div class="button" id="button-youtube" th:if="${member.youtubeId}">
+        <a th:href="'https://www.youtube.com/' + ${member.youtubeId}">
+            <img th:src="${assetUrl} + '/assets/images/social/youtube.png'"
+        </a>
+    </div>
+    <div class="button" id="button-facebook" th:if="${member.facebookId}">
+        <a th:href="'https://www.facebook.com/' + ${member.facebookId}">
+            <img th:src="${assetUrl} + '/assets/images/social/facebook.png'"
+        </a>
+    </div>
+    <div class="button" id="button-twitter" th:if="${member.twitterId}">
+        <a th:href="'https://www.twitterId.com/' + ${member.twitterId}">
+            <img th:src="${assetUrl} + '/assets/images/social/twitter.png'"
+        </a>
+    </div>
+</div>
+
 <!-- ################# -->
 <!-- Navbar            -->
 <!-- ################# -->
@@ -127,35 +153,6 @@
     </nav>
     <div class="navbar-margin">&nbsp;</div>
 </div>
-
-<!-- ################# -->
-<!-- Blog Navbar       -->
-<!-- ################# -->
-<div th:fragment="navbar-blog(blog, showFollowButton, returnUrl)">
-    <nav class="navbar navbar-expand navbar-light border-bottom fixed-top navbar-blog"
-         th:classappend="${superUser} ? super-user"
-    >
-        <a class="navbar-brand" th:href="${blog.slug}">
-            <img class="blog-logo" height="50" th:alt="${blog.fullName}" th:if="${blog.pictureUrl}"
-                 th:src="${blog.pictureSmallUrl}"
-                 th:title="${blog.fullName}" width="50"/>
-            <span class="blog-name" th:text="${blog.fullName}">Title</span>
-        </a>
-
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.login'}">
-                <a class="btn btn-light" href="/login" id="navbar-login" rel="nofollow"
-                   th:text="#{button.login}">Login</a>
-            </li>
-            <li class="nav-item" th:if="${toggles.follow} AND ${showFollowButton} AND ${page.name != 'page.login'}">
-                <div th:replace="components/follow :: follow-button(${blog}, ${returnUrl}, true, false, false)"></div>
-            </li>
-            <li th:replace="components/layout :: navbar-dropdown"></li>
-        </ul>
-    </nav>
-    <div class="navbar-margin">&nbsp;</div>
-</div>
-
 
 </body>
 </html>

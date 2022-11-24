@@ -30,6 +30,7 @@
     <klint.version>0.47.0</klint.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <selenium.version>4.6.0</selenium.version>
+    <spring-mobile-device.version>2.0.0.M3</spring-mobile-device.version>
 
     <wutsi-platform-core.version>0.0.186</wutsi-platform-core.version>
     <wutsi-platform-payment.version>0.0.105</wutsi-platform-payment.version>
@@ -123,7 +124,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-cache</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>org.springframework.mobile</groupId>
+      <artifactId>spring-mobile-device</artifactId>
+      <version>${spring-mobile-device.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-test-junit5</artifactId>
@@ -153,6 +158,14 @@
     <repository>
       <id>github</id>
       <url>https://maven.pkg.github.com/wutsi/*</url>
+    </repository>
+    <repository>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>https://repo.spring.io/libs-milestone</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
     </repository>
   </repositories>
 

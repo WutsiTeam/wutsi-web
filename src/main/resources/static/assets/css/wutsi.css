@@ -383,6 +383,46 @@ a.sso-button:hover {
     color: var(--text-color-gray);
 }
 
+.toolbar {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.toolbar .button {
+    color: var(--highlight-color);
+    text-align: center;
+    padding: 10px;
+}
+
+.toolbar .button .icon {
+    border-radius: 20px;
+    border: 1px solid var(--highlight-color);
+    width: 40px;
+    height: 35px;
+    text-align: center;
+}
+
+.toolbar .button .icon .fa-regular,
+.toolbar .button .icon .fa-solid {
+    margin-top: 8px;
+}
+
+.toolbar .button span {
+    display: block;
+    text-transform: uppercase;
+    color: var(--highlight-color);
+    font-size: 0.9em;
+    margin-top: 0.5em;
+}
+
+.toolbar img {
+    width: 32px;
+    height: 32px;
+}
+
+.toolbar a {
+    text-decoration: none;
+}
 
 /*======= PROFILE =======*/
 .profile h1 {

@@ -23,7 +23,7 @@ object Fixtures {
         businessId: Long? = null,
         country: String = "CM",
         superUser: Boolean = false,
-        active: Boolean = true,
+        active: Boolean = true
     ) = Member(
         id = id,
         active = active,
