@@ -38,7 +38,7 @@ wutsi:
   application:
     name: wutsi-web
     server-url: http://localhost:${server.port}
-    asset-url: https://int-wutsi.s3.amazonaws.com/static/wutsi-web
+    asset-url: ""
 
   platform:
     cache:
@@ -52,6 +52,7 @@ wutsi:
     security:
       type: none
       api-key: "880ca844-847f-11ec-9c50-0a9080314eb7"
+      verify-token: false
     tracing:
       client-id: ${wutsi.application.name}
       device-id-provider:

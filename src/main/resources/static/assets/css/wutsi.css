@@ -1,0 +1,449 @@
+/*
+ * Wutsi color:
+ *  blue: #1D7EDF
+ *  blue-light: #e4edf7
+ *  lightgray: #f8f8f8
+ */
+
+
+/* ================================ */
+/*                                  */
+/*            COMMON                */
+/*                                  */
+/* ================================ */
+body {
+    --highlight-color: #1D7EDF;
+    --highlight-color-light: #e4edf7;
+    --background-light: #f8f8f8;
+    --background-pinned: #ffffed;
+
+    --text-color: #404040;
+    --text-color-gray: gray;
+    --text-color-error: darkred;
+    --text-color-success: var(--highlight-color);
+    --border-color: rgba(0, 0, 0, .125);
+
+    --margin: 1em;
+    --margin-small: 0.5em;
+    --padding: 1em;
+    --padding-small: 0.5em;
+
+    --card-background-color: #ffffff;
+
+    background: var(--background-light);
+    color: var(--text-color);
+    font-family: 'PT Sans', sans-serif;
+}
+
+
+a {
+    color: var(--highlight-color)
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lora', serif;
+}
+
+.flex {
+    display: flex;
+}
+
+.hidden {
+    display: none;
+}
+
+.highlight {
+    color: var(--highlight-color);
+}
+
+.disabled {
+    color: var(--text-color-gray);
+    font-style: italic;
+}
+
+.required {
+    color: darkred;
+    font-weight: bold;
+}
+
+.fa-facebook-square,
+.fa-facebook-f {
+    color: #3b5998
+}
+
+.fa-linkedin,
+.fa-linkedin-in {
+    color: #0e76a8;
+}
+
+.fa-whatsapp-square,
+.fa-whatsapp {
+    color: #25D366
+}
+
+.fa-telegram,
+.fa-telegram-plane {
+    color: #0088cc
+}
+
+.fa-youtube-square,
+.fa-youtube {
+    color: #ff0000;
+}
+
+.fa-twitter-square,
+.fa-twitter {
+    color: #0084b4;
+}
+
+.fa-whatsapp-square {
+    color: #25D366;
+}
+
+.fa-facebook-messenger {
+    color: #00B2FF;
+}
+
+.fa-yahoo {
+    color: #400090;
+}
+
+.fa-rss, .fa-rss-square {
+    color: #ee802f
+}
+
+.fa-check-circle, .fa-check {
+    color: darkgreen;
+}
+
+.border {
+    border: 1px solid var(--border-color);
+}
+
+.border-highlight {
+    border: 1px solid var(--highlight-color)
+}
+
+.border-bottom {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.border-top {
+    border-top: 1px solid var(--border-color);
+}
+
+.border-right {
+    border-right: 1px solid var(--border-color);
+}
+
+.box-filled {
+    background-color: var(--background-light);
+}
+
+.box-filled-white {
+    background-color: white;
+}
+
+.box-filled-highlight-light {
+    background-color: var(--highlight-color-light);
+}
+
+.flash-highlight {
+    animation: flash-highlight-annimation 3000ms ease-out;
+}
+
+
+@keyframes flash-highlight-annimation {
+    0% {
+        background-color: white;
+    }
+    100% {
+        background-color: var(--highlight-color-light);
+    }
+}
+
+.main-content {
+    background: white;
+}
+
+.padding {
+    padding: 1em;
+}
+
+.padding-2x {
+    padding: 2em;
+}
+
+.padding-top {
+    padding-top: 1em;
+}
+
+.padding-left {
+    padding-left: 1em;
+}
+
+.padding-right {
+    padding-top: 1em;
+}
+
+.padding-none {
+    padding: 0;
+}
+
+.margin-left {
+    margin-left: 1em;
+}
+
+.margin-right {
+    margin-right: 1em;
+}
+
+.margin-right-2x {
+    margin-right: 2em;
+}
+
+.margin-bottom {
+    margin-bottom: 1em;
+}
+
+.margin-bottom-2x {
+    margin-bottom: 2em;
+}
+
+.margin-bottom-4x {
+    margin-bottom: 4em;
+}
+
+.margin-bottom-6x {
+    margin-bottom: 6em;
+}
+
+
+.margin-top {
+    margin-top: 1em;
+}
+
+.margin-top-2x {
+    margin-top: 2em;
+}
+
+.margin-top-4x {
+    margin-top: 4em;
+}
+
+.margin-top-6x {
+    margin-top: 6em;
+}
+
+.text-small {
+    font-size: 0.8em;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+
+/* ==== NAVBAR ==== */
+nav.super-user {
+    background: #f0f0d0;
+}
+
+.navbar {
+    background: white;
+}
+
+.navbar img.user {
+    height: 50px;
+    height: 50px;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    float: left;
+}
+
+.navbar .navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 0.8em;
+}
+
+.navbar .navbar-brand .blog-name {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.navbar .nav-link {
+    padding: 0;
+}
+
+.navbar .fa-caret-down {
+    font-size: 2em;
+}
+
+.navbar-nav .dropdown-menu {
+    position: fixed;
+    float: none;
+    top: 50px;
+    left: auto;
+    width: 350px;
+    right: 10px;
+    border-radius: 0;
+}
+
+.navbar-nav .dropdown-item-user {
+    padding: var(--padding-small) 1em;
+}
+
+.navbar-nav .dropdown-item-user a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.navbar-nav .dropdown-item-user img {
+    height: 64px;
+    width: 64px;
+    margin-right: 1em;
+    float: left;
+}
+
+.navbar-nav .dropdown-item-user .user-info {
+    font-size: 1em;
+    float: left;
+    text-overflow: ellipsis;
+    max-width: 230px;
+    white-space: nowrap;
+}
+
+.navbar-brand img {
+    height: 50px;
+}
+
+.nav-item .btn {
+    margin-right: 5px;
+}
+
+.navbar-margin {
+    margin-top: 67px;
+}
+
+#super-user-banner {
+    width: 100%;
+    border: 1px solid darkred;
+    background: lightsalmon;
+}
+
+
+/* ==== FOOTER ==== */
+footer.page-footer {
+    background-color: black;
+    color: white;
+    width: 100%;
+}
+
+footer.page-footer a {
+    color: white;
+    text-decoration: underline;
+}
+
+footer.page-footer .follow-us a {
+    text-decoration: none;
+}
+
+footer.page-footer .follow-us .fab {
+    color: white;
+    font-size: 1.5em;
+    margin-left: var(--margin-small);
+    text-decoration: none;
+}
+
+
+/*======= LOGIN =======*/
+.sso-button {
+    padding: .5em 1em;
+    text-align: left;
+    display: block;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.sso-button .fab {
+    font-size: 1.3em;
+    margin-right: var(--margin-small);
+}
+
+a.sso-button:hover {
+    text-decoration: none;
+    border: 1px solid var(--border-color);
+}
+
+.sso-button-shared {
+    color: var(--text-color-gray);
+}
+
+
+/*======= PROFILE =======*/
+.profile h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.profile img {
+    width: 96px;
+    height: 96px;
+    border-radius: 48px;
+    padding: 2px;
+    border: 2px solid var(--border-color);
+}
+
+.profile .bio {
+    font-size: 0.9em;
+}
+
+
+/* ==== PRODUCT CARD ====== */
+.product-card {
+    background: var(--card-background-color);
+}
+
+.product-cart a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.product-card .title {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.product-card .img-container {
+    height: 246px;
+    overflow: hidden;
+    border-radius: 10px 10px 10px 10px;
+    margin-top: 5px;
+}
+
+.product-card .img-container img {
+    max-height: 246px;
+    display: block;
+}
+
+.product-card .title {
+    max-height: 3.7em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.product-card .price {
+    color: var(--highlight-color);
+}
+
+.product-card a {
+    text-decoration: none;
+}

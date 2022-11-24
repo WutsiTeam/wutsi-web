@@ -31,10 +31,34 @@
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <selenium.version>4.3.0</selenium.version>
 
-    <wutsi-shared-ui.version>0.0.341</wutsi-shared-ui.version>
+    <wutsi-shared-ui.version>0.0.384</wutsi-shared-ui.version>
+    <wutsi-regulation.version>1.0.8</wutsi-regulation.version>
+    <wutsi-membership-manager.version>1.0.20</wutsi-membership-manager.version>
+    <wutsi-marketplace-manager.version>1.0.7</wutsi-marketplace-manager.version>
+    <wutsi-workflow.version>1.0.15</wutsi-workflow.version>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>com.wutsi.marketplace.manager</groupId>
+      <artifactId>marketplace-manager-sdk-kotlin</artifactId>
+      <version>${wutsi-marketplace-manager.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.wutsi.membership.manager</groupId>
+      <artifactId>membership-manager-sdk-kotlin</artifactId>
+      <version>${wutsi-membership-manager.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.wutsi.workflow</groupId>
+      <artifactId>workflow-engine</artifactId>
+      <version>${wutsi-workflow.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.wutsi.regulation</groupId>
+      <artifactId>regulation-engine</artifactId>
+      <version>${wutsi-regulation.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.wutsi.application.shared</groupId>
       <artifactId>wutsi-shared-ui</artifactId>

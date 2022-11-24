@@ -1,4 +1,4 @@
-package com.wutsi.application.web.config
+package com.wutsi.application.web.config.deprecated
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.application.shared.service.FeignAcceptLanguageInterceptor

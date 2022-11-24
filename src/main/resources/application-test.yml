@@ -1,4 +1,6 @@
 wutsi:
+  application:
+    asset-url: https://int-wutsi.s3.amazonaws.com/static/wutsi-web
   platform:
     cache:
       type: memcached
