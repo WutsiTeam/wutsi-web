@@ -63,7 +63,7 @@ abstract class SeleniumTestSupport {
         "http://localhost:$port/$path"
 
     protected fun assertCurrentPageIs(page: String) {
-        assertEquals(page, driver.findElement(By.cssSelector("meta[name=wutsi\\:page_id]"))?.getAttribute("content"))
+        assertEquals(page, driver.findElement(By.cssSelector("meta[name=wutsi\\:page_name]"))?.getAttribute("content"))
     }
 
     protected fun assertElementNotPresent(selector: String) {

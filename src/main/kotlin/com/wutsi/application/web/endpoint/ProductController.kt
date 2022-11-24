@@ -24,6 +24,10 @@ class ProductController : AbstractController() {
         return "product"
     }
 
+    @GetMapping("/{id}/{title}")
+    fun index2(@PathVariable id: Long, @PathVariable title: String, model: Model): String =
+        index(id, model)
+
     private fun createPage(product: Product) = PageModel(
         name = Page.PRODUCT,
         title = product.title,

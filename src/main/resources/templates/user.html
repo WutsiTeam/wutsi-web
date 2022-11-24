@@ -66,7 +66,7 @@
             <div class="row">
                 <div class="product-card col-6 col-md-4 col-lg-3 border" th:each="product : ${products}"
                      th:id="'product-' + ${product.id}" th:title="${product.title}">
-                    <a th:href="'/p/' + ${product.id}">
+                    <a th:href="${product.url}">
                         <div class="img-container margin-bottom" th:if="${product.thumbnailUrl}">
                             <img th:alt="${product.title}" th:src="${product.thumbnailUrl}"/>
                         </div>

@@ -3,6 +3,7 @@ package com.wutsi.application.web.endpoint
 import com.wutsi.application.web.model.MemberModel
 import com.wutsi.application.web.model.PictureModel
 import com.wutsi.application.web.model.ProductModel
+import com.wutsi.application.web.util.HandleGenerator
 import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.ProductSummary
@@ -79,6 +80,7 @@ class Mapper(
         summary = product.summary,
         description = product.description,
         quantity = product.quantity,
+        url = "/p/${product.id}/" + HandleGenerator.generate(product.title),
         thumbnailUrl = product.thumbnail?.url?.let {
             imageService.transform(
                 url = it,
