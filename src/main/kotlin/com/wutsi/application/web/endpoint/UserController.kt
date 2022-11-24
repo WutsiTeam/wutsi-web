@@ -21,9 +21,12 @@ class UserController : AbstractController() {
 
         model.addAttribute("page", createPage(member))
         model.addAttribute("member", mapper.toMemberModel(member))
-        model.addAttribute("products", findProducts(member).map {
-            mapper.toProductModel(it, country)
-        })
+        model.addAttribute(
+            "products",
+            findProducts(member).map {
+                mapper.toProductModel(it, country)
+            }
+        )
 
         return "user"
     }
