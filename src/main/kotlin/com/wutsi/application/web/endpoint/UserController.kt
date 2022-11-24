@@ -1,9 +1,11 @@
 package com.wutsi.application.web.endpoint
 
+import com.wutsi.application.web.Page
 import com.wutsi.application.web.model.MemberModel
 import com.wutsi.application.web.model.PageModel
 import com.wutsi.application.web.model.ProductModel
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
+import com.wutsi.marketplace.manager.dto.ProductSummary
 import com.wutsi.marketplace.manager.dto.SearchProductRequest
 import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.Member
@@ -38,26 +40,18 @@ class UserController(
 
     @GetMapping("/{id}")
     fun index(@PathVariable id: Long, model: Model): String {
-        val member = membershipManagerApi.getMember(id).member
-        if (!member.business) {
-            throw NotFoundException(
-                error = Error(
-                    code = ErrorURN.MEMBER_NOT_BUSINESS.urn
-                )
-            )
-        }
-
+        val member = findMember(id)
         val country = regulationEngine.country(member.country)
 
         model.addAttribute("page", createPage(member))
         model.addAttribute("member", toMemberModel(member))
-        model.addAttribute("products", findProducts(member, country))
+        model.addAttribute("products", findProducts(member).map { toProductModel(it, country) })
 
         return "user"
     }
 
     private fun createPage(member: Member) = PageModel(
-        name = "page.Profile",
+        name = Page.PROFILE,
         title = member.displayName,
         description = member.biography,
         imageUrl = member.pictureUrl,
@@ -81,33 +75,52 @@ class UserController(
         location = member.city?.longName
     )
 
-    private fun findProducts(member: Member, country: Country): List<ProductModel> {
+    private fun findMember(id: Long): Member {
+        val member = membershipManagerApi.getMember(id).member
+        if (!member.active) { // Must be active
+            throw NotFoundException(
+                error = Error(
+                    code = ErrorURN.MEMBER_NOT_ACTIVE.urn
+                )
+            )
+        }
+        if (!member.business) { // Must be a business account
+            throw NotFoundException(
+                error = Error(
+                    code = ErrorURN.MEMBER_NOT_BUSINESS.urn
+                )
+            )
+        }
+        return member
+    }
+
+    private fun findProducts(member: Member): List<ProductSummary> {
         if (member.storeId == null) {
             return emptyList()
         }
 
-        val fmt = DecimalFormat(country.monetaryFormat)
         return marketplaceManagerApi.searchProduct(
             request = SearchProductRequest(
                 storeId = member.storeId,
                 limit = regulationEngine.maxProducts(),
-                sortBy = "RECOMMENDED"
+                sortBy = "RECOMMENDED",
+                status = "PUBLISHED"
             )
-        ).products.map {
-            ProductModel(
-                id = it.id,
-                title = it.title,
-                price = fmt.format(it.price),
-                thumbnailUrl = it.thumbnailUrl?.let {
-                    imageService.transform(
-                        url = it,
-                        transformation = Transformation(
-                            dimension = Dimension(height = PRODUCT_THUMBNAIL_HEIGHT, width = PRODUCT_THUMBNAIL_WIDTH),
-                            focus = Focus.FACE
-                        )
-                    )
-                }
+        ).products
+    }
+
+    private fun toProductModel(product: ProductSummary, country: Country) = ProductModel(
+        id = product.id,
+        title = product.title,
+        price = DecimalFormat(country.monetaryFormat).format(product.price),
+        thumbnailUrl = product.thumbnailUrl?.let {
+            imageService.transform(
+                url = it,
+                transformation = Transformation(
+                    dimension = Dimension(height = PRODUCT_THUMBNAIL_HEIGHT, width = PRODUCT_THUMBNAIL_WIDTH),
+                    focus = Focus.FACE
+                )
             )
         }
-    }
+    )
 }
