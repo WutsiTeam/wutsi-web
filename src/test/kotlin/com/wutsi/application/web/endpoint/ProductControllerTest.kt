@@ -61,13 +61,13 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         )
 
         // Carousel
-        assertElementCount("#picture-carousel carousel-item", product.pictures.size)
+        assertElementCount("#picture-carousel .carousel-item", product.pictures.size)
 
         // Content
         assertElementText(".product .title", product.title)
-        assertElementPresent(".product .price")
         assertElementText(".product .summary", product.summary!!)
         assertElementText(".product .description", product.description!!)
+        assertElementPresent(".product .price")
 
         // Toolbar
         assertElementPresent("#button-phone")
