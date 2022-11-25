@@ -38,7 +38,7 @@
             </div>
             <div class="col-12 col-sm-12 col-md-6">
                 <div class="padding">
-                    <h1 th:text="${product.title}">Title</h1>
+                    <h1 class="title" th:text="${product.title}">Title</h1>
 
                     <div class="price" th:if="${product.price}" th:text="${product.price}">10.000 FCFA</div>
 
@@ -55,7 +55,7 @@
 
         <div class="row" th:if="${product.description}">
             <div class="col">
-                <div class="padding" th:text="${product.description}">Description</div>
+                <div class="description padding" th:text="${product.description}">Description</div>
             </div>
         </div>
 
