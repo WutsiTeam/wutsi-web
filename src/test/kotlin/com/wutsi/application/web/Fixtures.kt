@@ -51,7 +51,8 @@ object Fixtures {
         twitterId = "ray.sponsible",
         youtubeId = "ray.sponsible",
         instagramId = "ray.sponsible",
-        website = "https://www.ray-sponsible.com"
+        website = "https://www.ray-sponsible.com",
+        whatsapp = true
     )
 
     fun createPlaceSummary(id: Long = -1, name: String = "Yaounde") = PlaceSummary(

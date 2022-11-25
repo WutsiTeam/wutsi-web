@@ -490,10 +490,11 @@ a.sso-button:hover {
 
 /* ==== PRODUCT DETAILS ====== */
 .product h1 {
-    font-size: 2em;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 .product .price {
     color: var(--highlight-color);
-    font-size: 1.5em;
+    font-size: 1.2em;
 }

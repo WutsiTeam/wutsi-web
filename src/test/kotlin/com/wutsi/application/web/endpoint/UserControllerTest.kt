@@ -62,8 +62,8 @@ internal class UserControllerTest : SeleniumTestSupport() {
 //        assertElementPresent("#button-youtube")
 //
 //        // Products
-//        assertElementPresent("#product-${products[0].id}")
-//        assertElementPresent("#product-${products[1].id}")
+        assertElementPresent("#product-${products[0].id}")
+        assertElementPresent("#product-${products[1].id}")
 //        assertAppStoreLinksPresent()
     }
 }

@@ -11,7 +11,30 @@
         <div class="row padding"></div>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-6">
-                PICTURE
+
+                <div class="carousel slide" data-bs-interval="300000" data-bs-ride="carousel" id="picture-carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item"
+                             th:classappend="${idx.index == 0} ? active"
+                             th:each="picture,idx: ${product.pictures}"
+                        >
+                            <img class="d-block w-100" th:src="${picture.url}">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#picture-carousel"
+                            type="button">
+                        <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#picture-carousel"
+                            type="button">
+                        <span aria-hidden="true" class="carousel-control-next-icon"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <script>
+
+                </script>
             </div>
             <div class="col-12 col-sm-12 col-md-6">
                 <div class="padding">
