@@ -70,9 +70,9 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementPresent(".product .price")
 
         // Toolbar
-        assertElementPresent("#button-phone")
-        assertElementPresent("#button-message")
-        assertElementPresent("#button-share")
+//        assertElementPresent("#button-phone")
+//        assertElementPresent("#button-message")
+//        assertElementPresent("#button-share")
 
         // Social button
         assertElementPresent("#button-facebook")

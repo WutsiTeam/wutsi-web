@@ -38,6 +38,12 @@ abstract class SeleniumTestSupport {
             options.addArguments("--no-sandbox")
             options.addArguments("--disable-dev-shm-usage")
         }
+        options.setExperimentalOption(
+            "mobileEmulation",
+            mapOf(
+                "deviceName" to "Nexus 5"
+            )
+        )
 
         return options
     }

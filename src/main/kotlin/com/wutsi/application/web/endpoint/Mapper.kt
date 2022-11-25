@@ -42,6 +42,7 @@ class Mapper(
         twitterId = member.twitterId,
         youtubeId = member.youtubeId,
         website = member.website,
+        url = "/u/${member.id}",
         pictureUrl = member.pictureUrl?.let {
             imageService.transform(
                 url = it,

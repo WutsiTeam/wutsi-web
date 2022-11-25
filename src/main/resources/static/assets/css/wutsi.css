@@ -498,3 +498,28 @@ a.sso-button:hover {
     color: var(--highlight-color);
     font-size: 1.2em;
 }
+
+.product .merchant {
+    text-align: right;
+}
+
+.product .merchant {
+    text-align: right;
+}
+
+.product .carousel-item img {
+    max-height: 512px;
+}
+
+/* ======================================================================== */
+/*                                                                          */
+/*  SMALL DEVICES                                                           */
+/*                                                                          */
+/* ======================================================================== */
+@media only screen
+and (max-width: 480px)
+and (orientation: portrait) {
+    .product .carousel-item img {
+        max-height: 400px;
+    }
+}
