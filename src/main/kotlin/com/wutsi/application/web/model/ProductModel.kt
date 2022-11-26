@@ -10,5 +10,5 @@ data class ProductModel(
     val available: Boolean,
     val summary: String? = null,
     val description: String? = null,
-    val pictures: List<PictureModel> = emptyList(),
+    val pictures: List<PictureModel> = emptyList()
 )

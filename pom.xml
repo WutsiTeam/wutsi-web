@@ -33,12 +33,12 @@
     <spring-mobile-device.version>2.0.0.M3</spring-mobile-device.version>
 
     <wutsi-platform-core.version>0.0.190</wutsi-platform-core.version>
-    <wutsi-enums.version>1.0.3</wutsi-enums.version>
     <wutsi-platform-payment.version>0.0.105</wutsi-platform-payment.version>
+    <wutsi-enums.version>1.0.3</wutsi-enums.version>
     <wutsi-regulation.version>1.0.8</wutsi-regulation.version>
-    <wutsi-membership-manager.version>1.0.20</wutsi-membership-manager.version>
-    <wutsi-marketplace-manager.version>1.0.7</wutsi-marketplace-manager.version>
     <wutsi-workflow.version>1.0.17</wutsi-workflow.version>
+    <wutsi-membership-manager.version>1.0.21</wutsi-membership-manager.version>
+    <wutsi-marketplace-manager.version>1.0.8</wutsi-marketplace-manager.version>
   </properties>
 
   <dependencies>
