@@ -1,6 +1,7 @@
 package com.wutsi.application.web.endpoint
 
 import com.wutsi.enums.ProductStatus
+import com.wutsi.error.ErrorURN
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.Store
@@ -9,7 +10,6 @@ import com.wutsi.membership.manager.dto.Member
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.exception.NotFoundException
 import com.wutsi.regulation.RegulationEngine
-import com.wutsi.workflow.error.ErrorURN
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.mobile.device.Device

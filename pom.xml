@@ -35,8 +35,8 @@
     <wutsi-platform-core.version>0.0.190</wutsi-platform-core.version>
     <wutsi-platform-payment.version>0.0.105</wutsi-platform-payment.version>
     <wutsi-enums.version>1.0.3</wutsi-enums.version>
+    <wutsi-errors.version>1.0.0</wutsi-errors.version>
     <wutsi-regulation.version>1.0.8</wutsi-regulation.version>
-    <wutsi-workflow.version>1.0.17</wutsi-workflow.version>
     <wutsi-membership-manager.version>1.0.21</wutsi-membership-manager.version>
     <wutsi-marketplace-manager.version>1.0.8</wutsi-marketplace-manager.version>
   </properties>
@@ -58,6 +58,11 @@
       <version>${wutsi-enums.version}</version>
     </dependency>
     <dependency>
+      <groupId>com.wutsi</groupId>
+      <artifactId>wutsi-errors</artifactId>
+      <version>${wutsi-errors.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.wutsi.marketplace.manager</groupId>
       <artifactId>marketplace-manager-sdk-kotlin</artifactId>
       <version>${wutsi-marketplace-manager.version}</version>
@@ -66,11 +71,6 @@
       <groupId>com.wutsi.membership.manager</groupId>
       <artifactId>membership-manager-sdk-kotlin</artifactId>
       <version>${wutsi-membership-manager.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.wutsi.workflow</groupId>
-      <artifactId>workflow-engine</artifactId>
-      <version>${wutsi-workflow.version}</version>
     </dependency>
     <dependency>
       <groupId>com.wutsi.regulation</groupId>
