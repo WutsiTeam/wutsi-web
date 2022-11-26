@@ -20,7 +20,7 @@ body {
     --text-color: #404040;
     --text-color-gray: gray;
     --text-color-error: darkred;
-    --text-color-success: var(--highlight-color);
+    --text-color-success: #4CAF50;
     --border-color: rgba(0, 0, 0, .125);
 
     --margin: 1em;
@@ -136,6 +136,10 @@ h1, h2, h3, h4, h5, h6 {
     border-right: 1px solid var(--border-color);
 }
 
+.border-left {
+    border-left: 1px solid var(--border-color);
+}
+
 .box-filled {
     background-color: var(--background-light);
 }
@@ -182,8 +186,16 @@ h1, h2, h3, h4, h5, h6 {
     padding-left: 1em;
 }
 
+.padding-left-none {
+    padding-left: 0;
+}
+
 .padding-right {
-    padding-top: 1em;
+    padding-right: 1em;
+}
+
+.padding-right-none {
+    padding-right: 0;
 }
 
 .padding-none {
@@ -405,6 +417,7 @@ a.sso-button:hover {
 .toolbar .button .icon .fa-regular,
 .toolbar .button .icon .fa-solid {
     margin-top: 8px;
+    color: var(--highlight-color);
 }
 
 .toolbar .button span {
@@ -509,6 +522,20 @@ a.sso-button:hover {
 
 .product .carousel-item img {
     max-height: 512px;
+}
+
+.product .quantity {
+    font-weight: bold;
+}
+
+.product .available,
+.product .available .fa-solid {
+    color: var(--text-color-success);
+}
+
+.product .unavailable,
+.product .unavailable .fa-solid {
+    color: var(--text-color-error);
 }
 
 /* ======================================================================== */

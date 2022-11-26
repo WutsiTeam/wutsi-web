@@ -129,7 +129,7 @@
 <!-- ##################### -->
 <!-- Toolbar               -->
 <!-- ##################### -->
-<div th:fragment="toolbar(member)" class="border padding toolbar">
+<div th:fragment="toolbar(member)" class="border-top border-bottom padding toolbar">
     <div class="button" id="button-phone">
         <a th:href="'tel:' + ${member.phoneNumber}">
             <div class="icon">
@@ -176,8 +176,7 @@
 <!-- ################# -->
 <div th:fragment="navbar">
     <nav class="navbar navbar-expand navbar-light border-bottom fixed-top navbar-site">
-        <a class="navbar-brand" href="/">
-            <img alt="Wutsi" height="50" th:src="${page.assetUrl} + '/assets/images/logo/logo-dark.png'" title="Wutsi"/></a>
+        <img alt="Wutsi" height="50" th:src="${page.assetUrl} + '/assets/images/logo/logo-dark.png'" title="Wutsi"/>
     </nav>
     <div class="navbar-margin">&nbsp;</div>
 </div>

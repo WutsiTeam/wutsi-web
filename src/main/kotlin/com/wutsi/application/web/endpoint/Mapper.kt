@@ -63,6 +63,7 @@ class Mapper(
         price = DecimalFormat(country.monetaryFormat).format(product.price),
         url = toProductUrl(product.id, product.title),
         quantity = product.quantity,
+        available = product.quantity != null && product.quantity!! > 0,
         thumbnailUrl = product.thumbnailUrl?.let {
             imageService.transform(
                 url = it,
@@ -82,6 +83,7 @@ class Mapper(
         price = DecimalFormat(country.monetaryFormat).format(product.price),
         summary = product.summary,
         description = product.description,
+        available = product.quantity != null && product.quantity!! > 0,
         quantity = product.quantity,
         url = toProductUrl(product.id, product.title),
         thumbnailUrl = product.thumbnail?.url?.let {

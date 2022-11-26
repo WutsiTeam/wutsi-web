@@ -11,7 +11,7 @@
 <div class="container col-md-12 col-sm-12 content-main margin-top">
     <div class="border main-content">
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-6">
+            <div class="col-12 col-sm-12 col-md-6 padding-right-none">
                 <div class="carousel slide" data-bs-interval="300000" data-bs-ride="carousel" id="picture-carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item"
@@ -36,7 +36,7 @@
 
                 </script>
             </div>
-            <div class="col-12 col-sm-12 col-md-6">
+            <div class="col-12 col-sm-12 col-md-6 padding-left-none">
                 <div class="padding">
                     <h1 class="title" th:text="${product.title}">Title</h1>
                     <div class="merchant">
@@ -47,10 +47,17 @@
                     <p class="summary" th:if="${product.summary}" th:text="${product.summary}">
                         This is the summary
                     </p>
-
-                    <div th:if="${device.isMobile()}">
-                        <div th:replace="component/layout :: toolbar(${merchant})"></div>
+                    <div class="quantity available" th:if="${product.available}">
+                        <i class="fa-solid fa-check"></i>
+                        <span th:text="#{product.in-stock}">In Stock</span>
                     </div>
+                    <div class="quantity unavailable" th:if="!${product.available}">
+                        <i class="fa-solid fa-ban"></i>
+                        <span th:text="#{product.out-of-stock}">In Stock</span>
+                    </div>
+                </div>
+                <div th:if="${device.isMobile()}">
+                    <div th:replace="component/layout :: toolbar(${merchant})"></div>
                 </div>
             </div>
         </div>
