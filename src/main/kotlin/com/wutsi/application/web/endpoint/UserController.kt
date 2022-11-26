@@ -2,6 +2,8 @@ package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.Page
 import com.wutsi.application.web.model.PageModel
+import com.wutsi.enums.ProductSort
+import com.wutsi.enums.ProductStatus
 import com.wutsi.marketplace.manager.dto.ProductSummary
 import com.wutsi.marketplace.manager.dto.SearchProductRequest
 import com.wutsi.membership.manager.dto.Member
@@ -49,8 +51,8 @@ class UserController : AbstractController() {
             request = SearchProductRequest(
                 storeId = member.storeId,
                 limit = regulationEngine.maxProducts(),
-                sortBy = "RECOMMENDED",
-                status = "PUBLISHED"
+                sortBy = ProductSort.RECOMMENDED.name,
+                status = ProductStatus.PUBLISHED.name
             )
         ).products
     }

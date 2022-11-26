@@ -1,5 +1,6 @@
 package com.wutsi.application.web.endpoint
 
+import com.wutsi.enums.ProductStatus
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.Store
@@ -65,7 +66,7 @@ abstract class AbstractController {
 
     protected fun findProduct(id: Long): Product {
         val product = marketplaceManagerApi.getProduct(id).product
-        if (product.status != "PUBLISHED") {
+        if (product.status != ProductStatus.PUBLISHED.name) {
             throw NotFoundException(
                 error = Error(
                     code = ErrorURN.PRODUCT_NOT_PUBLISHED.urn
