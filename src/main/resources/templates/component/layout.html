@@ -177,24 +177,7 @@
 <div th:fragment="navbar">
     <nav class="navbar navbar-expand navbar-light border-bottom fixed-top navbar-site">
         <a class="navbar-brand" href="/">
-            <img alt="Wutsi" height="50" th:src="${page.assetUrl} + '/assets/wutsi/img/logo/name-104x50.png'"
-                 title="Wutsi"/></a>
-
-
-        <ul class="navbar-nav ml-auto" th:if="${page.name != 'page.login'}">
-            <li th:replace="components/layout :: navbar-dropdown"></li>
-
-            <li class="nav-item d-none d-lg-block" th:if="!${user} AND ${page.name != 'page.welcome'}">
-                <a class="btn btn-primary" href="/create" id="navbar-create" th:if="${toggles.createBlog}"
-                   th:text="#{button.create_blog}">Create your
-                    Blog</a>
-            </li>
-            <li class="nav-item d-none d-lg-block"
-                th:if="!${user} AND ${page.name != 'page.login'} AND ${page.name != 'page.welcome'}">
-                <a class="btn btn-light" href="/login" id="navbar-login" rel="nofollow"
-                   th:text="#{button.login}">Login</a>
-            </li>
-        </ul>
+            <img alt="Wutsi" height="50" th:src="${page.assetUrl} + '/assets/images/logo/logo-dark.png'" title="Wutsi"/></a>
     </nav>
     <div class="navbar-margin">&nbsp;</div>
 </div>
