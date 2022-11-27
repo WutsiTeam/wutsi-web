@@ -5,7 +5,6 @@ import com.wutsi.application.web.model.PageModel
 import com.wutsi.application.web.model.ProductModel
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.platform.core.image.Dimension
-import com.wutsi.platform.core.image.Focus
 import com.wutsi.platform.core.image.ImageService
 import com.wutsi.platform.core.image.Transformation
 import org.springframework.stereotype.Controller
@@ -51,8 +50,7 @@ class ProductController(
                     dimension = Dimension(
                         600,
                         315
-                    ), // See https://developers.facebook.com/docs/sharing/webmasters/images/
-                    focus = Focus.AUTO
+                    ) // See https://developers.facebook.com/docs/sharing/webmasters/images/
                 )
             )
         }
