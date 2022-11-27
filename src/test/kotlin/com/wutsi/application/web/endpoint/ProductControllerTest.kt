@@ -59,6 +59,11 @@ internal class ProductControllerTest : SeleniumTestSupport() {
             "content",
             product.thumbnail?.url
         )
+        assertElementAttributeContains(
+            "head meta[property='og:url']",
+            "content",
+            "/p/${product.id}"
+        )
 
         // Carousel
         assertElementCount("#picture-carousel .carousel-item", product.pictures.size)

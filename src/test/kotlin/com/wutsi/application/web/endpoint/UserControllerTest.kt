@@ -49,6 +49,11 @@ internal class UserControllerTest : SeleniumTestSupport() {
             "content",
             account.pictureUrl
         )
+        assertElementAttributeEndsWith(
+            "head meta[property='og:url']",
+            "content",
+            "/u/${account.id}"
+        )
 
         // Toolbar
 //        assertElementPresent("#button-phone")
