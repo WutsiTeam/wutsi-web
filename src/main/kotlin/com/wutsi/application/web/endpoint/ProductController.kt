@@ -2,7 +2,7 @@ package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.Page
 import com.wutsi.application.web.model.PageModel
-import com.wutsi.marketplace.manager.dto.Product
+import com.wutsi.application.web.model.ProductModel
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,8 +19,9 @@ class ProductController : AbstractController() {
         val merchant = findMember(store.accountId)
         val country = regulationEngine.country(merchant.country)
 
-        model.addAttribute("page", createPage(product))
-        model.addAttribute("product", mapper.toProductModel(product, country))
+        val productModel = mapper.toProductModel(product, country)
+        model.addAttribute("page", createPage(productModel))
+        model.addAttribute("product", productModel)
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
         return "product"
     }
@@ -29,11 +30,12 @@ class ProductController : AbstractController() {
     fun index2(@PathVariable id: Long, @PathVariable title: String, model: Model): String =
         index(id, model)
 
-    private fun createPage(product: Product) = PageModel(
+    private fun createPage(product: ProductModel) = PageModel(
         name = Page.PRODUCT,
         title = product.title,
         description = product.summary,
-        imageUrl = product.thumbnail?.url,
+        url = product.url,
+        imageUrl = product.thumbnailUrl,
         assetUrl = assetUrl,
         canonicalUrl = "$serverUrl/p/${product.id}"
     )

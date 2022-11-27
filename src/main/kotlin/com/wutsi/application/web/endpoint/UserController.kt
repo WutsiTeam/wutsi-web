@@ -1,6 +1,7 @@
 package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.Page
+import com.wutsi.application.web.model.MemberModel
 import com.wutsi.application.web.model.PageModel
 import com.wutsi.enums.ProductSort
 import com.wutsi.enums.ProductStatus
@@ -20,9 +21,10 @@ class UserController : AbstractController() {
     fun index(@PathVariable id: Long, model: Model): String {
         val member = findMember(id)
         val country = regulationEngine.country(member.country)
+        val memberModel = mapper.toMemberModel(member)
 
-        model.addAttribute("page", createPage(member))
-        model.addAttribute("member", mapper.toMemberModel(member))
+        model.addAttribute("page", createPage(memberModel))
+        model.addAttribute("member", memberModel)
         model.addAttribute(
             "products",
             findProducts(member).map {
@@ -33,10 +35,11 @@ class UserController : AbstractController() {
         return "user"
     }
 
-    private fun createPage(member: Member) = PageModel(
+    private fun createPage(member: MemberModel) = PageModel(
         name = Page.PROFILE,
         title = member.displayName,
         description = member.biography,
+        url = member.url,
         imageUrl = member.pictureUrl,
         assetUrl = assetUrl,
         canonicalUrl = "$serverUrl/u/${member.id}"
