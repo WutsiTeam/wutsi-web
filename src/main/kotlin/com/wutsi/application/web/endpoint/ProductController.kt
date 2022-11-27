@@ -34,7 +34,7 @@ class ProductController : AbstractController() {
         name = Page.PRODUCT,
         title = product.title,
         description = product.summary,
-        url = product.url,
+        url = "$serverUrl/${product.url}",
         imageUrl = product.thumbnailUrl,
         assetUrl = assetUrl,
         canonicalUrl = "$serverUrl/p/${product.id}"

@@ -39,7 +39,7 @@ class UserController : AbstractController() {
         name = Page.PROFILE,
         title = member.displayName,
         description = member.biography,
-        url = member.url,
+        url = "$serverUrl/${member.url}",
         imageUrl = member.pictureUrl,
         assetUrl = assetUrl,
         canonicalUrl = "$serverUrl/u/${member.id}"
