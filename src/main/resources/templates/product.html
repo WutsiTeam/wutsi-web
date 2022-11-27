@@ -11,7 +11,9 @@
 <div class="container col-md-12 col-sm-12 content-main margin-top">
     <div class="border main-content">
         <div class="row">
-            <div th:replace="component/layout :: merchant-profile(${merchant}, false)"></div>
+            <div class="col-12">
+                <div th:replace="component/layout :: merchant-profile(${merchant}, false)"></div>
+            </div>
         </div>
 
         <div class="row">
