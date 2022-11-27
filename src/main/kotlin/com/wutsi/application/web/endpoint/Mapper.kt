@@ -9,6 +9,7 @@ import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.ProductSummary
 import com.wutsi.membership.manager.dto.Member
 import com.wutsi.platform.core.image.Dimension
+import com.wutsi.platform.core.image.Focus
 import com.wutsi.platform.core.image.ImageService
 import com.wutsi.platform.core.image.Transformation
 import com.wutsi.regulation.Country
@@ -20,8 +21,8 @@ class Mapper(
     private val imageService: ImageService
 ) {
     companion object {
-        const val PROFILE_PICTURE_WIDTH = 128
-        const val PROFILE_PICTURE_HEIGHT = 128
+        const val PROFILE_PICTURE_WIDTH = 64
+        const val PROFILE_PICTURE_HEIGHT = 64
         const val PRODUCT_THUMBNAIL_HEIGHT = 300
         const val PRODUCT_THUMBNAIL_WIDTH = 300
         const val PRODUCT_PICTURE_HEIGHT = 512
@@ -42,7 +43,18 @@ class Mapper(
         youtubeId = member.youtubeId,
         website = member.website,
         url = "/u/${member.id}",
-        pictureUrl = null
+        pictureUrl = member.pictureUrl?.let {
+            imageService.transform(
+                url = it,
+                transformation = Transformation(
+                    focus = Focus.FACE,
+                    dimension = Dimension(
+                        width = PROFILE_PICTURE_WIDTH,
+                        height = PROFILE_PICTURE_HEIGHT
+                    )
+                )
+            )
+        }
     )
 
     fun toProductModel(product: ProductSummary, country: Country) = ProductModel(
