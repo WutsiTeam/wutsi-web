@@ -44,10 +44,8 @@ internal class UserControllerTest : SeleniumTestSupport() {
         assertElementAttribute("head meta[property='og:type']", "content", "website")
         assertElementAttribute("head meta[property='og:title']", "content", account.displayName)
         assertElementAttribute("head meta[property='og:description']", "content", account.biography)
-        assertElementAttribute(
-            "head meta[property='og:image']",
-            "content",
-            account.pictureUrl
+        assertElementNotPresent(
+            "head meta[property='og:image']"
         )
         assertElementAttributeEndsWith(
             "head meta[property='og:url']",

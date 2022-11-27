@@ -1,7 +1,7 @@
 wutsi:
   application:
     asset-url: https://int-wutsi.s3.amazonaws.com/static/wutsi-web
-    server-url: https://wutsi-web.herokuapp.com
+    server-url: https://wutsi-web-test.herokuapp.com
   platform:
     cache:
       type: memcached
