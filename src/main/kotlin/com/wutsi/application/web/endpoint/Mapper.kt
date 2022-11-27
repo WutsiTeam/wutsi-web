@@ -101,7 +101,15 @@ class Mapper(
     )
 
     private fun toPictureMapper(picture: PictureSummary) = PictureModel(
-        url = picture.url
+        url = imageService.transform(
+            url = picture.url,
+            transformation = Transformation(
+                dimension = Dimension(
+                    height = PRODUCT_PICTURE_WIDTH,
+                    width = PRODUCT_PICTURE_HEIGHT
+                )
+            )
+        )
     )
 
     private fun toProductUrl(id: Long, title: String): String =
