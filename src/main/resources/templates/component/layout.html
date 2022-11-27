@@ -184,7 +184,7 @@
 <!-- ############## -->
 <!-- Profile        -->
 <!-- ############## -->
-<div class="profile padding flex" th:fragment="profile(member, showBiography)">
+<div class="profile padding flex" th:fragment="merchant-profile(member, showBiography)">
     <img class="margin-right" th:if="${member.pictureUrl}" th:src="${member.pictureUrl}"/>
     <div>
         <h1 th:text="${member.displayName}">Ray Sponsible</h1>
@@ -193,8 +193,18 @@
             <i class="fa-solid fa-location-dot"></i>
             <span th:text="${member.location}">Yaounde, Cameroun</span>
         </div>
-        <div class="bio" th:text="${member.biography}" th:if="${showBiography} && ${member.biography}">Bio</div>
+        <div class="bio" th:text="${member.biography}" th:if="${showBiography} AND ${member.biography}">Bio</div>
     </div>
+</div>
+
+<!-- ################# -->
+<!-- Back to Products  -->
+<!-- ################# -->
+<div class="border-top border-bottom padding" th:fragment="merchant-back-to-products(merchant)">
+    <a th:href="${merchant.url}">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span th:utext="#{product.all_products(${merchant.displayName})}">View all products</span>
+    </a>
 </div>
 
 </body>
