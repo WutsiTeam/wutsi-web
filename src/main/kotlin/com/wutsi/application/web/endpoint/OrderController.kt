@@ -60,7 +60,7 @@ class OrderController : AbstractController() {
                 )
             )
         ).orderId
-        return "redirect:/payment?o=${orderId}"
+        return "redirect:/payment?o=$orderId"
     }
 
     private fun toDeviceType(): DeviceType {
