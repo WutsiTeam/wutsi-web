@@ -1,5 +1,6 @@
 package com.wutsi.application.web.endpoint
 
+import com.wutsi.checkout.manager.CheckoutManagerApi
 import com.wutsi.enums.ProductStatus
 import com.wutsi.error.ErrorURN
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
@@ -23,6 +24,9 @@ abstract class AbstractController {
 
     @Autowired
     protected lateinit var marketplaceManagerApi: MarketplaceManagerApi
+
+    @Autowired
+    protected lateinit var checkoutManagerApi: CheckoutManagerApi
 
     @Autowired
     protected lateinit var regulationEngine: RegulationEngine

@@ -9,8 +9,8 @@
 <div th:replace="component/layout :: navbar"></div>
 
 <div class="container col-md-12 col-sm-12 content-main margin-top">
-    <div class="border main-content">
-        <div class="row">
+    <div class="border main-content container">
+        <div class="row border-bottom">
             <div class="col-12">
                 <div th:replace="component/layout :: merchant-profile(${merchant}, false)"></div>
             </div>
@@ -55,6 +55,15 @@
                         <span th:text="#{product.out-of-stock}">In Stock</span>
                     </div>
                 </div>
+                <div class="padding" th:if="${quantities}">
+                    <form action="/order" method="GET">
+                        <input name="p" th:value="${product.id}" type="hidden"/>
+                        <select class="margin-bottom w-100" name="q">
+                            <option th:each="value : ${quantities}" th:text="${value}" th:value="${value}">1</option>
+                        </select>
+                        <button class="btn btn-lg btn-primary w-100" type="submit">Buy Now</button>
+                    </form>
+                </div>
                 <div th:if="${device.isMobile()}">
                     <div th:replace="component/layout :: toolbar(${merchant})"></div>
                 </div>
@@ -71,9 +80,10 @@
         </div>
 
         <div class="row">
-            <div th:replace="component/layout :: merchant-back-to-products(${merchant})"></div>
+            <div class="col">
+                <div th:replace="component/layout :: merchant-back-to-products(${merchant})"></div>
+            </div>
         </div>
-
 
         <div th:replace="component/layout :: social-toolbar(${merchant})"></div>
     </div>

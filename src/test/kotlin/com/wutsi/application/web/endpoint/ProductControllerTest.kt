@@ -21,7 +21,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
     private lateinit var marketplaceManagerApi: MarketplaceManagerApi
 
     @Test
-    fun user() {
+    fun index() {
         // GIVEN
         val account = Fixtures.createMember(id = 1, business = true, storeId = 111L)
         doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(any())
@@ -31,12 +31,12 @@ internal class ProductControllerTest : SeleniumTestSupport() {
 
         val product = Fixtures.createProduct(
             id = 11,
-            storeId = 111,
+            storeId = account.id,
             pictures = listOf(
-                Fixtures.createPictureSummary(1, "http://i.com/1.png"),
-                Fixtures.createPictureSummary(2, "http://i.com/2.png"),
-                Fixtures.createPictureSummary(3, "http://i.com/3.png"),
-                Fixtures.createPictureSummary(4, "http://i.com/4.png")
+                Fixtures.createPictureSummary(1, "https://i.com/1.png"),
+                Fixtures.createPictureSummary(2, "https://i.com/2.png"),
+                Fixtures.createPictureSummary(3, "https://i.com/3.png"),
+                Fixtures.createPictureSummary(4, "https://i.com/4.png")
             )
         )
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
@@ -74,18 +74,10 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .description", product.description!!)
         assertElementPresent(".product .price")
 
-        // Toolbar
-//        assertElementPresent("#button-phone")
-//        assertElementPresent("#button-message")
-//        assertElementPresent("#button-share")
-
         // Social button
         assertElementPresent("#button-facebook")
         assertElementPresent("#button-twitter")
         assertElementPresent("#button-instagram")
         assertElementPresent("#button-youtube")
-
-        // Products
-//        assertAppStoreLinksPresent()
     }
 }

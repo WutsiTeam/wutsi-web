@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="component/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="component/layout :: navbar"></div>
+
+<div class="container col-md-12 col-sm-12 content-main margin-top">
+    <div class="border main-content container">
+        <div class="row border-bottom">
+            <div class="col-12">
+                <div th:replace="component/layout :: merchant-profile(${merchant}, false)"></div>
+            </div>
+        </div>
+
+        <form action="/order/submit" method="POST">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-8 padding border-top">
+                    <h1>Enter your Information</h1>
+                    <div class="padding">
+                        <input class="w-100 padding" maxlength="100" name="displayName"
+                               placeholder="First and Last name (Required)"
+                               required="true"/>
+                    </div>
+                    <div class="padding">
+                        <input class="w-100 padding" maxlength="100" name="email" placeholder="Email (Required)"
+                               required="true"
+                               type="email"/>
+                    </div>
+                    <div class="padding">
+                        <textarea class="w-100 padding" maxlength="1000" name="notes"
+                                  placeholder="Instructions to merchant"
+                                  rows="3"></textarea>
+                    </div>
+                    <div class="padding d-md-block">
+                        <button class="btn btn-lg btn-primary w-100" id="submit" type="input">Continue to Payment
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-4 padding">
+                    <div class="border">
+                        <div class="flex">
+                            <img th:src="${product.thumbnailUrl}" width="100"/>
+                            <div class="padding">
+                                <span th:text="${product.title}">Product Title</span>
+                                <span th:if="${quantity GT 1}" th:text="' (x' + ${quantity} + ')'">x2</span>
+                            </div>
+                        </div>
+                        <div class="border-top padding d-md-block">
+                            <span>Total:</span>
+                            <b class="highlight" th:text="${totalPrice}">3000</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input name="businessId" th:value="${merchant.businessId}" type="hidden"/>
+            <input name="productId" th:value="${product.id}" type="hidden"/>
+            <input name="quantity" th:value="${quantity}" type="hidden"/>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

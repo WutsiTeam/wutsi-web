@@ -31,6 +31,7 @@ class Mapper(
 
     fun toMemberModel(member: Member) = MemberModel(
         id = member.id,
+        businessId = member.businessId,
         displayName = member.displayName,
         biography = member.biography,
         category = member.category?.title,

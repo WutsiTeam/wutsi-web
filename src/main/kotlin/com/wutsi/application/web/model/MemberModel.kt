@@ -14,5 +14,6 @@ data class MemberModel(
     val twitterId: String? = null,
     val youtubeId: String? = null,
     val instagramId: String? = null,
-    val url: String = ""
+    val url: String = "",
+    val businessId: Long? = null
 )

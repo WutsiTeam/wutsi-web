@@ -12,6 +12,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
+import kotlin.math.min
 
 @Controller
 @RequestMapping("/p")
@@ -29,6 +30,11 @@ class ProductController(
         model.addAttribute("page", createPage(productModel, product))
         model.addAttribute("product", productModel)
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
+
+        if (product.quantity != null && product.quantity!! > 0) {
+            val quantities = 1..min(10, (product.quantity ?: Integer.MAX_VALUE))
+            model.addAttribute("quantities", quantities)
+        }
         return "product"
     }
 

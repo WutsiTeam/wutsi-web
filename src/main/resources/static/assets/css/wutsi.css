@@ -182,6 +182,10 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 1em;
 }
 
+.padding-botom {
+    padding-bottom: 1em;
+}
+
 .padding-left {
     padding-left: 1em;
 }
@@ -479,6 +483,10 @@ a.sso-button:hover {
 }
 
 .product-card .img-container img {
+    border-radius: 10px 10px 10px 10px;
+}
+
+.product-card .img-container img {
     max-height: 246px;
     display: block;
 }
@@ -536,9 +544,16 @@ a.sso-button:hover {
 /*                                                                          */
 /* ======================================================================== */
 @media only screen
-and (max-width: 480px)
+and (max-width: 576px)
 and (orientation: portrait) {
     .product .carousel-item img {
         max-height: 400px;
+    }
+
+    .total-price-and-cta {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background: white;
     }
 }

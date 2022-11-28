@@ -103,7 +103,7 @@
 <!-- ##################### -->
 <!-- Social Toolbar        -->
 <!-- ##################### -->
-<div th:fragment="social-toolbar(member)" class="border padding toolbar">
+<div th:fragment="social-toolbar(member)" class="padding toolbar">
     <div class="button" id="button-instagram" th:if="${member.instagramId}">
         <a th:href="'https://www.instagram.com/' + ${member.instagramId}">
             <img th:src="${assetUrl} + '/assets/images/social/instagram.png'"
