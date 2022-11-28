@@ -22,8 +22,8 @@ import java.text.DecimalFormat
 class OrderController : AbstractController() {
     @GetMapping
     fun index(
-        @RequestParam(name = "q") quantity: Int,
         @RequestParam(name = "p") productId: Long,
+        @RequestParam(name = "q") quantity: Int,
         model: Model
     ): String {
         val product = findProduct(productId)

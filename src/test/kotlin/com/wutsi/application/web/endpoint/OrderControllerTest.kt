@@ -57,7 +57,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         doReturn(CreateOrderResponse(orderId)).whenever(checkoutManagerApi).createOrder(any())
 
         // WHEN
-        navigate(url("order/p=${product.id}&q=3"))
+        navigate(url("order?p=${product.id}&q=3"))
         Thread.sleep(1000)
 
         // THEN
