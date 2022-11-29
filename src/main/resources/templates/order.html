@@ -16,27 +16,27 @@
             </div>
         </div>
 
-        <form action="/order/submit" method="POST">
+        <form action="/order/submit" method="POST"
+              onsubmit="document.getElementById('submit').disabled=true; return true">
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-8 padding border-top">
-                    <h1>Enter your Information</h1>
+                <div class="col-12 col-sm-12 col-md-8 border-top">
                     <div class="padding">
-                        <input class="w-100 padding" maxlength="100" name="displayName"
-                               placeholder="First and Last name (Required)"
-                               required="true"/>
-                    </div>
-                    <div class="padding">
-                        <input class="w-100 padding" maxlength="100" name="email" placeholder="Email (Required)"
+                        <h1 th:text="#{order.title}">Your Information</h1>
+
+                        <input class="w-100" maxlength="100" name="displayName"
                                required="true"
+                               th:placeholder="#{order.displayName}"/>
+
+                        <input class="w-100" maxlength="100" name="email" required="true"
+                               th:placeholder="#{order.email}"
                                type="email"/>
-                    </div>
-                    <div class="padding">
-                        <textarea class="w-100 padding" maxlength="1000" name="notes"
-                                  placeholder="Instructions to merchant"
-                                  rows="3"></textarea>
-                    </div>
-                    <div class="padding d-md-block">
-                        <button class="btn btn-lg btn-primary w-100" id="submit" type="submit">
+
+                        <textarea class="w-100" maxlength="1000" name="notes"
+                                  rows="3"
+                                  th:placeholder="#{order.notes}"></textarea>
+
+                        <button class="btn btn-lg btn-primary w-100" id="submit" th:text="#{order.submit}"
+                                type="btn-submit">
                             Continue to Payment
                         </button>
                     </div>
@@ -52,8 +52,8 @@
                             </div>
                         </div>
                         <div class="border-top padding d-md-block">
-                            <span>Total:</span>
-                            <h4 class="highlight" th:text="${totalPrice}">3000</h4>
+                            <span th:text="#{order.total}">Total</span>
+                            <b class="highlight" th:text="${totalPrice}">3000</b>
                         </div>
                     </div>
                 </div>

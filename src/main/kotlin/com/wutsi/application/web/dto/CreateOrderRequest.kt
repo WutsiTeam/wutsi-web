@@ -1,6 +1,6 @@
-package com.wutsi.application.web.model
+package com.wutsi.application.web.dto
 
-data class CreateOrderModel(
+data class CreateOrderRequest(
     val productId: Long = -1,
     val quantity: Int = 0,
     val email: String = "",

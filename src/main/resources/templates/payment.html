@@ -10,7 +10,68 @@
 
 <div class="container col-md-12 col-sm-12 content-main margin-top">
     <div class="border main-content container">
-        HELLO
+        <div class="row border-bottom">
+            <div class="col-12">
+                <div th:replace="component/layout :: merchant-profile(${merchant}, false)"></div>
+            </div>
+        </div>
+        <form action="/payment/submit" method="POST"
+              onsubmit="document.getElementById('submit').disabled=true; return true;">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-8 border-top">
+                    <div class="padding">
+                        <h1 th:text="#{payment.title}">Payment Information</h1>
+
+                        <div class="customer-infos margin-bottom">
+                            <div><b th:text="${order.customerName}">Ray Sponsible</b></div>
+                            <div th:text="${order.customerEmail}"></div>
+                        </div>
+
+                        <h2>
+                            <i class="fa-solid fa-mobile-retro"></i>
+                            Pay with Mobile Money
+                        </h2>
+                        <div>Enter your mobile phone number to complete the transaction</div>
+                        <input class="w-100" name="phoneNumber" required="true"/>
+
+                        <div class="flex margin-bottom">
+                            <img height="48" th:alt="${provider.name}" th:each="provider : ${mobileProviders}"
+                                 th:src="${provider.logoUrl}"
+                                 width="48"/>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary w-100" id="submit"
+                                th:text="#{payment.submit(${order.totalPrice})}"
+                                type="submit">
+                            Pay 30,000 FCFA
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-4 padding">
+                    <div class="border">
+                        <div th:each="item : ${order.items}">
+                            <div class="flex">
+                                <img th:src="${item.pictureUrl}" width="100"/>
+                                <div class="padding">
+                                    <span th:text="${item.title}">Product Title</span>
+                                    <span th:if="${item.quantity GT 1}"
+                                          th:text="' (x' + ${item.quantity} + ')'">x2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-top padding d-md-block">
+                            <span th:text="#{payment.total}">Total:</span>
+                            <b class="highlight" th:text="${order.totalPrice}">3000</b>
+                        </div>
+                    </div>
+                </div>
+
+                <input name="idempotencyKey" th:value="${idempotencyKey}" type="hidden"/>
+                <input name="businessId" th:value="${merchant.businessId}" type="hidden"/>
+                <input name="orderId" th:value="${order.id}" type="hidden"/>
+            </div>
+        </form>
     </div>
 </div>
 

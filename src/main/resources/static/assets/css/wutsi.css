@@ -399,6 +399,19 @@ a.sso-button:hover {
     color: var(--text-color-gray);
 }
 
+/* ======= FORM =========== */
+form input,
+form select,
+form textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+form button {
+    margin-bottom: 10px;
+}
+
+/* ======= TOOLBAR =========== */
 .toolbar {
     display: flex;
     justify-content: space-evenly;
@@ -442,11 +455,6 @@ a.sso-button:hover {
 }
 
 /*======= PROFILE =======*/
-.profile h1 {
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
 .profile img {
     width: 96px;
     height: 96px;
@@ -510,11 +518,6 @@ a.sso-button:hover {
 }
 
 /* ==== PRODUCT DETAILS ====== */
-.product h1 {
-    font-size: 1.2em;
-    font-weight: bold;
-}
-
 .product .price {
     color: var(--highlight-color);
     font-size: 1.2em;
@@ -536,6 +539,10 @@ a.sso-button:hover {
 .product .unavailable,
 .product .unavailable .fa-solid {
     color: var(--text-color-error);
+}
+
+.customer-infos {
+    color: darkgray;
 }
 
 /* ======================================================================== */

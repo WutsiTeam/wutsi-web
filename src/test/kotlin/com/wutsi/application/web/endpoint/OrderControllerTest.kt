@@ -67,7 +67,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         input("input[name=displayName]", "Ray Sponsible")
         input("input[name=email]", "ray.sponsible@gmail.com")
         input("textarea[name=notes]", "This is a note :-)")
-        click("#submit")
+        click("#btn-submit")
         Thread.sleep(1000)
 
         verify(checkoutManagerApi).createOrder(

@@ -1,9 +1,14 @@
 package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.model.MemberModel
+import com.wutsi.application.web.model.OrderItemModel
+import com.wutsi.application.web.model.OrderModel
+import com.wutsi.application.web.model.PaymentProviderModel
 import com.wutsi.application.web.model.PictureModel
 import com.wutsi.application.web.model.ProductModel
 import com.wutsi.application.web.util.HandleGenerator
+import com.wutsi.checkout.manager.dto.Order
+import com.wutsi.checkout.manager.dto.PaymentProviderSummary
 import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.ProductSummary
@@ -28,6 +33,32 @@ class Mapper(
         const val PRODUCT_PICTURE_HEIGHT = 512
         const val PRODUCT_PICTURE_WIDTH = 512
     }
+
+    fun toOrderModel(order: Order, country: Country): OrderModel {
+        val fmt = DecimalFormat(country.monetaryFormat)
+        return OrderModel(
+            id = order.id,
+            businessId = order.businessId,
+            customerEmail = order.customerEmail,
+            customerName = order.customerName,
+            totalPrice = fmt.format(order.totalPrice),
+            totalDiscount = fmt.format(order.totalDiscount),
+            items = order.items.map {
+                OrderItemModel(
+                    productId = it.productId,
+                    title = it.title,
+                    pictureUrl = it.pictureUrl,
+                    quantity = it.quantity,
+                    unitPrice = fmt.format(it.unitPrice)
+                )
+            }
+        )
+    }
+
+    fun toPaymentProviderModel(provider: PaymentProviderSummary) = PaymentProviderModel(
+        logoUrl = provider.logoUrl,
+        name = provider.name
+    )
 
     fun toMemberModel(member: Member) = MemberModel(
         id = member.id,

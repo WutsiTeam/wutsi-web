@@ -1,12 +1,11 @@
 package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.Page
-import com.wutsi.application.web.model.CreateOrderModel
 import com.wutsi.application.web.model.PageModel
 import com.wutsi.checkout.manager.dto.CreateOrderItemRequest
-import com.wutsi.checkout.manager.dto.CreateOrderRequest
 import com.wutsi.enums.ChannelType
 import com.wutsi.enums.DeviceType
+import com.wutsi.platform.core.logging.KVLogger
 import org.springframework.mobile.device.DeviceUtils
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -16,10 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.text.DecimalFormat
+import java.util.UUID
 
 @Controller
 @RequestMapping("/order")
-class OrderController : AbstractController() {
+class OrderController(
+    private val logger: KVLogger
+) : AbstractController() {
     @GetMapping
     fun index(
         @RequestParam(name = "p") productId: Long,
@@ -43,9 +45,16 @@ class OrderController : AbstractController() {
     }
 
     @PostMapping("/submit")
-    fun submit(@ModelAttribute request: CreateOrderModel): String {
+    fun submit(@ModelAttribute request: com.wutsi.application.web.dto.CreateOrderRequest): String {
+        logger.add("request_business_id", request.businessId)
+        logger.add("request_product_id", request.productId)
+        logger.add("request_quantity", request.quantity)
+        logger.add("request_notes", request.notes.take(10))
+        logger.add("request_email", request.email)
+        logger.add("request_display_name", request.displayName)
+
         val orderId = checkoutManagerApi.createOrder(
-            request = CreateOrderRequest(
+            request = com.wutsi.checkout.manager.dto.CreateOrderRequest(
                 deviceType = toDeviceType().toString(),
                 channelType = toChannelType().toString(),
                 businessId = request.businessId,
@@ -60,7 +69,11 @@ class OrderController : AbstractController() {
                 )
             )
         ).orderId
-        return "redirect:/payment?o=$orderId"
+        val idempotencyKey = UUID.randomUUID().toString()
+        logger.add("order_id", orderId)
+        logger.add("idempotency_key", idempotencyKey)
+
+        return "redirect:/payment?o=$orderId&i=$idempotencyKey"
     }
 
     private fun toDeviceType(): DeviceType {
