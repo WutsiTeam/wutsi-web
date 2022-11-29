@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.util.UUID
 
-
 @Controller
 @RequestMapping("/payment")
 class PaymentController(
@@ -65,7 +64,8 @@ class PaymentController(
         model.addAttribute("page", createPage())
         model.addAttribute("order", mapper.toOrderModel(order, country))
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
-        model.addAttribute("mobileProviders",
+        model.addAttribute(
+            "mobileProviders",
             paymentProviders
                 .filter { it.type == PaymentMethodType.MOBILE_MONEY.name }
                 .map { mapper.toPaymentProviderModel(it) }
@@ -85,7 +85,7 @@ class PaymentController(
         val providers = checkoutManagerApi.searchPaymentProvider(
             request = SearchPaymentProviderRequest(
                 number = request.phoneNumber,
-                type = request.paymentMethodType.name,
+                type = request.paymentMethodType.name
             )
         ).paymentProviders
         logger.add("payment_providers", providers.map { it.code })
@@ -141,7 +141,6 @@ class PaymentController(
             } else {
                 return "redirect:/payment?o=$orderId&e=$ERROR_UNEXPECTED"
             }
-
         }
     }
 
