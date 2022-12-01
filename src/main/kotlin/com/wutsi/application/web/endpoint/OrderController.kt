@@ -29,9 +29,10 @@ class OrderController(
         model: Model
     ): String {
         val product = findProduct(productId)
-        val store = findStore(product.storeId)
+        val store = marketplaceManagerApi.getStore(product.storeId).store
         val merchant = findMember(store.accountId)
-        val country = regulationEngine.country(merchant.country)
+        val business = checkoutManagerApi.getBusiness(merchant.businessId!!).business
+        val country = regulationEngine.country(business.country)
         val productModel = mapper.toProductModel(product, country)
         val totalPrice = DecimalFormat(country.monetaryFormat).format((product.price ?: 0) * quantity)
 

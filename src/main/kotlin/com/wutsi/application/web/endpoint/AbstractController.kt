@@ -79,7 +79,4 @@ abstract class AbstractController {
         }
         return product
     }
-
-    protected fun findStore(id: Long): Store =
-        marketplaceManagerApi.getStore(id).store
 }
