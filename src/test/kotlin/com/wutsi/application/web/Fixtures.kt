@@ -4,11 +4,16 @@ import com.wutsi.checkout.manager.dto.Business
 import com.wutsi.checkout.manager.dto.Discount
 import com.wutsi.checkout.manager.dto.Order
 import com.wutsi.checkout.manager.dto.OrderItem
+import com.wutsi.checkout.manager.dto.PaymentMethodSummary
 import com.wutsi.checkout.manager.dto.PaymentProviderSummary
+import com.wutsi.checkout.manager.dto.Transaction
 import com.wutsi.enums.ChannelType
 import com.wutsi.enums.DeviceType
 import com.wutsi.enums.DiscountType
 import com.wutsi.enums.OrderStatus
+import com.wutsi.enums.PaymentMethodStatus
+import com.wutsi.enums.PaymentMethodType
+import com.wutsi.enums.TransactionType
 import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.ProductSummary
@@ -19,6 +24,9 @@ import com.wutsi.membership.manager.dto.Member
 import com.wutsi.membership.manager.dto.MemberSummary
 import com.wutsi.membership.manager.dto.Place
 import com.wutsi.membership.manager.dto.PlaceSummary
+import com.wutsi.platform.payment.GatewayType
+import com.wutsi.platform.payment.core.ErrorCode
+import com.wutsi.platform.payment.core.Status
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 
@@ -201,5 +209,51 @@ object Fixtures {
         created = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
         updated = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
         expires = OffsetDateTime.of(2100, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC)
+    )
+
+    fun createTransaction(id: String, type: TransactionType, status: Status, orderId: String? = null) = Transaction(
+        id = id,
+        type = type.name,
+        orderId = orderId,
+        status = status.name,
+        description = "This is description",
+        currency = "XAF",
+        businessId = 111,
+        email = "ray.sponsble@gmail.com",
+        created = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
+        updated = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
+        amount = 10500,
+        errorCode = ErrorCode.APPROVAL_REJECTED.name,
+        customerId = 1111L,
+        paymentMethod = Fixtures.createPaymentMethodSummary(""),
+        financialTransactionId = "1111-111",
+        gatewayTransactionId = "2222-222",
+        supplierErrorCode = "xyz",
+        net = 10000,
+        fees = 500,
+        gatewayFees = 250,
+        gatewayType = GatewayType.FLUTTERWAVE.name
+    )
+
+    fun createPaymentMethodSummary(
+        token: String
+    ) = PaymentMethodSummary(
+        token = token,
+        provider = createPaymentProvider(),
+        number = "+237670000010",
+        type = PaymentMethodType.MOBILE_MONEY.name,
+        status = PaymentMethodStatus.ACTIVE.name,
+        accountId = 111L,
+        ownerName = "Ray Sponsible"
+    )
+
+    fun createPaymentProvider(
+        id: Long = System.currentTimeMillis(),
+        type: PaymentMethodType = PaymentMethodType.MOBILE_MONEY,
+        code: String = "MTN"
+    ) = PaymentProviderSummary(
+        id = id,
+        code = code,
+        type = type.name
     )
 }

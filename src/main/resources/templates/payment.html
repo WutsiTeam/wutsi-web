@@ -27,7 +27,7 @@
                             <div th:text="${order.customerEmail}"></div>
                         </div>
 
-                        <div class="alert alert-danger padding" th:if="${error}" th:text="${error}">Error</div>
+                        <div class="error alert alert-danger padding" th:if="${error}" th:text="${error}">Error</div>
 
                         <div>Enter your mobile phone number to complete the transaction</div>
                         <input class="w-100" name="phoneNumber" required="true"/>
@@ -38,7 +38,7 @@
                                  width="48"/>
                         </div>
 
-                        <button class="btn btn-lg btn-primary w-100" id="submit"
+                        <button class="btn btn-lg btn-primary w-100" id="btn-submit"
                                 th:text="#{payment.submit(${order.totalPrice})}"
                                 type="submit">
                             Pay 30,000 FCFA

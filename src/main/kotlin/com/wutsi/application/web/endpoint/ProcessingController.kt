@@ -2,7 +2,6 @@ package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.Page
 import com.wutsi.application.web.model.PageModel
-import com.wutsi.application.web.model.TransactionModel
 import com.wutsi.checkout.manager.dto.Transaction
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -30,14 +29,6 @@ class ProcessingController : AbstractController() {
         model.addAttribute("paymentUrl", toPaymentUrl(tx))
         model.addAttribute("transactionUrl", toTransactionUrl(tx))
         return "processing"
-    }
-
-    @GetMapping("/transaction")
-    fun getTransaction(@RequestParam id: String): TransactionModel {
-        val tx = checkoutManagerApi.getTransaction(id).transaction
-        val business = checkoutManagerApi.getBusiness(tx.businessId).business
-        val country = regulationEngine.country(business.country)
-        return mapper.toTransactionModel(tx, country)
     }
 
     private fun toPaymentUrl(tx: Transaction): String =
