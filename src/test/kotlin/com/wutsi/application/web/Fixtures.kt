@@ -1,5 +1,7 @@
 package com.wutsi.application.web
 
+import com.wutsi.checkout.manager.dto.Business
+import com.wutsi.checkout.manager.dto.PaymentProviderSummary
 import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.ProductSummary
@@ -126,5 +128,19 @@ object Fixtures {
     fun createStore(id: Long, accountId: Long) = Store(
         id = id,
         accountId = accountId
+    )
+
+    fun createBusiness(id: Long, accountId: Long, country: String, currency: String) = Business(
+        id = id,
+        accountId = accountId,
+        country = country,
+        currency = currency
+    )
+
+    fun createPaymentProviderSummary(id: Long, code: String) = PaymentProviderSummary(
+        id = id,
+        code = code,
+        name = code,
+        logoUrl = "https://www.imgs.com/$id.png"
     )
 }

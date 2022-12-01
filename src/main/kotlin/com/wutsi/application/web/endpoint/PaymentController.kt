@@ -17,6 +17,8 @@ import com.wutsi.platform.core.logging.KVLogger
 import com.wutsi.platform.payment.core.Status
 import feign.FeignException
 import org.slf4j.LoggerFactory
+import org.springframework.context.MessageSource
+import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -30,12 +32,13 @@ import java.util.UUID
 @RequestMapping("/payment")
 class PaymentController(
     private val logger: KVLogger,
-    private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper,
+    private val messages: MessageSource
 ) : AbstractController() {
     companion object {
         const val ERROR_UNEXPECTED = 1000010L
         const val ERROR_INVALID_PHONE_NUMBER = 1000011L
-        const val ERROR_PROVIDER_TRANSACTION_FAILED = 1000012L
+        const val ERROR_TRANSACTION_FAILED = 1000012L
 
         private val LOGGER = LoggerFactory.getLogger(PaymentController::class.java)
     }
@@ -64,6 +67,7 @@ class PaymentController(
         model.addAttribute("page", createPage())
         model.addAttribute("order", mapper.toOrderModel(order, country))
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
+        model.addAttribute("error", error?.let { toError(it) })
         model.addAttribute(
             "mobileProviders",
             paymentProviders
@@ -71,6 +75,20 @@ class PaymentController(
                 .map { mapper.toPaymentProviderModel(it) }
         )
         return "payment"
+    }
+
+    private fun toError(error: Long): String? = when (error) {
+        ERROR_TRANSACTION_FAILED -> messages.getMessage(
+            "error.transaction-failed",
+            emptyArray(),
+            LocaleContextHolder.getLocale()
+        )
+        ERROR_INVALID_PHONE_NUMBER -> messages.getMessage(
+            "error.no-provider-for-phone-number",
+            emptyArray(),
+            LocaleContextHolder.getLocale()
+        )
+        else -> messages.getMessage("error.unexpected", emptyArray(), LocaleContextHolder.getLocale())
     }
 
     @PostMapping("/submit")
@@ -118,7 +136,7 @@ class PaymentController(
             }
         } catch (ex: Exception) {
             LOGGER.error("Unexpected error", ex)
-            return redirectToError(request.orderId, ERROR_PROVIDER_TRANSACTION_FAILED, ex)
+            return redirectToError(request.orderId, ERROR_TRANSACTION_FAILED, ex)
         }
     }
 

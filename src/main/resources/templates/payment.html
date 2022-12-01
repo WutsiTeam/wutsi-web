@@ -27,10 +27,8 @@
                             <div th:text="${order.customerEmail}"></div>
                         </div>
 
-                        <h2>
-                            <i class="fa-solid fa-mobile-retro"></i>
-                            Pay with Mobile Money
-                        </h2>
+                        <div class="alert alert-danger padding" th:if="${error}" th:text="${error}">Error</div>
+              
                         <div>Enter your mobile phone number to complete the transaction</div>
                         <input class="w-100" name="phoneNumber" required="true"/>
 
