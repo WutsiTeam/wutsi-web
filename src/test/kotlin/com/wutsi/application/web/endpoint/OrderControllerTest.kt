@@ -90,7 +90,6 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(Page.ORDER)
 
         // Header
-        input("input[name=phoneNumber]", phoneNumber)
         input("input[name=displayName]", "Ray Sponsible")
         input("input[name=email]", "ray.sponsible@gmail.com")
         input("textarea[name=notes]", "This is a note :-)")
