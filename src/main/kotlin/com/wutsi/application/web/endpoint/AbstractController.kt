@@ -5,7 +5,6 @@ import com.wutsi.enums.ProductStatus
 import com.wutsi.error.ErrorURN
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.Product
-import com.wutsi.marketplace.manager.dto.Store
 import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.Member
 import com.wutsi.platform.core.error.Error
