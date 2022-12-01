@@ -9,6 +9,7 @@ import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.SearchProductResponse
 import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.GetMemberResponse
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.mock.mockito.MockBean
 
@@ -25,6 +26,7 @@ internal class UserControllerTest : SeleniumTestSupport() {
         Fixtures.createProductSummary(id = 22L, title = "Product 2", "http://www.google.ca/2.png")
     )
 
+    @BeforeEach
     override fun setUp() {
         super.setUp()
 
