@@ -18,7 +18,7 @@
 
         <div class="row border-bottom">
             <div class="col-12">
-                <div class="pending tx-status tx-pending padding-2x text-center">
+                <div class="tx-status tx-pending padding-2x text-center">
                     <h3 class="padding-2x" th:text="#{processing.pending.title}">Processing Payment</h3>
 
                     <i class="fa-solid fa-rotate fa-spin"></i>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <div class="pending tx-status tx-success padding-2x text-center" style="display: none">
+                <div class="tx-status tx-success padding-2x text-center" style="display: none">
                     <h3 class="padding-2x" th:text="#{processing.success.title}">Thank your for your payment!</h3>
 
                     <i class="fa-regular fa-circle-check"></i>
@@ -42,7 +42,7 @@
                     <a class="btn btn-primary" th:href="${merchant.url}" th:text="#{processing.success.button}">OK</a>
                 </div>
 
-                <div class="pending tx-status tx-failure padding-2x text-center" style="display: none">
+                <div class="tx-status tx-failure padding-2x text-center" style="display: none">
                     <h3 class="padding-2x" th:text="#{processing.error.title}">Error!</h3>
 
                     <i class="fa-regular fa-circle-xmark"></i>
@@ -52,6 +52,19 @@
                     </div>
 
                     <a class="btn btn-danger" th:href="${paymentUrl}" th:text="#{processing.error.button}">Try Again</a>
+                </div>
+
+                <div class="tx-status tx-expired padding-2x text-center" style="display: none">
+                    <h3 class="padding-2x" th:text="#{processing.expired.title}">Error!</h3>
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <div class="padding-2x">
+                        <div th:utext="#{processing.expired.message}">Your payment failed.</div>
+                    </div>
+
+                    <a class="btn btn-danger" th:href="${merchant.url}" th:text="#{processing.expired.button}">Try
+                        Again</a>
                 </div>
             </div>
         </div>
@@ -63,13 +76,18 @@
     /*<![CDATA[*/
     const url = /*[[${transactionUrl}]]*/ '';
     const handle = setTimeout(load_transaction, 15 * 1000);
+    var retries = 0;
 
     function load_transaction() {
-        console.log('Loading transaction...');
+        retries++;
+        console.log(retries + ' - Loading transaction...');
+
         jQuery.getJSON(url, function (tx) {
             console.log(tx);
 
-            if (tx.status === 'SUCCESSFUL') {
+            if (retries > 5) {
+
+            } else if (tx.status === 'SUCCESSFUL') {
 
                 jQuery('.tx-pending').hide();
                 jQuery('.tx-success').show();
