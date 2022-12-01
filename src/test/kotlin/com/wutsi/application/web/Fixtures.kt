@@ -1,7 +1,14 @@
 package com.wutsi.application.web
 
 import com.wutsi.checkout.manager.dto.Business
+import com.wutsi.checkout.manager.dto.Discount
+import com.wutsi.checkout.manager.dto.Order
+import com.wutsi.checkout.manager.dto.OrderItem
 import com.wutsi.checkout.manager.dto.PaymentProviderSummary
+import com.wutsi.enums.ChannelType
+import com.wutsi.enums.DeviceType
+import com.wutsi.enums.DiscountType
+import com.wutsi.enums.OrderStatus
 import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.ProductSummary
@@ -12,6 +19,8 @@ import com.wutsi.membership.manager.dto.Member
 import com.wutsi.membership.manager.dto.MemberSummary
 import com.wutsi.membership.manager.dto.Place
 import com.wutsi.membership.manager.dto.PlaceSummary
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 
 object Fixtures {
     fun createMemberSummary() = MemberSummary()
@@ -142,5 +151,55 @@ object Fixtures {
         code = code,
         name = code,
         logoUrl = "https://www.imgs.com/$id.png"
+    )
+
+    fun createOrder(
+        id: String,
+        businessId: Long = -1,
+        totalPrice: Long = 100000L,
+        status: OrderStatus = OrderStatus.UNKNOWN
+    ) = Order(
+        id = id,
+        businessId = businessId,
+        totalPrice = totalPrice,
+        balance = totalPrice,
+        status = status.name,
+        customerName = "Ray Sponsible",
+        customerEmail = "ray.sponsible@gmail.com",
+        deviceType = DeviceType.MOBILE.name,
+        channelType = ChannelType.WEB.name,
+        currency = "XAF",
+        notes = "Yo man",
+        deviceId = "4309403-43094039-43094309",
+        discounts = listOf(
+            Discount(
+                code = "111",
+                amount = 1000,
+                rate = 0,
+                type = DiscountType.DYNAMIC.name
+            )
+        ),
+        items = listOf(
+            OrderItem(
+                productId = 999,
+                quantity = 3,
+                title = "This is a product",
+                pictureUrl = "https://img.com/1.png",
+                totalPrice = totalPrice,
+                unitPrice = totalPrice / 3,
+                totalDiscount = 100,
+                discounts = listOf(
+                    Discount(
+                        code = "111",
+                        amount = 1000,
+                        rate = 0,
+                        type = DiscountType.DYNAMIC.name
+                    )
+                )
+            )
+        ),
+        created = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
+        updated = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
+        expires = OffsetDateTime.of(2100, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC)
     )
 }

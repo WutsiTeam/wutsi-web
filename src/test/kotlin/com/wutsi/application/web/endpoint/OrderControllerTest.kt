@@ -11,6 +11,7 @@ import com.wutsi.checkout.manager.dto.CreateOrderItemRequest
 import com.wutsi.checkout.manager.dto.CreateOrderRequest
 import com.wutsi.checkout.manager.dto.CreateOrderResponse
 import com.wutsi.checkout.manager.dto.GetBusinessResponse
+import com.wutsi.checkout.manager.dto.GetOrderResponse
 import com.wutsi.checkout.manager.dto.SearchPaymentProviderRequest
 import com.wutsi.checkout.manager.dto.SearchPaymentProviderResponse
 import com.wutsi.enums.ChannelType
@@ -52,6 +53,9 @@ internal class OrderControllerTest : SeleniumTestSupport() {
             Fixtures.createPictureSummary(4, "https://i.com/4.png")
         )
     )
+
+    private val order = Fixtures.createOrder(id = orderId)
+
     private val mtn = Fixtures.createPaymentProviderSummary(1, "MTN")
     private val orange = Fixtures.createPaymentProviderSummary(2, "Orange")
 
@@ -62,10 +66,14 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(any())
 
         doReturn(GetStoreResponse(store)).whenever(marketplaceManagerApi).getStore(any())
+
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
 
         doReturn(GetBusinessResponse(business)).whenever(checkoutManagerApi).getBusiness(any())
+
         doReturn(CreateOrderResponse(orderId)).whenever(checkoutManagerApi).createOrder(any())
+        doReturn(GetOrderResponse(order)).whenever(checkoutManagerApi).getOrder(orderId)
+
         doReturn(SearchPaymentProviderResponse(listOf(mtn, orange))).whenever(checkoutManagerApi).searchPaymentProvider(
             SearchPaymentProviderRequest(
                 country = business.country
@@ -81,21 +89,18 @@ internal class OrderControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun index() {
-        // WHEN
+    fun `submit order`() {
+        // Goto order page
         navigate(url("order?p=${product.id}&q=3"))
-        Thread.sleep(1000)
-
-        // THEN
         assertCurrentPageIs(Page.ORDER)
 
-        // Header
+        // Enter data
         input("input[name=displayName]", "Ray Sponsible")
         input("input[name=email]", "ray.sponsible@gmail.com")
         input("textarea[name=notes]", "This is a note :-)")
-        click("#btn-submit")
-        Thread.sleep(1000)
 
+        // Submit the data
+        click("#btn-submit")
         verify(checkoutManagerApi).createOrder(
             CreateOrderRequest(
                 deviceType = DeviceType.MOBILE.name,
@@ -112,6 +117,8 @@ internal class OrderControllerTest : SeleniumTestSupport() {
                 )
             )
         )
+
+        // Check payment page
         assertCurrentPageIs(Page.PAYMENT)
     }
 }
