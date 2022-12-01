@@ -87,6 +87,10 @@
 
             if (retries > 5) {
 
+                jQuery('.tx-pending').hide();
+                jQuery('.tx-expired').show();
+                clearTimeout(handle);
+
             } else if (tx.status === 'SUCCESSFUL') {
 
                 jQuery('.tx-pending').hide();
