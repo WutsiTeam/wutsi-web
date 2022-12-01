@@ -97,7 +97,7 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
 
         doReturn(SearchPaymentProviderResponse(listOf(mtn))).whenever(checkoutManagerApi).searchPaymentProvider(
             SearchPaymentProviderRequest(
-                country = business.country,
+                number = phoneNumber,
                 type = mtn.type
             )
         )

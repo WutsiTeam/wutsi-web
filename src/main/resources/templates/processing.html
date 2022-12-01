@@ -30,30 +30,6 @@
                     </div>
                 </div>
 
-                <div class="tx-status tx-success padding-2x text-center" style="display: none">
-                    <h3 class="padding-2x" th:text="#{processing.success.title}">Thank your for your payment!</h3>
-
-                    <i class="fa-regular fa-circle-check"></i>
-
-                    <div class="padding-2x">
-                        <div th:if="${tx.email}" th:utext="#{processing.success.message(${tx.email})}">Message</div>
-                    </div>
-
-                    <a class="btn btn-primary" th:href="${merchant.url}" th:text="#{processing.success.button}">OK</a>
-                </div>
-
-                <div class="tx-status tx-failure padding-2x text-center" style="display: none">
-                    <h3 class="padding-2x" th:text="#{processing.error.title}">Error!</h3>
-
-                    <i class="fa-regular fa-circle-xmark"></i>
-
-                    <div class="padding-2x">
-                        <div th:utext="#{processing.error.message}">Your payment failed.</div>
-                    </div>
-
-                    <a class="btn btn-danger" th:href="${paymentUrl}" th:text="#{processing.error.button}">Try Again</a>
-                </div>
-
                 <div class="tx-status tx-expired padding-2x text-center" style="display: none">
                     <h3 class="padding-2x" th:text="#{processing.expired.title}">Error!</h3>
 
@@ -75,6 +51,7 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     const url = /*[[${transactionUrl}]]*/ '';
+    const transactionId = /*[[${tx.id}]]*/ '';
     const handle = setTimeout(load_transaction, 15 * 1000);
     var retries = 0;
 
@@ -93,15 +70,11 @@
 
             } else if (tx.status === 'SUCCESSFUL') {
 
-                jQuery('.tx-pending').hide();
-                jQuery('.tx-success').show();
-                clearTimeout(handle);
+                window.location.href = '/success?t=' + transactionId;
 
             } else if (tx.status === 'FAILED') {
 
-                jQuery('.tx-pending').hide();
-                jQuery('.tx-failure').show();
-                clearTimeout(handle);
+                window.location.href = '/error?t=' + transactionId;
 
             }
         });

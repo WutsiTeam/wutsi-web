@@ -79,16 +79,16 @@ class PaymentController(
 
     private fun toError(error: Long): String? = when (error) {
         ERROR_TRANSACTION_FAILED -> messages.getMessage(
-            "error.transaction-failed",
+            "error-message.transaction-failed",
             emptyArray(),
             LocaleContextHolder.getLocale()
         )
         ERROR_INVALID_PHONE_NUMBER -> messages.getMessage(
-            "error.no-provider-for-phone-number",
+            "error-message.no-provider-for-phone-number",
             emptyArray(),
             LocaleContextHolder.getLocale()
         )
-        else -> messages.getMessage("error.unexpected", emptyArray(), LocaleContextHolder.getLocale())
+        else -> messages.getMessage("error-message.unexpected", emptyArray(), LocaleContextHolder.getLocale())
     }
 
     @PostMapping("/submit")

@@ -8,10 +8,11 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import java.util.UUID
 
 @Controller
-@RequestMapping("/processing")
-class ProcessingController : AbstractController() {
+@RequestMapping("/error")
+class ErrorController : AbstractController() {
     @GetMapping
     fun index(
         @RequestParam(name = "t") transactionId: String,
@@ -25,16 +26,16 @@ class ProcessingController : AbstractController() {
         model.addAttribute("page", createPage())
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
         model.addAttribute("tx", mapper.toTransactionModel(tx, country))
-        model.addAttribute("transactionUrl", toTransactionUrl(tx))
+        model.addAttribute("paymentUrl", toPaymentUrl(tx))
         return "processing"
     }
 
-    private fun toTransactionUrl(tx: Transaction): String =
-        "/transaction?id=${tx.id}"
+    private fun toPaymentUrl(tx: Transaction): String =
+        "/payment?o=${tx.orderId}&i=" + UUID.randomUUID().toString()
 
     private fun createPage() = PageModel(
-        name = Page.PROCESSING,
-        title = "Processing",
+        name = Page.ERROR,
+        title = "Success",
         assetUrl = assetUrl,
         robots = "noindex"
     )
