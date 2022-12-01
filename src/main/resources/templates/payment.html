@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="alert alert-danger padding" th:if="${error}" th:text="${error}">Error</div>
-              
+
                         <div>Enter your mobile phone number to complete the transaction</div>
                         <input class="w-100" name="phoneNumber" required="true"/>
 
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="border-top padding d-md-block">
+                        <div class="border-top padding text-right">
                             <span th:text="#{payment.total}">Total:</span>
                             <b class="highlight" th:text="${order.totalPrice}">3000</b>
                         </div>

@@ -545,6 +545,20 @@ form button {
     color: darkgray;
 }
 
+.tx-status .fa-solid,
+.tx-status .fa-regular {
+    font-size: 4em;
+}
+
+.tx-success .fa-regular {
+    color: var(--text-color-success);
+}
+
+.tx-failure .fa-regular {
+    color: var(--text-color-error);
+}
+
+
 /* ======================================================================== */
 /*                                                                          */
 /*  SMALL DEVICES                                                           */

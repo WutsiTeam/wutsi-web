@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="component/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="component/layout :: navbar"></div>
+
+<div class="container col-md-12 col-sm-12 content-main margin-top">
+    <div class="border main-content container">
+        <div class="row border-bottom">
+            <div class="col-12">
+                <div th:replace="component/layout :: merchant-profile(${merchant}, false)"></div>
+            </div>
+        </div>
+
+        <div class="row border-bottom">
+            <div class="col-12">
+                <div class="pending tx-status tx-pending padding-2x text-center">
+                    <h3 class="padding-2x" th:text="#{processing.pending.title}">Processing Payment</h3>
+
+                    <i class="fa-solid fa-rotate fa-spin"></i>
+
+                    <div class="padding-2x">
+                        <div th:text="#{processing.pending.message}">Please wait while we are processing your
+                            transaction.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pending tx-status tx-success padding-2x text-center" style="display: none">
+                    <h3 class="padding-2x" th:text="#{processing.success.title}">Thank your for your payment!</h3>
+
+                    <i class="fa-regular fa-circle-check"></i>
+
+                    <div class="padding-2x">
+                        <div th:if="${tx.email}" th:utext="#{processing.success.message(${tx.email})}">Message</div>
+                    </div>
+
+                    <a class="btn btn-primary" th:href="${merchant.url}" th:text="#{processing.success.button}">OK</a>
+                </div>
+
+                <div class="pending tx-status tx-failure padding-2x text-center" style="display: none">
+                    <h3 class="padding-2x" th:text="#{processing.error.title}">Error!</h3>
+
+                    <i class="fa-regular fa-circle-xmark"></i>
+
+                    <div class="padding-2x">
+                        <div th:utext="#{processing.error.message}">Your payment failed.</div>
+                    </div>
+
+                    <a class="btn btn-danger" th:href="${paymentUrl}" th:text="#{processing.error.button}">Try Again</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const url = /*[[${transactionUrl}]]*/ '';
+    const handle = setTimeout(load_transaction, 15 * 1000);
+
+    function load_transaction() {
+        console.log('Loading transaction...');
+        jQuery.getJSON(url, function (tx) {
+            console.log(tx);
+
+            if (tx.status === 'SUCCESSFUL') {
+
+                jQuery('.tx-pending').hide();
+                jQuery('.tx-success').show();
+                clearTimeout(handle);
+
+            } else if (tx.status === 'FAILED') {
+
+                jQuery('.tx-pending').hide();
+                jQuery('.tx-failure').show();
+                clearTimeout(handle);
+
+            }
+        });
+    }
+
+    /*]]>*/
+</script>
+
+</body>
+</html>

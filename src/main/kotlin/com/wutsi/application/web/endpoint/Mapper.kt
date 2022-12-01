@@ -6,9 +6,11 @@ import com.wutsi.application.web.model.OrderModel
 import com.wutsi.application.web.model.PaymentProviderModel
 import com.wutsi.application.web.model.PictureModel
 import com.wutsi.application.web.model.ProductModel
+import com.wutsi.application.web.model.TransactionModel
 import com.wutsi.application.web.util.HandleGenerator
 import com.wutsi.checkout.manager.dto.Order
 import com.wutsi.checkout.manager.dto.PaymentProviderSummary
+import com.wutsi.checkout.manager.dto.Transaction
 import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.ProductSummary
@@ -130,6 +132,14 @@ class Mapper(
             )
         },
         pictures = product.pictures.map { toPictureMapper(it) }
+    )
+
+    fun toTransactionModel(tx: Transaction, country: Country) = TransactionModel(
+        id = tx.id,
+        type = tx.type,
+        status = tx.status,
+        amount = DecimalFormat(country.monetaryFormat).format(tx.amount),
+        email = tx.email
     )
 
     private fun toPictureMapper(picture: PictureSummary) = PictureModel(

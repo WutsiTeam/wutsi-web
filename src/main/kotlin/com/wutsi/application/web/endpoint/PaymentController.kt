@@ -141,8 +141,9 @@ class PaymentController(
     }
 
     fun redirectToError(orderId: String, error: Long, ex: Exception? = null): String {
+        val idempotencyKey = UUID.randomUUID().toString()
         if (error == ERROR_INVALID_PHONE_NUMBER) {
-            return "redirect:/payment?o=$orderId&e=$error"
+            return "redirect:/payment?o=$orderId&e=$error&i=$idempotencyKey"
         } else {
             if (ex is FeignException) {
                 try {
@@ -155,9 +156,9 @@ class PaymentController(
                     // Nothing
                 }
 
-                return "redirect:/payment?o=$orderId&e=$ERROR_UNEXPECTED"
+                return "redirect:/payment?o=$orderId&e=$ERROR_UNEXPECTED&i=$idempotencyKey"
             } else {
-                return "redirect:/payment?o=$orderId&e=$ERROR_UNEXPECTED"
+                return "redirect:/payment?o=$orderId&e=$ERROR_UNEXPECTED&i=$idempotencyKey"
             }
         }
     }
