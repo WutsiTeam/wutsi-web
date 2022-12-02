@@ -8,9 +8,14 @@ import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
 import com.wutsi.checkout.manager.CheckoutManagerApi
 import com.wutsi.checkout.manager.dto.CreateChargeResponse
+import com.wutsi.checkout.manager.dto.CreateOrderResponse
+import com.wutsi.checkout.manager.dto.GetOrderResponse
 import com.wutsi.checkout.manager.dto.GetTransactionResponse
+import com.wutsi.checkout.manager.dto.SearchPaymentProviderResponse
 import com.wutsi.enums.TransactionType
 import com.wutsi.error.ErrorURN
+import com.wutsi.marketplace.manager.MarketplaceManagerApi
+import com.wutsi.marketplace.manager.dto.GetProductResponse
 import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import com.wutsi.platform.payment.core.Status
@@ -28,6 +33,9 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
     private lateinit var membershipManagerApi: MembershipManagerApi
 
     @MockBean
+    private lateinit var marketplaceManagerApi: MarketplaceManagerApi
+
+    @MockBean
     private lateinit var checkoutManagerApi: CheckoutManagerApi
 
     private val transactionId = UUID.randomUUID().toString()
@@ -36,7 +44,7 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
     private val tx = Fixtures.createTransaction(
         transactionId,
         type = TransactionType.CHARGE,
-        status = Status.PENDING,
+        status = Status.PENDING
     )
 
     @BeforeEach
@@ -69,12 +77,32 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
         val ex = createFeignConflictException(ErrorURN.TRANSACTION_FAILED.urn)
         doThrow(ex).whenever(checkoutManagerApi).getTransaction(transactionId, true)
 
+        val product = Fixtures.createProduct(
+            id = 11,
+            storeId = account.storeId!!,
+            accountId = account.id,
+            price = 10000,
+            pictures = listOf(
+                Fixtures.createPictureSummary(4, "https://i.com/4.png")
+            )
+        )
+        doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
+
+        val orderId = UUID.randomUUID().toString()
+        val order = Fixtures.createOrder(id = orderId, businessId = account.businessId!!, accountId = account.id)
+        doReturn(CreateOrderResponse(orderId)).whenever(checkoutManagerApi).createOrder(any())
+        doReturn(GetOrderResponse(order)).whenever(checkoutManagerApi).getOrder(orderId)
+
+        val mtn = Fixtures.createPaymentProviderSummary(1, "MTN")
+        doReturn(SearchPaymentProviderResponse(listOf(mtn))).whenever(checkoutManagerApi).searchPaymentProvider(any())
+
         // Goto order page
         navigate(url("processing?t=$transactionId"))
         Thread.sleep(60000)
 
         // Enter data
-        assertCurrentPageIs(Page.ERROR)
+        assertCurrentPageIs(Page.PAYMENT)
+        assertElementPresent(".error")
     }
 
     protected fun createFeignConflictException(

@@ -8,6 +8,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import java.util.UUID
 
 @Controller
 @RequestMapping("/processing")
@@ -25,6 +26,7 @@ class ProcessingController : AbstractController() {
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
         model.addAttribute("tx", mapper.toTransactionModel(tx, country))
         model.addAttribute("transactionUrl", toTransactionUrl(tx))
+        model.addAttribute("idempotencyKey", UUID.randomUUID().toString())
         return "processing"
     }
 

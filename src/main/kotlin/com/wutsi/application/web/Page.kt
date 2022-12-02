@@ -7,5 +7,4 @@ object Page {
     const val PAYMENT = "page.web.payment"
     const val PROCESSING = "page.web.payment.processing"
     const val SUCCESS = "page.web.success"
-    const val ERROR = "page.web.error"
 }

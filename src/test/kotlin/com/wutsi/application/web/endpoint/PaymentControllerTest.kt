@@ -60,14 +60,13 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
     )
 
     private val order = Fixtures.createOrder(id = orderId, businessId = account.businessId!!, accountId = account.id)
+    private val mtn = Fixtures.createPaymentProviderSummary(1, "MTN")
     private val tx = Fixtures.createTransaction(
         transactionId,
         type = TransactionType.CHARGE,
         status = Status.PENDING,
         orderId = orderId
     )
-
-    private val mtn = Fixtures.createPaymentProviderSummary(1, "MTN")
 
     @BeforeEach
     override fun setUp() {

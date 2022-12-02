@@ -49,6 +49,7 @@
     /*<![CDATA[*/
     const url = /*[[${transactionUrl}]]*/ '';
     const transactionId = /*[[${tx.id}]]*/ '';
+    const idempotencyKey = /*[[${idempotencyKey}]]*/ '';
     var retries = -1;
 
     function load_transaction() {
@@ -68,7 +69,7 @@
 
             } else if (tx.status === 'FAILED') {
 
-                window.location.href = '/error?t=' + transactionId;
+                window.location.href = '/payment?e=1000012L&o=' + tx.orderId + '&code=' + tx.errorCode + '&i=' + idempotencyKey;
 
             } else {
 

@@ -76,20 +76,6 @@ class PaymentController(
         return "payment"
     }
 
-    private fun toError(error: Long): String? = when (error) {
-        ERROR_TRANSACTION_FAILED -> messages.getMessage(
-            "error-message.transaction-failed",
-            emptyArray(),
-            LocaleContextHolder.getLocale()
-        )
-        ERROR_INVALID_PHONE_NUMBER -> messages.getMessage(
-            "error-message.no-provider-for-phone-number",
-            emptyArray(),
-            LocaleContextHolder.getLocale()
-        )
-        else -> messages.getMessage("error-message.unexpected", emptyArray(), LocaleContextHolder.getLocale())
-    }
-
     @PostMapping("/submit")
     fun submit(@ModelAttribute request: ChargeOrderRequest): String {
         logger.add("request_phone_number", request.phoneNumber)
@@ -155,14 +141,14 @@ class PaymentController(
                     // Nothing
                 }
 
-                return "redirect:/payment?o=$orderId&e=$ERROR_UNEXPECTED&i=$idempotencyKey"
+                return "redirect: /payment?o=$orderId&e=$ERROR_UNEXPECTED&i=$idempotencyKey"
             } else {
                 return "redirect:/payment?o=$orderId&e=$ERROR_UNEXPECTED&i=$idempotencyKey"
             }
         }
     }
 
-    fun checkIdempotencyKey(idempotencyKey: String) {
+    private fun checkIdempotencyKey(idempotencyKey: String) {
         try {
             UUID.fromString(idempotencyKey)
         } catch (exception: IllegalArgumentException) {
@@ -176,6 +162,20 @@ class PaymentController(
                 )
             )
         }
+    }
+
+    private fun toError(error: Long): String? = when (error) {
+        ERROR_TRANSACTION_FAILED -> messages.getMessage(
+            "error-message.transaction-failed",
+            emptyArray(),
+            LocaleContextHolder.getLocale()
+        )
+        ERROR_INVALID_PHONE_NUMBER -> messages.getMessage(
+            "error-message.no-provider-for-phone-number",
+            emptyArray(),
+            LocaleContextHolder.getLocale()
+        )
+        else -> messages.getMessage("error-message.unexpected", emptyArray(), LocaleContextHolder.getLocale())
     }
 
     private fun createPage() = PageModel(
