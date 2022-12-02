@@ -250,7 +250,7 @@ object Fixtures {
         net = 10000,
         fees = 500,
         gatewayFees = 250,
-        gatewayType = GatewayType.FLUTTERWAVE.name,
+        gatewayType = GatewayType.FLUTTERWAVE.name
     )
 
     fun createPaymentMethodSummary(

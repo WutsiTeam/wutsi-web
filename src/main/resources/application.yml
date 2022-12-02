@@ -60,9 +60,6 @@ wutsi:
     stream:
       name: ${wutsi.application.name}
       type: local
-      subscriptions:
-        - wutsi-tenant
-        - wutsi-account
 logging:
   level:
     root: INFO
