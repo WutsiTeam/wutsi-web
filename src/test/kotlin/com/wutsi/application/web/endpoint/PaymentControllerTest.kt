@@ -9,6 +9,7 @@ import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
 import com.wutsi.checkout.manager.CheckoutManagerApi
 import com.wutsi.checkout.manager.dto.CreateChargeRequest
+import com.wutsi.checkout.manager.dto.CreateChargeResponse
 import com.wutsi.checkout.manager.dto.CreateOrderResponse
 import com.wutsi.checkout.manager.dto.GetBusinessResponse
 import com.wutsi.checkout.manager.dto.GetOrderResponse
@@ -95,7 +96,7 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
     @Test
     fun `submit payment - PENDING`() {
         // Given
-        doReturn(CreateOrderResponse(transactionId, Status.PENDING.name)).whenever(checkoutManagerApi)
+        doReturn(CreateChargeResponse(transactionId, Status.PENDING.name)).whenever(checkoutManagerApi)
             .createCharge(any())
 
         // Goto order page
