@@ -13,7 +13,6 @@ import com.wutsi.checkout.manager.dto.CreateOrderResponse
 import com.wutsi.checkout.manager.dto.GetBusinessResponse
 import com.wutsi.checkout.manager.dto.GetOrderResponse
 import com.wutsi.checkout.manager.dto.GetTransactionResponse
-import com.wutsi.checkout.manager.dto.SearchPaymentProviderRequest
 import com.wutsi.checkout.manager.dto.SearchPaymentProviderResponse
 import com.wutsi.enums.PaymentMethodType
 import com.wutsi.enums.TransactionType
@@ -72,7 +71,6 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
     )
 
     private val mtn = Fixtures.createPaymentProviderSummary(1, "MTN")
-    private val orange = Fixtures.createPaymentProviderSummary(2, "Orange")
 
     @BeforeEach
     override fun setUp() {
@@ -89,18 +87,7 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
         doReturn(CreateOrderResponse(orderId)).whenever(checkoutManagerApi).createOrder(any())
         doReturn(GetOrderResponse(order)).whenever(checkoutManagerApi).getOrder(orderId)
 
-        doReturn(SearchPaymentProviderResponse(listOf(mtn, orange))).whenever(checkoutManagerApi).searchPaymentProvider(
-            SearchPaymentProviderRequest(
-                country = business.country
-            )
-        )
-
-        doReturn(SearchPaymentProviderResponse(listOf(mtn))).whenever(checkoutManagerApi).searchPaymentProvider(
-            SearchPaymentProviderRequest(
-                number = phoneNumber,
-                type = mtn.type
-            )
-        )
+        doReturn(SearchPaymentProviderResponse(listOf(mtn))).whenever(checkoutManagerApi).searchPaymentProvider(any())
 
         doReturn(GetTransactionResponse(tx)).whenever(checkoutManagerApi).getTransaction(transactionId)
     }
