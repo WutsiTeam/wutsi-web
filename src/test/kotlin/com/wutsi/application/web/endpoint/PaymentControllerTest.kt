@@ -86,6 +86,39 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
     }
 
     @Test
+    fun `submit payment - SUCCESSFUL`() {
+        // Given
+        doReturn(CreateChargeResponse(transactionId, Status.SUCCESSFUL.name)).whenever(checkoutManagerApi)
+            .createCharge(any())
+
+        // Goto order page
+        navigate(url("payment?o=${order.id}&i=$idempotencyKey"))
+        assertCurrentPageIs(Page.PAYMENT)
+
+        // Enter data
+        input("input[name=phoneNumber]", phoneNumber)
+
+        // Submit the data
+        click("#btn-submit")
+        verify(checkoutManagerApi).createCharge(
+            CreateChargeRequest(
+                email = order.customerEmail,
+                paymentMethodType = PaymentMethodType.MOBILE_MONEY.name,
+                paymentProviderId = mtn.id,
+                businessId = order.business.id,
+                orderId = order.id,
+                paymentMethodToken = null,
+                idempotencyKey = idempotencyKey,
+                paymenMethodNumber = phoneNumber,
+                paymentMethodOwnerName = order.customerName
+            )
+        )
+
+        // Check payment page
+        assertCurrentPageIs(Page.SUCCESS)
+    }
+
+    @Test
     fun `submit payment - PENDING`() {
         // Given
         doReturn(CreateChargeResponse(transactionId, Status.PENDING.name)).whenever(checkoutManagerApi)

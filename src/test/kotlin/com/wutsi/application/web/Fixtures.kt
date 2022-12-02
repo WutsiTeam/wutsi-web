@@ -32,6 +32,7 @@ import com.wutsi.platform.payment.core.ErrorCode
 import com.wutsi.platform.payment.core.Status
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
+import java.util.UUID
 
 object Fixtures {
     fun createMemberSummary() = MemberSummary()
@@ -221,9 +222,9 @@ object Fixtures {
     )
 
     fun createTransaction(
-        id: String,
-        type: TransactionType,
-        status: Status,
+        id: String = UUID.randomUUID().toString(),
+        type: TransactionType = TransactionType.CHARGE,
+        status: Status = Status.PENDING,
         orderId: String? = null,
         businessId: Long = 1,
         accountId: Long = 1

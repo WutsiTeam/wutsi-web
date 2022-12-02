@@ -129,7 +129,7 @@ class PaymentController(
             logger.add("status", response.status)
 
             return if (response.status == Status.SUCCESSFUL.name) {
-                "redirect:/confirmation?o=${order.id}&t=${response.transactionId}"
+                "redirect:/success?t=${response.transactionId}"
             } else {
                 "redirect:/processing?t=${response.transactionId}"
             }

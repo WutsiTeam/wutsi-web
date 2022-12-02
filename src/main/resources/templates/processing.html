@@ -32,7 +32,7 @@
 
                 <div class="tx-status tx-expired padding-2x text-center" style="display: none">
                     <h3 class="padding-2x" th:text="#{processing.expired.title}">Error!</h3>
-                    
+
                     <div class="padding-2x">
                         <div th:utext="#{processing.expired.message(${tx.email})}">Your payment failed.</div>
                     </div>
@@ -56,7 +56,6 @@
         console.log(retries + ' - Loading transaction...');
 
         jQuery.getJSON(url, function (tx) {
-            console.log(tx);
 
             if (retries >= 2) {
 
