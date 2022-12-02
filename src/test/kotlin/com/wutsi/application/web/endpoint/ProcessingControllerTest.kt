@@ -6,7 +6,6 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
 import com.wutsi.checkout.manager.CheckoutManagerApi
-import com.wutsi.checkout.manager.dto.CreateOrderResponse
 import com.wutsi.checkout.manager.dto.GetOrderResponse
 import com.wutsi.checkout.manager.dto.GetTransactionResponse
 import com.wutsi.checkout.manager.dto.SearchPaymentProviderResponse
@@ -67,11 +66,13 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
     @Test
     fun `submit payment - TRANSACTION_FAILED`() {
         // Given
+        val orderId = UUID.randomUUID().toString()
         doReturn(
             GetTransactionResponse(
                 Fixtures.createTransaction(
                     status = Status.FAILED,
-                    errorCode = ErrorCode.APPROVAL_REJECTED
+                    errorCode = ErrorCode.APPROVAL_REJECTED,
+                    orderId = orderId
                 )
             )
         )
@@ -88,9 +89,7 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
         )
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
 
-        val orderId = UUID.randomUUID().toString()
         val order = Fixtures.createOrder(id = orderId, businessId = account.businessId!!, accountId = account.id)
-        doReturn(CreateOrderResponse(orderId)).whenever(checkoutManagerApi).createOrder(any())
         doReturn(GetOrderResponse(order)).whenever(checkoutManagerApi).getOrder(orderId)
 
         val mtn = Fixtures.createPaymentProviderSummary(1, "MTN")
