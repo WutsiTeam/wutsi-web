@@ -90,7 +90,7 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
 
         val order = Fixtures.createOrder(id = orderId, businessId = account.businessId!!, accountId = account.id)
-        doReturn(GetOrderResponse(order)).whenever(checkoutManagerApi).getOrder(orderId)
+        doReturn(GetOrderResponse(order)).whenever(checkoutManagerApi).getOrder(any())
 
         val mtn = Fixtures.createPaymentProviderSummary(1, "MTN")
         doReturn(SearchPaymentProviderResponse(listOf(mtn))).whenever(checkoutManagerApi).searchPaymentProvider(any())
