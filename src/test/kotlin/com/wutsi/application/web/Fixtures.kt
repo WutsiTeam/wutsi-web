@@ -1,12 +1,14 @@
 package com.wutsi.application.web
 
 import com.wutsi.checkout.manager.dto.Business
+import com.wutsi.checkout.manager.dto.BusinessSummary
 import com.wutsi.checkout.manager.dto.Discount
 import com.wutsi.checkout.manager.dto.Order
 import com.wutsi.checkout.manager.dto.OrderItem
 import com.wutsi.checkout.manager.dto.PaymentMethodSummary
 import com.wutsi.checkout.manager.dto.PaymentProviderSummary
 import com.wutsi.checkout.manager.dto.Transaction
+import com.wutsi.enums.BusinessStatus
 import com.wutsi.enums.ChannelType
 import com.wutsi.enums.DeviceType
 import com.wutsi.enums.DiscountType
@@ -170,11 +172,12 @@ object Fixtures {
     fun createOrder(
         id: String,
         businessId: Long = -1,
+        accountId: Long = -1,
         totalPrice: Long = 100000L,
-        status: OrderStatus = OrderStatus.UNKNOWN
+        status: OrderStatus = OrderStatus.UNKNOWN,
     ) = Order(
         id = id,
-        businessId = businessId,
+        business = createBusinessSummary(id = businessId, accountId = accountId, currency = "XAF", country = "CM"),
         totalPrice = totalPrice,
         balance = totalPrice,
         status = status.name,
@@ -217,14 +220,21 @@ object Fixtures {
         expires = OffsetDateTime.of(2100, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC)
     )
 
-    fun createTransaction(id: String, type: TransactionType, status: Status, orderId: String? = null) = Transaction(
+    fun createTransaction(
+        id: String,
+        type: TransactionType,
+        status: Status,
+        orderId: String? = null,
+        businessId: Long = 1,
+        accountId: Long = 1
+    ) = Transaction(
         id = id,
         type = type.name,
         orderId = orderId,
         status = status.name,
         description = "This is description",
         currency = "XAF",
-        businessId = 111,
+        business = createBusinessSummary(id = businessId, accountId = accountId, currency = "XAF", country = "CM"),
         email = "ray.sponsble@gmail.com",
         created = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
         updated = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
@@ -261,5 +271,21 @@ object Fixtures {
         id = id,
         code = code,
         type = type.name
+    )
+
+    fun createBusinessSummary(
+        id: Long,
+        accountId: Long,
+        balance: Long = 100000,
+        currency: String = "XAF",
+        country: String = "CM",
+        status: BusinessStatus = BusinessStatus.ACTIVE
+    ) = BusinessSummary(
+        id = id,
+        balance = balance,
+        currency = currency,
+        country = country,
+        status = status.name,
+        accountId = accountId
     )
 }

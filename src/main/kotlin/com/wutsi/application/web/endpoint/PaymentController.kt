@@ -54,12 +54,11 @@ class PaymentController(
         checkIdempotencyKey(idempotencyKey)
 
         val order = checkoutManagerApi.getOrder(orderId).order
-        val business = checkoutManagerApi.getBusiness(order.businessId).business
-        val country = regulationEngine.country(business.country)
-        val merchant = membershipManagerApi.getMember(business.accountId).member
+        val country = regulationEngine.country(order.business.country)
+        val merchant = membershipManagerApi.getMember(order.business.accountId).member
         val paymentProviders = checkoutManagerApi.searchPaymentProvider(
             request = SearchPaymentProviderRequest(
-                country = business.country
+                country = order.business.country
             )
         ).paymentProviders
 

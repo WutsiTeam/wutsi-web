@@ -11,7 +11,6 @@ import com.wutsi.checkout.manager.CheckoutManagerApi
 import com.wutsi.checkout.manager.dto.CreateChargeRequest
 import com.wutsi.checkout.manager.dto.CreateChargeResponse
 import com.wutsi.checkout.manager.dto.CreateOrderResponse
-import com.wutsi.checkout.manager.dto.GetBusinessResponse
 import com.wutsi.checkout.manager.dto.GetOrderResponse
 import com.wutsi.checkout.manager.dto.GetTransactionResponse
 import com.wutsi.checkout.manager.dto.SearchPaymentProviderResponse
@@ -47,8 +46,6 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
     private val phoneNumber = "+237670000010"
     private val idempotencyKey = UUID.randomUUID().toString()
     private val account = Fixtures.createMember(id = 1, business = true, storeId = 11L, businessId = 111L)
-    private val business =
-        Fixtures.createBusiness(id = account.businessId!!, accountId = account.id, country = "CM", currency = "XAF")
     private val product = Fixtures.createProduct(
         id = 11,
         storeId = account.storeId!!,
@@ -62,7 +59,7 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
         )
     )
 
-    private val order = Fixtures.createOrder(id = orderId)
+    private val order = Fixtures.createOrder(id = orderId, businessId = account.businessId!!, accountId = account.id)
     private val tx = Fixtures.createTransaction(
         transactionId,
         type = TransactionType.CHARGE,
@@ -79,8 +76,6 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
         doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(any())
 
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
-
-        doReturn(GetBusinessResponse(business)).whenever(checkoutManagerApi).getBusiness(any())
 
         doReturn(CreateOrderResponse(orderId)).whenever(checkoutManagerApi).createOrder(any())
         doReturn(GetOrderResponse(order)).whenever(checkoutManagerApi).getOrder(orderId)
@@ -110,7 +105,7 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
                 email = order.customerEmail,
                 paymentMethodType = PaymentMethodType.MOBILE_MONEY.name,
                 paymentProviderId = mtn.id,
-                businessId = business.id,
+                businessId = order.business.id,
                 orderId = order.id,
                 paymentMethodToken = null,
                 idempotencyKey = idempotencyKey,

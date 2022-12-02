@@ -10,9 +10,7 @@ import com.wutsi.checkout.manager.CheckoutManagerApi
 import com.wutsi.checkout.manager.dto.CreateOrderItemRequest
 import com.wutsi.checkout.manager.dto.CreateOrderRequest
 import com.wutsi.checkout.manager.dto.CreateOrderResponse
-import com.wutsi.checkout.manager.dto.GetBusinessResponse
 import com.wutsi.checkout.manager.dto.GetOrderResponse
-import com.wutsi.checkout.manager.dto.SearchPaymentProviderRequest
 import com.wutsi.checkout.manager.dto.SearchPaymentProviderResponse
 import com.wutsi.enums.ChannelType
 import com.wutsi.enums.DeviceType
@@ -36,10 +34,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
     private lateinit var checkoutManagerApi: CheckoutManagerApi
 
     private val orderId = UUID.randomUUID().toString()
-    private val phoneNumber = "+237670000010"
     private val account = Fixtures.createMember(id = 1, business = true, storeId = 11L, businessId = 111L)
-    private val business =
-        Fixtures.createBusiness(id = account.businessId!!, accountId = account.id, country = "CM", currency = "XAF")
     private val product = Fixtures.createProduct(
         id = 11,
         storeId = account.storeId!!,
@@ -53,7 +48,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         )
     )
 
-    private val order = Fixtures.createOrder(id = orderId)
+    private val order = Fixtures.createOrder(id = orderId, businessId = account.businessId!!, accountId = account.id)
 
     private val mtn = Fixtures.createPaymentProviderSummary(1, "MTN")
     private val orange = Fixtures.createPaymentProviderSummary(2, "Orange")
@@ -66,23 +61,11 @@ internal class OrderControllerTest : SeleniumTestSupport() {
 
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
 
-        doReturn(GetBusinessResponse(business)).whenever(checkoutManagerApi).getBusiness(any())
-
         doReturn(CreateOrderResponse(orderId)).whenever(checkoutManagerApi).createOrder(any())
         doReturn(GetOrderResponse(order)).whenever(checkoutManagerApi).getOrder(orderId)
 
-        doReturn(SearchPaymentProviderResponse(listOf(mtn, orange))).whenever(checkoutManagerApi).searchPaymentProvider(
-            SearchPaymentProviderRequest(
-                country = business.country
-            )
-        )
-
-        doReturn(SearchPaymentProviderResponse(listOf(mtn))).whenever(checkoutManagerApi).searchPaymentProvider(
-            SearchPaymentProviderRequest(
-                country = business.country,
-                number = phoneNumber
-            )
-        )
+        doReturn(SearchPaymentProviderResponse(listOf(mtn, orange))).whenever(checkoutManagerApi)
+            .searchPaymentProvider(any())
     }
 
     @Test

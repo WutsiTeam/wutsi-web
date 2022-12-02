@@ -40,7 +40,7 @@ class Mapper(
         val fmt = DecimalFormat(country.monetaryFormat)
         return OrderModel(
             id = order.id,
-            businessId = order.businessId,
+            businessId = order.business.id,
             customerEmail = order.customerEmail,
             customerName = order.customerName,
             totalPrice = fmt.format(order.totalPrice),

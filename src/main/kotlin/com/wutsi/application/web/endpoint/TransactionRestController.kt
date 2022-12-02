@@ -12,8 +12,7 @@ class TransactionRestController : AbstractController() {
     @GetMapping
     fun getTransaction(@RequestParam id: String): TransactionModel {
         val tx = checkoutManagerApi.getTransaction(id).transaction
-        val business = checkoutManagerApi.getBusiness(tx.businessId).business
-        val country = regulationEngine.country(business.country)
+        val country = regulationEngine.country(tx.business.country)
         return mapper.toTransactionModel(tx, country)
     }
 }

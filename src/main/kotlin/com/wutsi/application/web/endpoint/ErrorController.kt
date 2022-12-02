@@ -19,9 +19,8 @@ class ErrorController : AbstractController() {
         model: Model
     ): String {
         val tx = checkoutManagerApi.getTransaction(transactionId).transaction
-        val business = checkoutManagerApi.getBusiness(tx.businessId).business
-        val merchant = membershipManagerApi.getMember(business.accountId).member
-        val country = regulationEngine.country(business.country)
+        val merchant = membershipManagerApi.getMember(tx.business.accountId).member
+        val country = regulationEngine.country(tx.business.country)
 
         model.addAttribute("page", createPage())
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
