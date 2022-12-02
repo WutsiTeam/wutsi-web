@@ -2,7 +2,6 @@ package com.wutsi.application.web.endpoint
 
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
@@ -12,19 +11,15 @@ import com.wutsi.checkout.manager.dto.GetOrderResponse
 import com.wutsi.checkout.manager.dto.GetTransactionResponse
 import com.wutsi.checkout.manager.dto.SearchPaymentProviderResponse
 import com.wutsi.enums.TransactionType
-import com.wutsi.error.ErrorURN
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.GetProductResponse
 import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.GetMemberResponse
+import com.wutsi.platform.payment.core.ErrorCode
 import com.wutsi.platform.payment.core.Status
-import feign.FeignException
-import feign.Request
-import feign.RequestTemplate
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.mock.mockito.MockBean
-import java.nio.charset.Charset
 import java.util.UUID
 
 internal class ProcessingControllerTest : SeleniumTestSupport() {
@@ -58,7 +53,7 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
     @Test
     fun `submit payment - SUCCESSFUL`() {
         // Given
-        doReturn(Fixtures.createTransaction(status = Status.SUCCESSFUL))
+        doReturn(GetTransactionResponse(Fixtures.createTransaction(status = Status.SUCCESSFUL)))
             .whenever(checkoutManagerApi).getTransaction(transactionId, true)
 
         // Goto order page
@@ -72,8 +67,15 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
     @Test
     fun `submit payment - TRANSACTION_FAILED`() {
         // Given
-        val ex = createFeignConflictException(ErrorURN.TRANSACTION_FAILED.urn)
-        doThrow(ex).whenever(checkoutManagerApi).getTransaction(transactionId, true)
+        doReturn(
+            GetTransactionResponse(
+                Fixtures.createTransaction(
+                    status = Status.FAILED,
+                    errorCode = ErrorCode.APPROVAL_REJECTED
+                )
+            )
+        )
+            .whenever(checkoutManagerApi).getTransaction(transactionId, true)
 
         val product = Fixtures.createProduct(
             id = 11,
@@ -102,26 +104,4 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(Page.PAYMENT)
         assertElementPresent(".error")
     }
-
-    protected fun createFeignConflictException(
-        errorCode: String
-    ) = FeignException.Conflict(
-        "",
-        Request.create(
-            Request.HttpMethod.POST,
-            "https://www.google.ca",
-            emptyMap(),
-            "".toByteArray(),
-            Charset.defaultCharset(),
-            RequestTemplate()
-        ),
-        """
-            {
-                "error":{
-                    "code": "$errorCode"
-                }
-            }
-        """.trimIndent().toByteArray(),
-        emptyMap()
-    )
 }

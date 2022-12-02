@@ -227,7 +227,8 @@ object Fixtures {
         status: Status = Status.PENDING,
         orderId: String? = null,
         businessId: Long = 1,
-        accountId: Long = 1
+        accountId: Long = 1,
+        errorCode: ErrorCode? = null
     ) = Transaction(
         id = id,
         type = type.name,
@@ -240,7 +241,7 @@ object Fixtures {
         created = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
         updated = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
         amount = 10500,
-        errorCode = ErrorCode.APPROVAL_REJECTED.name,
+        errorCode = errorCode?.name,
         customerId = 1111L,
         paymentMethod = Fixtures.createPaymentMethodSummary(""),
         financialTransactionId = "1111-111",
@@ -249,7 +250,7 @@ object Fixtures {
         net = 10000,
         fees = 500,
         gatewayFees = 250,
-        gatewayType = GatewayType.FLUTTERWAVE.name
+        gatewayType = GatewayType.FLUTTERWAVE.name,
     )
 
     fun createPaymentMethodSummary(
