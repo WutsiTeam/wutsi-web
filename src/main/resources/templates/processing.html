@@ -36,10 +36,10 @@
                     <i class="fa-solid fa-triangle-exclamation"></i>
 
                     <div class="padding-2x">
-                        <div th:utext="#{processing.expired.message}">Your payment failed.</div>
+                        <div th:utext="#{processing.expired.message(${tx.email})}">Your payment failed.</div>
                     </div>
 
-                    <a class="btn btn-danger" th:href="${merchant.url}" th:text="#{processing.expired.button}">Try
+                    <a class="btn btn-primary" th:href="${merchant.url}" th:text="#{processing.expired.button}">Try
                         Again</a>
                 </div>
             </div>
@@ -52,8 +52,7 @@
     /*<![CDATA[*/
     const url = /*[[${transactionUrl}]]*/ '';
     const transactionId = /*[[${tx.id}]]*/ '';
-    const handle = setTimeout(load_transaction, 15 * 1000);
-    var retries = 0;
+    var retries = -1;
 
     function load_transaction() {
         retries++;
@@ -62,11 +61,10 @@
         jQuery.getJSON(url, function (tx) {
             console.log(tx);
 
-            if (retries > 5) {
+            if (retries >= 2) {
 
                 jQuery('.tx-pending').hide();
                 jQuery('.tx-expired').show();
-                clearTimeout(handle);
 
             } else if (tx.status === 'SUCCESSFUL') {
 
@@ -76,9 +74,17 @@
 
                 window.location.href = '/error?t=' + transactionId;
 
+            } else {
+
+                // Reload in 30 secs
+                setTimeout(load_transaction, 30 * 1000);
+
             }
         });
     }
+
+    // Get Status after 10 secs
+    setTimeout(load_transaction, 10 * 1000);
 
     /*]]>*/
 </script>

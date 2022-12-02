@@ -18,7 +18,6 @@ import com.wutsi.enums.ChannelType
 import com.wutsi.enums.DeviceType
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.GetProductResponse
-import com.wutsi.marketplace.manager.dto.GetStoreResponse
 import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import org.junit.jupiter.api.BeforeEach
@@ -39,12 +38,12 @@ internal class OrderControllerTest : SeleniumTestSupport() {
     private val orderId = UUID.randomUUID().toString()
     private val phoneNumber = "+237670000010"
     private val account = Fixtures.createMember(id = 1, business = true, storeId = 11L, businessId = 111L)
-    private val store = Fixtures.createStore(id = account.storeId!!, accountId = account.id)
     private val business =
         Fixtures.createBusiness(id = account.businessId!!, accountId = account.id, country = "CM", currency = "XAF")
     private val product = Fixtures.createProduct(
         id = 11,
-        storeId = account.id,
+        storeId = account.storeId!!,
+        accountId = account.id,
         price = 10000,
         pictures = listOf(
             Fixtures.createPictureSummary(1, "https://i.com/1.png"),
@@ -64,8 +63,6 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         super.setUp()
 
         doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(any())
-
-        doReturn(GetStoreResponse(store)).whenever(marketplaceManagerApi).getStore(any())
 
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
 

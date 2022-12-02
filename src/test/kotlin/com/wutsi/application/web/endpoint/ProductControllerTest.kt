@@ -7,7 +7,6 @@ import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.GetProductResponse
-import com.wutsi.marketplace.manager.dto.GetStoreResponse
 import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import org.junit.jupiter.api.BeforeEach
@@ -22,11 +21,11 @@ internal class ProductControllerTest : SeleniumTestSupport() {
     private lateinit var marketplaceManagerApi: MarketplaceManagerApi
 
     private val account = Fixtures.createMember(id = 1, business = true, storeId = 111L)
-    private val store = Fixtures.createStore(account.storeId!!, account.id)
 
     private val product = Fixtures.createProduct(
         id = 11,
-        storeId = account.id,
+        storeId = account.storeId!!,
+        accountId = account.id,
         pictures = listOf(
             Fixtures.createPictureSummary(1, "https://i.com/1.png"),
             Fixtures.createPictureSummary(2, "https://i.com/2.png"),
@@ -40,8 +39,6 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         super.setUp()
 
         doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(any())
-
-        doReturn(GetStoreResponse(store)).whenever(marketplaceManagerApi).getStore(any())
 
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
     }

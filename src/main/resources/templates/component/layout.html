@@ -186,7 +186,9 @@
 <!-- Profile        -->
 <!-- ############## -->
 <div class="profile padding flex" th:fragment="merchant-profile(member, showBiography)">
-    <img class="margin-right" th:if="${member.pictureUrl}" th:src="${member.pictureUrl}"/>
+    <a th:href="${member.url}">
+        <img class="margin-right" th:if="${member.pictureUrl}" th:src="${member.pictureUrl}"/></a>
+
     <div>
         <h1 th:text="${member.displayName}">Ray Sponsible</h1>
         <div th:if="${member.category}" th:text="${member.category}">Category</div>

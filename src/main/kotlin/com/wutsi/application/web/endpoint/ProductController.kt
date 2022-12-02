@@ -22,8 +22,7 @@ class ProductController(
     @GetMapping("/{id}")
     fun index(@PathVariable id: Long, model: Model): String {
         val product = findProduct(id)
-        val store = marketplaceManagerApi.getStore(product.storeId).store
-        val merchant = findMember(store.accountId)
+        val merchant = findMember(product.store.accountId)
         val country = regulationEngine.country(merchant.country)
 
         val productModel = mapper.toProductModel(product, country)

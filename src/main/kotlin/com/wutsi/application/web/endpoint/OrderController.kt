@@ -29,8 +29,7 @@ class OrderController(
         model: Model
     ): String {
         val product = findProduct(productId)
-        val store = marketplaceManagerApi.getStore(product.storeId).store
-        val merchant = findMember(store.accountId)
+        val merchant = findMember(product.store.accountId)
         val business = checkoutManagerApi.getBusiness(merchant.businessId!!).business
         val country = regulationEngine.country(business.country)
         val productModel = mapper.toProductModel(product, country)

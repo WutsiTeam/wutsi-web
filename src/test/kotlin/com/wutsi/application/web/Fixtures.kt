@@ -18,6 +18,7 @@ import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.ProductSummary
 import com.wutsi.marketplace.manager.dto.Store
+import com.wutsi.marketplace.manager.dto.StoreSummary
 import com.wutsi.membership.manager.dto.Category
 import com.wutsi.membership.manager.dto.CategorySummary
 import com.wutsi.membership.manager.dto.Member
@@ -101,6 +102,7 @@ object Fixtures {
     fun createProduct(
         id: Long = -1,
         storeId: Long = -1,
+        accountId: Long = -1,
         title: String = "Product A",
         quantity: Int = 10,
         price: Long = 20000L,
@@ -110,7 +112,11 @@ object Fixtures {
         published: Boolean = true
     ) = Product(
         id = id,
-        storeId = storeId,
+        store = StoreSummary(
+            id = storeId,
+            accountId = accountId,
+            currency = "XAF"
+        ),
         title = title,
         quantity = quantity,
         price = price,
