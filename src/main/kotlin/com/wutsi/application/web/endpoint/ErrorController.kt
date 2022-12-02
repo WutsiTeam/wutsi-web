@@ -26,7 +26,7 @@ class ErrorController : AbstractController() {
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
         model.addAttribute("tx", mapper.toTransactionModel(tx, country))
         model.addAttribute("paymentUrl", toPaymentUrl(tx))
-        return "processing"
+        return "error"
     }
 
     private fun toPaymentUrl(tx: Transaction): String =

@@ -32,15 +32,12 @@
 
                 <div class="tx-status tx-expired padding-2x text-center" style="display: none">
                     <h3 class="padding-2x" th:text="#{processing.expired.title}">Error!</h3>
-
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-
+                    
                     <div class="padding-2x">
                         <div th:utext="#{processing.expired.message(${tx.email})}">Your payment failed.</div>
                     </div>
 
-                    <a class="btn btn-primary" th:href="${merchant.url}" th:text="#{processing.expired.button}">Try
-                        Again</a>
+                    <a class="btn btn-primary" th:href="${merchant.url}" th:text="#{processing.expired.button}">OK</a>
                 </div>
             </div>
         </div>

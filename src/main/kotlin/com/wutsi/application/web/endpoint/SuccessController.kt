@@ -23,7 +23,7 @@ class SuccessController : AbstractController() {
         model.addAttribute("page", createPage())
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
         model.addAttribute("tx", mapper.toTransactionModel(tx, country))
-        return "processing"
+        return "success"
     }
 
     private fun createPage() = PageModel(
