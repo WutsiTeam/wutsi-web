@@ -12,7 +12,7 @@
     <div class="border main-content container">
         <div class="row border-bottom">
             <div class="col-12">
-                <div th:replace="component/layout :: merchant-profile(${merchant}, false)"></div>
+                <div th:replace="component/layout :: merchant-profile(${merchant}, false, false)"></div>
             </div>
         </div>
         <form action="/payment/submit" method="POST"

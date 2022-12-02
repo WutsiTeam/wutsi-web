@@ -518,6 +518,10 @@ form button {
 }
 
 /* ==== PRODUCT DETAILS ====== */
+.product h1.title {
+    font-size: 1.5em;
+}
+
 .product .price {
     color: var(--highlight-color);
     font-size: 1.2em;
@@ -567,6 +571,14 @@ form button {
 @media only screen
 and (max-width: 576px)
 and (orientation: portrait) {
+    .product-card .img-container {
+        height: 200px;
+    }
+
+    .product-card .img-container img {
+        max-height: 200px;
+    }
+
     .product .carousel-item img {
         max-height: 400px;
     }

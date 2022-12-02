@@ -10,6 +10,7 @@ import com.wutsi.checkout.manager.CheckoutManagerApi
 import com.wutsi.checkout.manager.dto.CreateOrderItemRequest
 import com.wutsi.checkout.manager.dto.CreateOrderRequest
 import com.wutsi.checkout.manager.dto.CreateOrderResponse
+import com.wutsi.checkout.manager.dto.GetBusinessResponse
 import com.wutsi.checkout.manager.dto.GetOrderResponse
 import com.wutsi.checkout.manager.dto.SearchPaymentProviderResponse
 import com.wutsi.enums.ChannelType
@@ -35,6 +36,8 @@ internal class OrderControllerTest : SeleniumTestSupport() {
 
     private val orderId = UUID.randomUUID().toString()
     private val account = Fixtures.createMember(id = 1, business = true, storeId = 11L, businessId = 111L)
+    private val business =
+        Fixtures.createBusiness(id = account.businessId!!, accountId = account.id, country = "CM", currency = "XAF")
     private val product = Fixtures.createProduct(
         id = 11,
         storeId = account.storeId!!,
@@ -60,6 +63,8 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(any())
 
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
+
+        doReturn(GetBusinessResponse(business)).whenever(checkoutManagerApi).getBusiness(any())
 
         doReturn(CreateOrderResponse(orderId)).whenever(checkoutManagerApi).createOrder(any())
         doReturn(GetOrderResponse(order)).whenever(checkoutManagerApi).getOrder(orderId)
