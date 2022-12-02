@@ -7,7 +7,6 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
 import com.wutsi.checkout.manager.CheckoutManagerApi
-import com.wutsi.checkout.manager.dto.CreateChargeResponse
 import com.wutsi.checkout.manager.dto.CreateOrderResponse
 import com.wutsi.checkout.manager.dto.GetOrderResponse
 import com.wutsi.checkout.manager.dto.GetTransactionResponse
@@ -59,8 +58,7 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
     @Test
     fun `submit payment - SUCCESSFUL`() {
         // Given
-        doReturn(CreateChargeResponse(transactionId, Status.PENDING.name))
-            .doReturn(CreateChargeResponse(transactionId, Status.SUCCESSFUL.name))
+        doReturn(Fixtures.createTransaction(status = Status.SUCCESSFUL))
             .whenever(checkoutManagerApi).getTransaction(transactionId, true)
 
         // Goto order page

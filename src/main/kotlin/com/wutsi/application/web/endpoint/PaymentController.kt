@@ -141,7 +141,7 @@ class PaymentController(
                     // Nothing
                 }
 
-                return "redirect: /payment?o=$orderId&e=$ERROR_UNEXPECTED&i=$idempotencyKey"
+                return "redirect:/payment?o=$orderId&e=$ERROR_UNEXPECTED&i=$idempotencyKey"
             } else {
                 return "redirect:/payment?o=$orderId&e=$ERROR_UNEXPECTED&i=$idempotencyKey"
             }
