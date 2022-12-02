@@ -174,7 +174,7 @@ object Fixtures {
         businessId: Long = -1,
         accountId: Long = -1,
         totalPrice: Long = 100000L,
-        status: OrderStatus = OrderStatus.UNKNOWN,
+        status: OrderStatus = OrderStatus.UNKNOWN
     ) = Order(
         id = id,
         business = createBusinessSummary(id = businessId, accountId = accountId, currency = "XAF", country = "CM"),
