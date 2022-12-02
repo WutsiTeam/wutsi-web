@@ -69,7 +69,7 @@
 
             } else if (tx.status === 'FAILED') {
 
-                window.location.href = '/payment?e=1000012L&o=' + tx.orderId + '&code=' + tx.errorCode + '&i=' + idempotencyKey;
+                window.location.href = '/payment?e=1000012&o=' + tx.orderId + '&code=' + tx.errorCode + '&i=' + idempotencyKey;
 
             } else {
 
