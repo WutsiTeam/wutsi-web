@@ -9,7 +9,7 @@
     <meta charset="utf-8"/>
 
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <link rel="apple-touch-icon" th:href="${page.assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'"/>
+    <link rel="apple-touch-icon" th:href="${assetUrl} + '/assets/wutsi/img/logo/logo_96x96.png'"/>
     <meta content="#f8f8f8" name="theme-color">
     <meta content="#f8f8f8" name="apple-mobile-web-app-status-bar"/>
     <meta content="yes" name="apple-mobile-web-app-capable"/>
@@ -46,7 +46,7 @@
 
     <link rel="canonical" th:href="${page.canonicalUrl}" th:if="${page.canonicalUrl}"/>
 
-    <link rel="shortcut icon" th:href="${page.assetUrl} + '/assets/images/favicon/favicon.ico'"/>
+    <link rel="shortcut icon" th:href="${assetUrl} + '/assets/images/favicon/favicon.ico'"/>
 
     <!-- BEGIN: Google Fonts -->
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
@@ -72,7 +72,7 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
     <link as="style" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link as="style" rel="stylesheet" th:href="${page.assetUrl} + '/assets/css/wutsi.css'">
+    <link as="style" rel="stylesheet" th:href="${assetUrl} + '/assets/css/wutsi.css'">
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script crossorigin="anonymous"
@@ -177,7 +177,7 @@
 <!-- ################# -->
 <div th:fragment="navbar">
     <nav class="navbar navbar-expand navbar-light border-bottom fixed-top navbar-site">
-        <img alt="Wutsi" height="50" th:src="${page.assetUrl} + '/assets/images/logo/logo-dark.png'" title="Wutsi"/>
+        <img alt="Wutsi" height="50" th:src="${assetUrl} + '/assets/images/logo/logo-dark.png'" title="Wutsi"/>
     </nav>
     <div class="navbar-margin">&nbsp;</div>
 </div>

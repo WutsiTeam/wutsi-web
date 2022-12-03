@@ -93,7 +93,6 @@ class OrderController(
     private fun createPage() = PageModel(
         name = Page.ORDER,
         title = "Order",
-        assetUrl = assetUrl,
         robots = "noindex"
     )
 }

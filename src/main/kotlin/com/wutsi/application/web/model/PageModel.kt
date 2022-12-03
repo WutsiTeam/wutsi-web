@@ -13,7 +13,6 @@ data class PageModel(
     val robots: String = "all",
     val tags: List<String> = emptyList(),
     val baseUrl: String = "",
-    val assetUrl: String,
     val twitterUserId: String? = null,
     val googleAnalyticsCode: String? = null,
     val facebookAppId: String? = null,

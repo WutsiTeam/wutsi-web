@@ -1,5 +1,8 @@
 package com.wutsi.application.web.endpoint
 
+import feign.FeignException
+import feign.Request
+import feign.RequestTemplate
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.openqa.selenium.By
@@ -9,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.support.ui.Select
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
+import java.nio.charset.Charset
 import java.time.Duration
 import java.time.temporal.ChronoUnit
 import kotlin.test.assertEquals
@@ -154,4 +158,48 @@ abstract class SeleniumTestSupport {
         )
         assertElementNotPresent(".cta-ios")
     }
+
+    protected fun createFeignConflictException(
+        errorCode: String
+    ) = FeignException.Conflict(
+        "",
+        Request.create(
+            Request.HttpMethod.POST,
+            "https://www.google.ca",
+            emptyMap(),
+            "".toByteArray(),
+            Charset.defaultCharset(),
+            RequestTemplate()
+        ),
+        """
+            {
+                "error":{
+                    "code": "$errorCode"
+                }
+            }
+        """.trimIndent().toByteArray(),
+        emptyMap()
+    )
+
+    protected fun createFeignNotFoundException(
+        errorCode: String
+    ) = FeignException.NotFound(
+        "",
+        Request.create(
+            Request.HttpMethod.POST,
+            "https://www.google.ca",
+            emptyMap(),
+            "".toByteArray(),
+            Charset.defaultCharset(),
+            RequestTemplate()
+        ),
+        """
+            {
+                "error":{
+                    "code": "$errorCode"
+                }
+            }
+        """.trimIndent().toByteArray(),
+        emptyMap()
+    )
 }

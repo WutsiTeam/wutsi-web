@@ -29,7 +29,6 @@ class SuccessController : AbstractController() {
     private fun createPage() = PageModel(
         name = Page.SUCCESS,
         title = "Success",
-        assetUrl = assetUrl,
         robots = "noindex"
     )
 }

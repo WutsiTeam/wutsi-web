@@ -2,6 +2,7 @@ package com.wutsi.application.web.endpoint
 
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
@@ -76,7 +77,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
     @Test
     fun `submit order`() {
         // Goto order page
-        navigate(url("order?p=${product.id}&q=3"))
+        navigate(url("order?p=${order.id}&q=3"))
         assertCurrentPageIs(Page.ORDER)
 
         // Enter data
@@ -105,5 +106,14 @@ internal class OrderControllerTest : SeleniumTestSupport() {
 
         // Check payment page
         assertCurrentPageIs(Page.PAYMENT)
+    }
+
+    @Test
+    fun notFound() {
+        val ex = createFeignNotFoundException(errorCode = "xx")
+        doThrow(ex).whenever(checkoutManagerApi).getOrder(any())
+
+        navigate(url("order?p=${order.id}&q=3"))
+        assertCurrentPageIs(Page.ERROR)
     }
 }

@@ -22,13 +22,9 @@ import com.wutsi.marketplace.manager.dto.GetProductResponse
 import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import com.wutsi.platform.payment.core.Status
-import feign.FeignException
-import feign.Request
-import feign.RequestTemplate
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.mock.mockito.MockBean
-import java.nio.charset.Charset
 import java.util.UUID
 
 internal class PaymentControllerTest : SeleniumTestSupport() {
@@ -190,26 +186,4 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(Page.PAYMENT)
         assertElementPresent(".error")
     }
-
-    protected fun createFeignConflictException(
-        errorCode: String
-    ) = FeignException.Conflict(
-        "",
-        Request.create(
-            Request.HttpMethod.POST,
-            "https://www.google.ca",
-            emptyMap(),
-            "".toByteArray(),
-            Charset.defaultCharset(),
-            RequestTemplate()
-        ),
-        """
-            {
-                "error":{
-                    "code": "$errorCode"
-                }
-            }
-        """.trimIndent().toByteArray(),
-        emptyMap()
-    )
 }

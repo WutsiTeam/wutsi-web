@@ -2,6 +2,7 @@ package com.wutsi.application.web.endpoint
 
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
@@ -62,5 +63,14 @@ internal class UserControllerTest : SeleniumTestSupport() {
 
         assertElementPresent("#product-${products[0].id}")
         assertElementPresent("#product-${products[1].id}")
+    }
+
+    @Test
+    fun notFound() {
+        val ex = createFeignNotFoundException(errorCode = "xx")
+        doThrow(ex).whenever(marketplaceManagerApi).getProduct(any())
+
+        navigate(url("u/${account.id}"))
+        assertCurrentPageIs(Page.ERROR)
     }
 }

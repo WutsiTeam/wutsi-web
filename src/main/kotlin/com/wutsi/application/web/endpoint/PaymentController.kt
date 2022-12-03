@@ -197,7 +197,6 @@ class PaymentController(
     private fun createPage() = PageModel(
         name = Page.PAYMENT,
         title = "Order",
-        assetUrl = assetUrl,
         robots = "noindex"
     )
 }

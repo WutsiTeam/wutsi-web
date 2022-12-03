@@ -1,6 +1,7 @@
 package com.wutsi.application.web
 
 object Page {
+    const val ERROR = "page.web.error"
     const val PRODUCT = "page.web.product"
     const val PROFILE = "page.web.profile"
     const val ORDER = "page.web.order"

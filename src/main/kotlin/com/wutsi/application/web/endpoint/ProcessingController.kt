@@ -36,7 +36,6 @@ class ProcessingController : AbstractController() {
     private fun createPage() = PageModel(
         name = Page.PROCESSING,
         title = "Processing",
-        assetUrl = assetUrl,
         robots = "noindex"
     )
 }

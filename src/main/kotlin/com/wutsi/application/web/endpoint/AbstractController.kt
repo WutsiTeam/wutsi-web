@@ -10,12 +10,15 @@ import com.wutsi.membership.manager.dto.Member
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.exception.NotFoundException
 import com.wutsi.regulation.RegulationEngine
+import feign.FeignException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.mobile.device.Device
 import org.springframework.mobile.device.DeviceUtils
+import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ModelAttribute
 import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 abstract class AbstractController {
     @Autowired
@@ -77,5 +80,15 @@ abstract class AbstractController {
             )
         }
         return product
+    }
+
+    @ExceptionHandler(FeignException::class)
+    fun onFeignException(request: HttpServletRequest, response: HttpServletResponse, ex: FeignException) {
+        response.sendError(ex.status(), ex.message)
+    }
+
+    @ExceptionHandler(Throwable::class)
+    fun onFeignException(request: HttpServletRequest, response: HttpServletResponse, ex: Throwable) {
+        response.sendError(500, ex.message)
     }
 }
