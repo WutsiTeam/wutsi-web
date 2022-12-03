@@ -2,7 +2,7 @@ package com.wutsi.application.web.model
 
 data class OrderModel(
     val id: String,
-    val businessId: Long,
+    val business: BusinessModel,
     val customerName: String,
     val customerEmail: String,
     val totalPrice: String,

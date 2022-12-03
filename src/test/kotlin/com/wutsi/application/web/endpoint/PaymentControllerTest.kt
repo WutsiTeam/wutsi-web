@@ -39,7 +39,8 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
 
     private val orderId = UUID.randomUUID().toString()
     private val transactionId = UUID.randomUUID().toString()
-    private val phoneNumber = "+237670000010"
+    private val localPhoneNumber = "670000010"
+    private val phoneNumber = "+237$localPhoneNumber"
     private val idempotencyKey = UUID.randomUUID().toString()
     private val account = Fixtures.createMember(id = 1, business = true, storeId = 11L, businessId = 111L)
     private val product = Fixtures.createProduct(
@@ -91,7 +92,7 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(Page.PAYMENT)
 
         // Enter data
-        input("input[name=phoneNumber]", phoneNumber)
+        input("input[name=localPhoneNumber]", phoneNumber)
 
         // Submit the data
         click("#btn-submit")

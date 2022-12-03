@@ -1,5 +1,6 @@
 package com.wutsi.application.web.endpoint
 
+import com.wutsi.application.web.model.BusinessModel
 import com.wutsi.application.web.model.MemberModel
 import com.wutsi.application.web.model.OrderItemModel
 import com.wutsi.application.web.model.OrderModel
@@ -8,6 +9,8 @@ import com.wutsi.application.web.model.PictureModel
 import com.wutsi.application.web.model.ProductModel
 import com.wutsi.application.web.model.TransactionModel
 import com.wutsi.application.web.util.HandleGenerator
+import com.wutsi.checkout.manager.dto.Business
+import com.wutsi.checkout.manager.dto.BusinessSummary
 import com.wutsi.checkout.manager.dto.Order
 import com.wutsi.checkout.manager.dto.PaymentProviderSummary
 import com.wutsi.checkout.manager.dto.Transaction
@@ -40,7 +43,7 @@ class Mapper(
         val fmt = DecimalFormat(country.monetaryFormat)
         return OrderModel(
             id = order.id,
-            businessId = order.business.id,
+            business = toBusinessModel(order.business),
             customerEmail = order.customerEmail,
             customerName = order.customerName,
             totalPrice = fmt.format(order.totalPrice),
@@ -140,6 +143,18 @@ class Mapper(
         status = tx.status,
         amount = DecimalFormat(country.monetaryFormat).format(tx.amount),
         email = tx.email
+    )
+
+    fun toBusinessModel(business: Business) = BusinessModel(
+        id = business.id,
+        country = business.country,
+        currency = business.currency
+    )
+
+    fun toBusinessModel(business: BusinessSummary) = BusinessModel(
+        id = business.id,
+        country = business.country,
+        currency = business.currency
     )
 
     private fun toPictureMapper(picture: PictureSummary) = PictureModel(

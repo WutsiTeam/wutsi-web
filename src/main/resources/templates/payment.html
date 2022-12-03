@@ -30,7 +30,7 @@
                         <div class="error alert alert-danger padding" th:if="${error}" th:text="${error}">Error</div>
 
                         <div>Enter your mobile phone number to complete the transaction</div>
-                        <input class="w-100" name="phoneNumber" required="true"/>
+                        <input class="w-100" id="phone-number" name="localPhoneNumber" required="true"/>
 
                         <div class="flex margin-bottom">
                             <img height="48" th:alt="${provider.name}" th:each="provider : ${mobileProviders}"
@@ -73,5 +73,18 @@
     </div>
 </div>
 
+<div th:replace="component/layout :: footer"></div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var input = document.querySelector('#phone-number');
+    window.intlTelInput(input, {
+        initialCountry: /*[[${order.business.country}]]*/ '',
+        hiddenInput: "phoneNumber"
+    });
+
+    /*]]>*/
+</script>
 </body>
 </html>

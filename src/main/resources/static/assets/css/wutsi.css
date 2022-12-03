@@ -353,8 +353,6 @@ nav.super-user {
 
 /* ==== FOOTER ==== */
 footer.page-footer {
-    background-color: black;
-    color: white;
     width: 100%;
 }
 
@@ -407,7 +405,8 @@ form textarea {
     margin-bottom: 10px;
 }
 
-form button {
+form button,
+form .iti {
     margin-bottom: 10px;
 }
 
@@ -563,6 +562,19 @@ form button {
     color: var(--text-color-error);
 }
 
+/**
+ * intl-tel-input
+ * See https://github.com/jackocnr/intl-tel-input#demo-and-examples
+ */
+.iti__flag {
+    background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/img/flags.png");
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .iti__flag {
+        background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/img/flags@2x.png");
+    }
+}
 
 /* ======================================================================== */
 /*                                                                          */
