@@ -66,7 +66,7 @@ class PaymentController(
         model.addAttribute("page", createPage())
         model.addAttribute("order", mapper.toOrderModel(order, country))
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
-        model.addAttribute("error", error?.let { toError(it) })
+        model.addAttribute("error", error?.let { toError(it, code) })
         model.addAttribute(
             "mobileProviders",
             paymentProviders
@@ -164,12 +164,28 @@ class PaymentController(
         }
     }
 
-    private fun toError(error: Long): String? = when (error) {
-        ERROR_TRANSACTION_FAILED -> messages.getMessage(
-            "error-message.transaction-failed",
-            emptyArray(),
-            LocaleContextHolder.getLocale()
-        )
+    private fun toError(error: Long, code: String?): String? = when (error) {
+        ERROR_TRANSACTION_FAILED -> {
+            val message1 = messages.getMessage(
+                "error-message.transaction-failed",
+                emptyArray(),
+                LocaleContextHolder.getLocale()
+            )
+            val message2 = if (code == null) {
+                ""
+            } else {
+                try {
+                    messages.getMessage(
+                        "error-message.$code",
+                        emptyArray(),
+                        LocaleContextHolder.getLocale()
+                    )
+                } catch (ex: Exception) {
+                    ""
+                }
+            }
+            "$message1 $message2"
+        }
         ERROR_INVALID_PHONE_NUMBER -> messages.getMessage(
             "error-message.no-provider-for-phone-number",
             emptyArray(),
