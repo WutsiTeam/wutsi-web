@@ -111,7 +111,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
     @Test
     fun notFound() {
         val ex = createFeignNotFoundException(errorCode = "xx")
-        doThrow(ex).whenever(checkoutManagerApi).getOrder(any())
+        doThrow(ex).whenever(checkoutManagerApi).getOrder(orderId)
 
         navigate(url("order?p=${order.id}&q=3"))
         assertCurrentPageIs(Page.ERROR)

@@ -6,6 +6,7 @@ import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
+import com.wutsi.error.ErrorURN
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.GetProductResponse
 import com.wutsi.membership.manager.MembershipManagerApi
@@ -41,7 +42,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
 
         doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(any())
 
-        doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
+        doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(product.id)
     }
 
     @Test
@@ -81,8 +82,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
 
     @Test
     fun notFound() {
-        val ex = createFeignNotFoundException(errorCode = "xx")
-        doThrow(ex).whenever(marketplaceManagerApi).getProduct(any())
+        val ex = createFeignNotFoundException(errorCode = ErrorURN.PRODUCT_NOT_FOUND.urn)
+        doThrow(ex).whenever(marketplaceManagerApi).getProduct(product.id)
 
         navigate(url("p/${product.id}"))
         assertCurrentPageIs(Page.ERROR)

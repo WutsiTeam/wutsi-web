@@ -6,6 +6,7 @@ import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
+import com.wutsi.error.ErrorURN
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.SearchProductResponse
 import com.wutsi.membership.manager.MembershipManagerApi
@@ -31,7 +32,7 @@ internal class UserControllerTest : SeleniumTestSupport() {
     override fun setUp() {
         super.setUp()
 
-        doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(any())
+        doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(account.id)
 
         doReturn(SearchProductResponse(products)).whenever(marketplaceManagerApi).searchProduct(any())
     }
@@ -67,8 +68,8 @@ internal class UserControllerTest : SeleniumTestSupport() {
 
     @Test
     fun notFound() {
-        val ex = createFeignNotFoundException(errorCode = "xx")
-        doThrow(ex).whenever(marketplaceManagerApi).getProduct(any())
+        val ex = createFeignNotFoundException(errorCode = ErrorURN.MEMBER_NOT_FOUND.urn)
+        doThrow(ex).whenever(membershipManagerApi).getMember(account.id)
 
         navigate(url("u/${account.id}"))
         assertCurrentPageIs(Page.ERROR)
