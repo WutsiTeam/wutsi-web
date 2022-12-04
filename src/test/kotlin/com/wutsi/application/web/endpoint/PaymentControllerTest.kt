@@ -125,7 +125,7 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(Page.PAYMENT)
 
         // Enter data
-        input("input[name=phoneNumber]", phoneNumber)
+        input("input[name=localPhoneNumber]", phoneNumber)
 
         // Submit the data
         click("#btn-submit")
@@ -158,7 +158,7 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(Page.PAYMENT)
 
         // Enter data
-        input("input[name=phoneNumber]", phoneNumber)
+        input("input[name=localPhoneNumber]", phoneNumber)
 
         // Submit the data
         click("#btn-submit")
@@ -178,7 +178,7 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(Page.PAYMENT)
 
         // Enter data
-        input("input[name=phoneNumber]", phoneNumber)
+        input("input[name=localPhoneNumber]", phoneNumber)
 
         // Submit the data
         click("#btn-submit")
