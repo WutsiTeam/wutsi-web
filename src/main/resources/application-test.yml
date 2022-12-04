@@ -13,6 +13,4 @@ wutsi:
     security:
       api-key: "${API_KEY}"
     stream:
-      type: rabbitmq
-      rabbitmq:
-        url: ${CLOUDAMQP_URL}
+      type: none

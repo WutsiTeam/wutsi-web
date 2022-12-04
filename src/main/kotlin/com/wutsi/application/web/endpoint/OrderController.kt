@@ -5,7 +5,6 @@ import com.wutsi.application.web.model.PageModel
 import com.wutsi.checkout.manager.dto.CreateOrderItemRequest
 import com.wutsi.enums.ChannelType
 import com.wutsi.enums.DeviceType
-import com.wutsi.platform.core.logging.KVLogger
 import org.springframework.mobile.device.DeviceUtils
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -19,9 +18,7 @@ import java.util.UUID
 
 @Controller
 @RequestMapping("/order")
-class OrderController(
-    private val logger: KVLogger
-) : AbstractController() {
+class OrderController : AbstractController() {
     @GetMapping
     fun index(
         @RequestParam(name = "p") productId: Long,

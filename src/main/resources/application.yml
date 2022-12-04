@@ -58,8 +58,7 @@ wutsi:
       device-id-provider:
         type: cookie
     stream:
-      name: ${wutsi.application.name}
-      type: local
+      type: none
 logging:
   level:
     root: INFO

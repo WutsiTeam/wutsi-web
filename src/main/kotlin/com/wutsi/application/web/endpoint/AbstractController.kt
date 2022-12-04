@@ -9,6 +9,7 @@ import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.Member
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.exception.NotFoundException
+import com.wutsi.platform.core.logging.KVLogger
 import com.wutsi.regulation.RegulationEngine
 import feign.FeignException
 import org.springframework.beans.factory.annotation.Autowired
@@ -44,6 +45,9 @@ abstract class AbstractController {
 
     @Autowired
     protected lateinit var request: HttpServletRequest
+
+    @Autowired
+    protected lateinit var logger: KVLogger
 
     @ModelAttribute("device")
     fun device(): Device = DeviceUtils.getCurrentDevice(request)
@@ -84,11 +88,13 @@ abstract class AbstractController {
 
     @ExceptionHandler(FeignException::class)
     fun onFeignException(request: HttpServletRequest, response: HttpServletResponse, ex: FeignException) {
+        logger.setException(ex)
         response.sendError(ex.status(), ex.message)
     }
 
     @ExceptionHandler(Throwable::class)
     fun onFeignException(request: HttpServletRequest, response: HttpServletResponse, ex: Throwable) {
+        logger.setException(ex)
         response.sendError(500, ex.message)
     }
 }

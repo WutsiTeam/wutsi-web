@@ -1,7 +1,6 @@
 package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.model.TransactionModel
-import com.wutsi.platform.core.logging.KVLogger
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/transaction")
-class TransactionRestController(private val logger: KVLogger) : AbstractController() {
+class TransactionRestController : AbstractController() {
     @GetMapping
     fun getTransaction(@RequestParam id: String): TransactionModel {
         val tx = checkoutManagerApi.getTransaction(id, true).transaction

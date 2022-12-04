@@ -13,7 +13,6 @@ import com.wutsi.platform.core.error.ErrorResponse
 import com.wutsi.platform.core.error.Parameter
 import com.wutsi.platform.core.error.ParameterType
 import com.wutsi.platform.core.error.exception.BadRequestException
-import com.wutsi.platform.core.logging.KVLogger
 import com.wutsi.platform.payment.core.Status
 import feign.FeignException
 import org.slf4j.LoggerFactory
@@ -31,7 +30,6 @@ import java.util.UUID
 @Controller
 @RequestMapping("/payment")
 class PaymentController(
-    private val logger: KVLogger,
     private val objectMapper: ObjectMapper,
     private val messages: MessageSource
 ) : AbstractController() {
