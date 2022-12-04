@@ -44,16 +44,12 @@
 
                 <div class="col-12 col-sm-12 col-md-4 padding">
                     <div class="border">
-                        <div class="flex">
-                            <img th:src="${product.thumbnailUrl}" width="100"/>
-                            <div class="padding">
-                                <span th:text="${product.title}">Product Title</span>
-                                <span th:if="${quantity GT 1}" th:text="' (x' + ${quantity} + ')'">x2</span>
-                            </div>
+                        <div
+                            th:replace="component/layout :: order-item-card(${product.thumbnailUrl}, ${product.title}, ${product.price}, ${quantity})">
                         </div>
-                        <div class="border-top padding text-right">
-                            <span th:text="#{order.total}">Total</span>
-                            <b class="highlight" th:text="${totalPrice}">3000</b>
+                        <div class="order-total-card padding border-top">
+                            <span th:text="#{order.total}">Total</span>:
+                            <span class="highlight" th:text="${totalPrice}">3000</span>
                         </div>
                     </div>
                 </div>

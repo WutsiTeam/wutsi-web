@@ -106,11 +106,13 @@
     <script
         crossorigin="anonymous"
         integrity="sha512-+gShyB8GWoOiXNwOlBaYXdLTiZt10Iy6xjACGadpqMs20aJOoh+PJt3bwUVA6Cefe7yF7vblX6QwyXZiVwTWGg=="
-        referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+        referrerpolicy="no-referrer"
+        src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
     <script
         crossorigin="anonymous"
         integrity="sha512-jEc69+XeOdfDwLui+HpPWl8/8+cxkHcwcznwbVGrmVlECJD+L1yN0PljgF2MPs6+1bTX+gNvo/9C3YJ7n4i9qw=="
-        referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.min.js"></script>
+        referrerpolicy="no-referrer"
+        src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.min.js"></script>
 </footer>
 
 
@@ -219,6 +221,21 @@
         <i class="fa-solid fa-arrow-left"></i>
         <span th:utext="#{product.all_products(${merchant.displayName})}">View all products</span>
     </a>
+</div>
+
+<!-- ################# -->
+<!-- Order Item        -->
+<!-- ################# -->
+<div class="order-item-card" th:fragment="order-item-card(thumbnailUrl, title, price, quantity)">
+    <img th:src="${thumbnailUrl}"/>
+    <div class="padding">
+        <div class="title" th:text="${title}">Product Title</div>
+        <div class="price" th:text="${price}">10,000 FCFA</div>
+        <div th:if="${quantity GT 1}">
+            <span th:text="#{order.quantity}">Quantity</span>:
+            <span th:text="${quantity}">10</span>
+        </div>
+    </div>
 </div>
 
 </body>

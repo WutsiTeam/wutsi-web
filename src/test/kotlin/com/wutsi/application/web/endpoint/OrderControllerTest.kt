@@ -77,7 +77,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
     @Test
     fun `submit order`() {
         // Goto order page
-        navigate(url("order?p=${order.id}&q=3"))
+        navigate(url("order?p=${product.id}&q=3"))
         assertCurrentPageIs(Page.ORDER)
 
         // Enter data
@@ -111,9 +111,9 @@ internal class OrderControllerTest : SeleniumTestSupport() {
     @Test
     fun notFound() {
         val ex = createFeignNotFoundException(errorCode = "xx")
-        doThrow(ex).whenever(checkoutManagerApi).getOrder(orderId)
+        doThrow(ex).whenever(marketplaceManagerApi).getProduct(product.id)
 
-        navigate(url("order?p=${order.id}&q=3"))
+        navigate(url("order?p=${product.id}&q=3"))
         assertCurrentPageIs(Page.ERROR)
     }
 }

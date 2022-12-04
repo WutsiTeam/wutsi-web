@@ -49,18 +49,13 @@
                 <div class="col-12 col-sm-12 col-md-4 padding">
                     <div class="border">
                         <div th:each="item : ${order.items}">
-                            <div class="flex">
-                                <img th:src="${item.pictureUrl}" width="100"/>
-                                <div class="padding">
-                                    <span th:text="${item.title}">Product Title</span>
-                                    <span th:if="${item.quantity GT 1}"
-                                          th:text="' (x' + ${item.quantity} + ')'">x2</span>
-                                </div>
+                            <div
+                                th:replace="component/layout :: order-item-card(${item.pictureUrl}, ${item.title}, ${item.unitPrice}, ${item.quantity})">
                             </div>
                         </div>
                         <div class="border-top padding text-right">
-                            <span th:text="#{payment.total}">Total:</span>
-                            <b class="highlight" th:text="${order.totalPrice}">3000</b>
+                            <span th:text="#{payment.total}">Total</span>:
+                            <span class="highlight" th:text="${order.totalPrice}">3000</span>
                         </div>
                     </div>
                 </div>
