@@ -6,6 +6,7 @@ import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
+import com.wutsi.enums.ProductType
 import com.wutsi.error.ErrorURN
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.SearchProductResponse
@@ -24,8 +25,17 @@ internal class UserControllerTest : SeleniumTestSupport() {
 
     private val account = Fixtures.createMember(id = 1, business = true, storeId = 111L)
     private val products = listOf(
-        Fixtures.createProductSummary(id = 11L, title = "This is a nice product", "http://www.google.ca/1.png"),
-        Fixtures.createProductSummary(id = 22L, title = "Product 2", "http://www.google.ca/2.png")
+        Fixtures.createProductSummary(id = 11L, title = "This is a nice product", "https://www.google.ca/1.png"),
+        Fixtures.createProductSummary(id = 22L, title = "Product 2", "https://www.google.ca/2.png"),
+        Fixtures.createProductSummary(
+            id = 333,
+            title = "Event 3",
+            "https://www.google.ca/2.png",
+            type = ProductType.EVENT,
+            event = Fixtures.createEvent(
+                meetingProvider = Fixtures.createMeetingProviderSummary()
+            )
+        )
     )
 
     @BeforeEach
@@ -64,6 +74,7 @@ internal class UserControllerTest : SeleniumTestSupport() {
 
         assertElementPresent("#product-${products[0].id}")
         assertElementPresent("#product-${products[1].id}")
+        assertElementPresent("#product-${products[2].id}")
     }
 
     @Test
