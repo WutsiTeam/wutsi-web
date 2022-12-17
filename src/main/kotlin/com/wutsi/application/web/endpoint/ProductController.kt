@@ -25,7 +25,7 @@ class ProductController(
         val merchant = findMember(product.store.accountId)
         val country = regulationEngine.country(merchant.country)
 
-        val productModel = mapper.toProductModel(product, country)
+        val productModel = mapper.toProductModel(product, country, merchant)
         model.addAttribute("page", createPage(productModel, product))
         model.addAttribute("product", productModel)
         model.addAttribute("merchant", mapper.toMemberModel(merchant))

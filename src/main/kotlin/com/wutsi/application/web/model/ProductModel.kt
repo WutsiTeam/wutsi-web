@@ -8,7 +8,9 @@ data class ProductModel(
     val quantity: Int?,
     val url: String,
     val available: Boolean,
-    val summary: String? = null,
+    val summary: String?,
+    val type: String,
+    val event: EventModel?,
     val description: String? = null,
-    val pictures: List<PictureModel> = emptyList()
+    val pictures: List<PictureModel> = emptyList(),
 )

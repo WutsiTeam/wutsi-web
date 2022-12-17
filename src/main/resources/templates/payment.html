@@ -4,7 +4,7 @@
     <div th:replace="component/layout :: head"></div>
 </head>
 
-<body class="product">
+<body>
 
 <div th:replace="component/layout :: navbar"></div>
 
@@ -22,10 +22,19 @@
                     <div class="padding">
                         <h1 th:text="#{payment.title}">Payment Information</h1>
 
-                        <div class="customer-infos margin-bottom">
-                            <div><b th:text="${order.customerName}">Ray Sponsible</b></div>
-                            <div th:text="${order.customerEmail}"></div>
-                        </div>
+                        <table class="margin-top margin-bottom">
+                            <tr>
+                                <td class="padding-right" valign="top">
+                                    <b>
+                                        <span th:text="#{payment.to}">To</span>:
+                                    </b>
+                                </td>
+                                <td>
+                                    <div><b th:text="${order.customerName}">Ray Sponsible</b></div>
+                                    <div th:text="${order.customerEmail}"></div>
+                                </td>
+                            </tr>
+                        </table>
 
                         <div class="error alert alert-danger padding" th:if="${error}" th:text="${error}">Error</div>
 

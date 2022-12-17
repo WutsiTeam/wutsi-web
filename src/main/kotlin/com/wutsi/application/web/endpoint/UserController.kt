@@ -28,7 +28,7 @@ class UserController : AbstractController() {
         model.addAttribute(
             "products",
             findProducts(member).map {
-                mapper.toProductModel(it, country)
+                mapper.toProductModel(it, country, member)
             }
         )
 

@@ -29,7 +29,7 @@ class OrderController : AbstractController() {
         val merchant = findMember(product.store.accountId)
         val business = checkoutManagerApi.getBusiness(merchant.businessId!!).business
         val country = regulationEngine.country(business.country)
-        val productModel = mapper.toProductModel(product, country)
+        val productModel = mapper.toProductModel(product, country, merchant)
         val totalPrice = DecimalFormat(country.monetaryFormat).format((product.price ?: 0) * quantity)
 
         model.addAttribute("page", createPage())

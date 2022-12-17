@@ -1,6 +1,7 @@
 package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.model.BusinessModel
+import com.wutsi.application.web.model.EventModel
 import com.wutsi.application.web.model.MemberModel
 import com.wutsi.application.web.model.OrderItemModel
 import com.wutsi.application.web.model.OrderModel
@@ -8,12 +9,15 @@ import com.wutsi.application.web.model.PaymentProviderModel
 import com.wutsi.application.web.model.PictureModel
 import com.wutsi.application.web.model.ProductModel
 import com.wutsi.application.web.model.TransactionModel
+import com.wutsi.application.web.util.DateTimeUtil
 import com.wutsi.application.web.util.HandleGenerator
 import com.wutsi.checkout.manager.dto.Business
 import com.wutsi.checkout.manager.dto.BusinessSummary
 import com.wutsi.checkout.manager.dto.Order
 import com.wutsi.checkout.manager.dto.PaymentProviderSummary
 import com.wutsi.checkout.manager.dto.Transaction
+import com.wutsi.enums.ProductType
+import com.wutsi.marketplace.manager.dto.Event
 import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.ProductSummary
@@ -23,8 +27,10 @@ import com.wutsi.platform.core.image.Focus
 import com.wutsi.platform.core.image.ImageService
 import com.wutsi.platform.core.image.Transformation
 import com.wutsi.regulation.Country
+import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Service
 import java.text.DecimalFormat
+import java.time.format.DateTimeFormatter
 
 @Service
 class Mapper(
@@ -69,7 +75,7 @@ class Mapper(
         id = member.id,
         businessId = member.businessId,
         displayName = member.displayName,
-        biography = member.biography,
+        biography = toString(member.biography),
         category = member.category?.title,
         location = member.city?.longName,
         phoneNumber = member.phoneNumber,
@@ -94,7 +100,7 @@ class Mapper(
         }
     )
 
-    fun toProductModel(product: ProductSummary, country: Country) = ProductModel(
+    fun toProductModel(product: ProductSummary, country: Country, merchant: Member) = ProductModel(
         id = product.id,
         title = product.title,
         price = DecimalFormat(country.monetaryFormat).format(product.price),
@@ -111,15 +117,18 @@ class Mapper(
                     )
                 )
             )
-        }
+        },
+        summary = toString(product.summary),
+        type = product.type,
+        event = if (product.type == ProductType.EVENT.name) toEvent(product.event, country, merchant) else null
     )
 
-    fun toProductModel(product: Product, country: Country) = ProductModel(
+    fun toProductModel(product: Product, country: Country, merchant: Member) = ProductModel(
         id = product.id,
         title = product.title,
         price = DecimalFormat(country.monetaryFormat).format(product.price),
-        summary = product.summary,
-        description = product.description,
+        summary = toString(product.summary),
+        description = toString(product.description),
         available = product.quantity != null && product.quantity!! > 0,
         quantity = product.quantity,
         url = toProductUrl(product.id, product.title),
@@ -134,8 +143,33 @@ class Mapper(
                 )
             )
         },
-        pictures = product.pictures.map { toPictureMapper(it) }
+        pictures = product.pictures.map { toPictureMapper(it) },
+        type = product.type,
+        event = if (product.type == ProductType.EVENT.name) toEvent(product.event, country, merchant) else null
     )
+
+    fun toEvent(event: Event?, country: Country, merchant: Member): EventModel? {
+        if (event == null) {
+            return null
+        }
+
+        val locale = LocaleContextHolder.getLocale()
+        val dateTimeFormat = DateTimeFormatter.ofPattern(country.dateTimeFormat, locale)
+        val dateFormat = DateTimeFormatter.ofPattern(country.dateFormat, locale)
+        val timeFormat = DateTimeFormatter.ofPattern(country.timeFormat, locale)
+        val starts = event.starts?.let { DateTimeUtil.convert(it, merchant.timezoneId) }
+        val ends = event.ends?.let { DateTimeUtil.convert(it, merchant.timezoneId) }
+
+        return EventModel(
+            online = event.online,
+            meetingProviderLogoUrl = event.meetingProvider?.logoUrl,
+            meetingProviderName = event.meetingProvider?.name,
+            startDateTime = event.starts?.format(dateTimeFormat),
+            startDate = starts?.format(dateFormat),
+            startTime = starts?.format(timeFormat),
+            endTime = ends?.format(timeFormat)
+        )
+    }
 
     fun toTransactionModel(tx: Transaction, country: Country) = TransactionModel(
         id = tx.id,
@@ -171,4 +205,10 @@ class Mapper(
 
     private fun toProductUrl(id: Long, title: String): String =
         "/p/$id/" + HandleGenerator.generate(title)
+
+    private fun toString(str: String?): String? =
+        if (str.isNullOrEmpty())
+            null
+        else
+            str
 }
