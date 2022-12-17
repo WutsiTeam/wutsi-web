@@ -131,7 +131,6 @@ internal class ProductControllerTest : SeleniumTestSupport() {
 
         assertElementPresent("#product-delivery")
         assertElementPresent("#product-delivery-event-online")
-        assertElementNotPresent("#product-delivery-event-offline")
 
         assertElementPresent("#button-facebook")
         assertElementPresent("#button-twitter")

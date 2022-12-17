@@ -55,20 +55,6 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-4 padding">
-                    <div class="border">
-                        <div th:each="item : ${order.items}">
-                            <div
-                                th:replace="component/layout :: order-item-card(${item.pictureUrl}, ${item.title}, ${item.unitPrice}, ${item.quantity})">
-                            </div>
-                        </div>
-                        <div class="border-top padding text-right">
-                            <span th:text="#{payment.total}">Total</span>:
-                            <span class="highlight" th:text="${order.totalPrice}">3000</span>
-                        </div>
-                    </div>
-                </div>
-
                 <input name="idempotencyKey" th:value="${idempotencyKey}" type="hidden"/>
                 <input name="businessId" th:value="${merchant.businessId}" type="hidden"/>
                 <input name="orderId" th:value="${order.id}" type="hidden"/>

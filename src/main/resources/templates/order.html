@@ -30,6 +30,9 @@
                         <input class="w-100" maxlength="100" name="email" required="true"
                                th:placeholder="#{order.email}"
                                type="email"/>
+                        <div class="hint" th:if="${product.event.online}" th:text="#{order.email.hint.event-online}">
+                            Email hint online
+                        </div>
 
                         <textarea class="w-100" maxlength="1000" name="notes"
                                   rows="3"
@@ -45,7 +48,7 @@
                 <div class="col-12 col-sm-12 col-md-4 padding">
                     <div class="border">
                         <div
-                            th:replace="component/layout :: order-item-card(${product.thumbnailUrl}, ${product.title}, ${product.price}, ${quantity})">
+                            th:replace="component/layout :: order-item-card(${product}, ${quantity})">
                         </div>
                         <div class="order-total-card padding border-top">
                             <span th:text="#{order.total}">Total</span>:
