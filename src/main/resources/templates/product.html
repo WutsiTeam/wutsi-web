@@ -107,8 +107,17 @@
                 </div>
                 <div class="padding border-top" id="product-delivery" th:if="${product.event}">
                     <h4 th:if="#{product.delivery}">Delivery</h4>
-                    <div id="product-delivery-event-online" th:if="${product.event.online}"
-                         th:text="#{product.delivery-event-online}">Details...
+                    <div id="product-delivery-event-online"
+                         th:if="${product.event.online}"
+                         th:text="#{product.delivery-event-online}"
+                    >
+                        Details...
+                    </div>
+                    <div id="product-delivery-event-offline"
+                         th:if="!${product.event.online}"
+                         th:text="#{product.delivery-event-offline}"
+                    >
+                        Details...
                     </div>
                 </div>
             </div>
