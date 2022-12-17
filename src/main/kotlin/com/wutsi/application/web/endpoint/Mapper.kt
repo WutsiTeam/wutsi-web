@@ -207,8 +207,9 @@ class Mapper(
         "/p/$id/" + HandleGenerator.generate(title)
 
     private fun toString(str: String?): String? =
-        if (str.isNullOrEmpty())
+        if (str.isNullOrEmpty()) {
             null
-        else
+        } else {
             str
+        }
 }

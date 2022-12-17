@@ -5,8 +5,9 @@ import java.time.ZoneId
 
 object DateTimeUtil {
     fun convert(dateTime: OffsetDateTime, timezoneId: String?): OffsetDateTime =
-        if (timezoneId == null)
+        if (timezoneId == null) {
             dateTime
-        else
+        } else {
             dateTime.atZoneSameInstant(ZoneId.of(timezoneId)).toOffsetDateTime()
+        }
 }
