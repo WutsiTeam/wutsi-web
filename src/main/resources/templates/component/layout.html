@@ -230,7 +230,7 @@
     <img th:src="${product.thumbnailUrl}"/>
     <div class="padding">
         <div class="title" th:text="${product.title}">Product Title</div>
-        <div class="event-date" th:if="${product.event.startDate}">
+        <div class="event-date" th:if="${product.event} AND ${product.event.startDate}">
             <i class="fa-solid fa-calendar-days highlight"></i>
             <span th:if="${product.event.startDateTime}" th:text="${product.event.startDateTime}">2020-01-01</span>
         </div>

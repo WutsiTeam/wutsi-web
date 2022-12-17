@@ -164,7 +164,7 @@ class Mapper(
             online = event.online,
             meetingProviderLogoUrl = event.meetingProvider?.logoUrl,
             meetingProviderName = event.meetingProvider?.name,
-            startDateTime = event.starts?.format(dateTimeFormat),
+            startDateTime = starts?.format(dateTimeFormat),
             startDate = starts?.format(dateFormat),
             startTime = starts?.format(timeFormat),
             endTime = ends?.format(timeFormat)

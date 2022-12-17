@@ -30,7 +30,8 @@
                         <input class="w-100" maxlength="100" name="email" required="true"
                                th:placeholder="#{order.email}"
                                type="email"/>
-                        <div class="hint" th:if="${product.event.online}" th:text="#{order.email.hint.event-online}">
+                        <div class="hint" th:if="${product.event} AND ${product.event.online}"
+                             th:text="#{order.email.hint.event-online}">
                             Email hint online
                         </div>
 
