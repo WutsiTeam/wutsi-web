@@ -95,15 +95,14 @@
                             </td>
                         </tr>
                         <tr th:if="${product.event.meetingProviderName}">
-                            <td colspan="2">&nbsp;</td>
-                        </tr>
-                        <tr th:if="${product.event.meetingProviderName}">
-                            <td colspan="2">
-                                <div th:utext="#{product.event-provider(${product.event.meetingProviderName})}">
-                                    Available Zoom
-                                </div>
-                                <img height="32" th:if="${product.event.meetingProviderLogoUrl}"
-                                     th:src="${product.event.meetingProviderLogoUrl}" width="32">
+                            <td>
+                                <img height="24"
+                                     th:if="${product.event.meetingProviderLogoUrl}"
+                                     th:src="${product.event.meetingProviderLogoUrl}" width="24"
+                                />
+                            </td>
+                            <td>
+                                <div th:text="${product.event.meetingProviderName}">Zoom</div>
                             </td>
                         </tr>
                     </table>
