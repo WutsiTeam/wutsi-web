@@ -38,7 +38,7 @@ wutsi:
   application:
     name: wutsi-web
     server-url: http://localhost:${server.port}
-    asset-url: https://int-wutsi.s3.amazonaws.com/static/wutsi-web
+    asset-url: ""
 
   platform:
     cache:

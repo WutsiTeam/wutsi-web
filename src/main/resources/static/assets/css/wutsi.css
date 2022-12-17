@@ -509,6 +509,14 @@ form .iti {
     color: var(--text-color);
 }
 
+.product-card .event-date {
+    color: var(--text-color);
+}
+
+.product-card .event-provider {
+    color: var(--text-color);
+}
+
 .product-card .price {
     color: var(--highlight-color);
 }

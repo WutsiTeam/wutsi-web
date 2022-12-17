@@ -23,6 +23,18 @@
                             <img th:alt="${product.title}" th:src="${product.thumbnailUrl}"/>
                         </div>
                         <h2 class="title" th:text="${product.title}">This is a tile</h2>
+                        <div class="margin-top margin-bottom" th:if="${product.event}">
+                            <div>
+                                <i class="fa-solid fa-calendar-days highlight"></i>
+                                <span class="text-small event-date" th:if="${product.event.startDateTime}"
+                                      th:text="${product.event.startDateTime}">2020-02-01</span>
+                            </div>
+                            <div th:if="${product.event.meetingProviderName}">
+                                <img height="16" th:if="${product.event.meetingProviderLogoUrl}"
+                                     th:src="${product.event.meetingProviderLogoUrl}" width="16"/>
+                                <span class="text-small event-provider" th:text="${product.event.meetingProviderName}">Zoom</span>
+                            </div>
+                        </div>
                         <div class="price" th:text="${product.price}">15000 FCFA</div>
                     </a>
                 </div>
