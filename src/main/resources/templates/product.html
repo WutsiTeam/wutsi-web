@@ -77,21 +77,36 @@
                         <span th:if="${product.event.online}" th:text="#{product.event-online}">Online Event</span>
                         <span th:if="!${product.event.online}" th:text="#{product.event-offline}">Event</span>
                     </h4>
-                    <div th:if="${product.event.startDate}">
-                        <i class="fa-solid fa-calendar-days highlight"></i>
-                        <span th:text="${product.event.startDate}">2020-12-01</span>
-                    </div>
-                    <div th:if="${product.event.startTime}">
-                        <i class="fa-solid fa-clock highlight"></i>
-                        <span th:text="${product.event.startTime}">12:30</span>
-                        <span th:if="${product.event.endTime}">-</span>
-                        <span th:if="${product.event.endTime}" th:text="${product.event.endTime}">13:30</span>
-                    </div>
-                    <div class="margin-top" th:if="${product.event.meetingProviderName}">
-                        <img height="32" th:if="${product.event.meetingProviderLogoUrl}"
-                             th:src="${product.event.meetingProviderLogoUrl}" width="32">
-                        <span th:utext="#{product.event-provider(${product.event.meetingProviderName})}">Available on Zoom</span>
-                    </div>
+                    <table class="event-info">
+                        <tr th:if="${product.event.startDate}">
+                            <td>
+                                <i class="fa-solid fa-calendar-days highlight"></i>
+                            </td>
+                            <td class="padding-left" th:text="${product.event.startDate}">2020-12-01</td>
+                        </tr>
+                        <tr th:if="${product.event.startTime}">
+                            <td>
+                                <i class="fa-solid fa-clock highlight"></i>
+                            </td>
+                            <td class="padding-left">
+                                <span th:text="${product.event.startTime}">12:30</span>
+                                <span th:if="${product.event.endTime}">-</span>
+                                <span th:if="${product.event.endTime}" th:text="${product.event.endTime}">13:30</span>
+                            </td>
+                        </tr>
+                        <tr th:if="${product.event.meetingProviderName}">
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr th:if="${product.event.meetingProviderName}">
+                            <td colspan="2">
+                                <div th:utext="#{product.event-provider(${product.event.meetingProviderName})}">
+                                    Available Zoom
+                                </div>
+                                <img height="32" th:if="${product.event.meetingProviderLogoUrl}"
+                                     th:src="${product.event.meetingProviderLogoUrl}" width="32">
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="padding border-top" th:if="${product.event}">
                     <h4 th:if="#{product.delivery}">Delivery</h4>

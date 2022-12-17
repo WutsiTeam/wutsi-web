@@ -549,6 +549,10 @@ form .iti {
     color: var(--text-color-error);
 }
 
+.product td .fa-solid {
+    float: right;
+}
+
 .customer-infos {
     color: darkgray;
 }
@@ -565,6 +569,7 @@ form .iti {
 .tx-failure .fa-regular {
     color: var(--text-color-error);
 }
+
 
 /**
  * intl-tel-input
