@@ -162,7 +162,6 @@ object Fixtures {
         logoUrl = "https://prod-wutsi.s3.amazonaws.com/static/marketplace-access-server/meeting-providers/zoom.png"
     )
 
-
     fun createPictureSummary(
         id: Long = -1,
         url: String = "http://www.google.com/1.png"
