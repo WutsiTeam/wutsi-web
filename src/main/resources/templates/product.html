@@ -27,14 +27,15 @@
                             <img class="d-block w-100" th:src="${picture.url}">
                         </div>
                     </div>
+                    
                     <!-- Controls -->
                     <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#picture-carousel"
-                            type="button">
+                            th:if="${product.pictures.size()} GT 1" type="button">
                         <span aria-hidden="true" class="carousel-control-prev-icon"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
                     <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#picture-carousel"
-                            type="button">
+                            th:if="${product.pictures.size()} GT 1" type="button">
                         <span aria-hidden="true" class="carousel-control-next-icon"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
@@ -55,13 +56,25 @@
                         <span th:text="#{product.out-of-stock}">In Stock</span>
                     </div>
                 </div>
-                <div class="padding" th:if="${quantities}">
+                <div class="padding">
                     <form action="/order" method="GET">
                         <input name="p" th:value="${product.id}" type="hidden"/>
-                        <select class="margin-bottom w-100" name="q">
+
+                        <input name="q" th:if="!${quantities}" type="hidden" value="1"/>
+                        <select class="margin-bottom w-100" name="q" th:if="${quantities}">
                             <option th:each="value : ${quantities}" th:text="${value}" th:value="${value}">1</option>
                         </select>
-                        <button class="btn btn-lg btn-primary w-100" type="submit">Buy Now</button>
+
+                        <button class="btn btn-lg btn-primary w-100" th:if="${product.type} == 'EVENT'"
+                                th:text="#{product.button.register}"
+                                type="submit">
+                            Register Now
+                        </button>
+                        <button class="btn btn-lg btn-primary w-100" th:if="${product.type} != 'EVENT'"
+                                th:text="#{product.button.buy}"
+                                type="submit">
+                            Buy Now
+                        </button>
                     </form>
                 </div>
                 <div th:if="${device.isMobile()}">

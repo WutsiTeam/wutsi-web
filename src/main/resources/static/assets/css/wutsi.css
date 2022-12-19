@@ -410,6 +410,10 @@ form .iti {
     margin-bottom: 1em;
 }
 
+form button:last-child {
+    margin-bottom: 0em;
+}
+
 form .hint {
     color: var(--text-color-gray);
     font-size: 0.9em;
@@ -556,10 +560,6 @@ form .hint {
 .product .unavailable,
 .product .unavailable .fa-solid {
     color: var(--text-color-error);
-}
-
-.product td .fa-solid {
-    float: right;
 }
 
 .customer-infos {

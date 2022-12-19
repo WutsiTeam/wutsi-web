@@ -3,6 +3,7 @@ package com.wutsi.application.web.endpoint
 import com.wutsi.application.web.Page
 import com.wutsi.application.web.model.PageModel
 import com.wutsi.application.web.model.ProductModel
+import com.wutsi.enums.ProductType
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.platform.core.image.Dimension
 import com.wutsi.platform.core.image.ImageService
@@ -30,7 +31,9 @@ class ProductController(
         model.addAttribute("product", productModel)
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
 
-        if (product.quantity != null && product.quantity!! > 0) {
+        if ((product.type == ProductType.EVENT.name) && (product.event?.online == true)) {
+            // Online event, you cannot more buy than 1
+        } else if (product.quantity == null || product.quantity!! > 1) {
             val quantities = 1..min(10, (product.quantity ?: Integer.MAX_VALUE))
             model.addAttribute("quantities", quantities)
         }
