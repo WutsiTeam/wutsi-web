@@ -24,5 +24,5 @@ data class PageModel(
     val schemas: String? = null,
     val showNotificationOptIn: Boolean = false,
     val rssUrl: String? = null,
-    val preloadImageUrls: List<String> = emptyList()
+    val preloadImageUrls: List<String> = emptyList(),
 )

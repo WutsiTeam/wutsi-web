@@ -7,5 +7,5 @@ data class EventModel(
     val meetingProviderName: String?,
     val startDate: String?,
     val startTime: String?,
-    val endTime: String?
+    val endTime: String?,
 )

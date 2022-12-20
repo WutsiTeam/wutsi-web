@@ -29,7 +29,7 @@ class UserController : AbstractController() {
             "products",
             findProducts(member).map {
                 mapper.toProductModel(it, country, member)
-            }
+            },
         )
 
         return "user"
@@ -41,7 +41,7 @@ class UserController : AbstractController() {
         description = member.biography,
         url = "$serverUrl/${member.url}",
         imageUrl = null,
-        canonicalUrl = "$serverUrl/u/${member.id}"
+        canonicalUrl = "$serverUrl/u/${member.id}",
     )
 
     private fun findProducts(member: Member): List<ProductSummary> {
@@ -54,8 +54,8 @@ class UserController : AbstractController() {
                 storeId = member.storeId,
                 limit = regulationEngine.maxProducts(),
                 sortBy = ProductSort.RECOMMENDED.name,
-                status = ProductStatus.PUBLISHED.name
-            )
+                status = ProductStatus.PUBLISHED.name,
+            ),
         ).products
     }
 }

@@ -18,7 +18,7 @@ import kotlin.math.min
 @Controller
 @RequestMapping("/p")
 class ProductController(
-    private val imageService: ImageService
+    private val imageService: ImageService,
 ) : AbstractController() {
     @GetMapping("/{id}")
     fun index(@PathVariable id: Long, model: Model): String {
@@ -31,7 +31,7 @@ class ProductController(
         model.addAttribute("product", productModel)
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
 
-        if ((product.type == ProductType.EVENT.name) && (product.event?.online == true)) {
+        if (cannotOrderMultipleItems(product)) {
             // Online event, you cannot more buy than 1
         } else if (product.quantity == null || product.quantity!! > 1) {
             val quantities = 1..min(10, (product.quantity ?: Integer.MAX_VALUE))
@@ -43,6 +43,10 @@ class ProductController(
     @GetMapping("/{id}/{title}")
     fun index2(@PathVariable id: Long, @PathVariable title: String, model: Model): String =
         index(id, model)
+
+    private fun cannotOrderMultipleItems(product: Product): Boolean =
+        (product.type == ProductType.EVENT.name) && (product.event?.online == true) ||
+            (product.type == ProductType.DIGITAL_DOWNLOAD.name)
 
     private fun createPage(product: ProductModel, original: Product) = PageModel(
         name = Page.PRODUCT,
@@ -56,10 +60,10 @@ class ProductController(
                 transformation = Transformation(
                     dimension = Dimension(
                         600,
-                        315
-                    ) // See https://developers.facebook.com/docs/sharing/webmasters/images/
-                )
+                        315,
+                    ), // See https://developers.facebook.com/docs/sharing/webmasters/images/
+                ),
             )
-        }
+        },
     )
 }

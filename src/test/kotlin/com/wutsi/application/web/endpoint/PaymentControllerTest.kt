@@ -52,8 +52,8 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
             Fixtures.createPictureSummary(1, "https://i.com/1.png"),
             Fixtures.createPictureSummary(2, "https://i.com/2.png"),
             Fixtures.createPictureSummary(3, "https://i.com/3.png"),
-            Fixtures.createPictureSummary(4, "https://i.com/4.png")
-        )
+            Fixtures.createPictureSummary(4, "https://i.com/4.png"),
+        ),
     )
 
     private val order = Fixtures.createOrder(id = orderId, businessId = account.businessId!!, accountId = account.id)
@@ -62,7 +62,7 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
         transactionId,
         type = TransactionType.CHARGE,
         status = Status.PENDING,
-        orderId = orderId
+        orderId = orderId,
     )
 
     @BeforeEach
@@ -106,8 +106,8 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
                 paymentMethodToken = null,
                 idempotencyKey = idempotencyKey,
                 paymenMethodNumber = phoneNumber,
-                paymentMethodOwnerName = order.customerName
-            )
+                paymentMethodOwnerName = order.customerName,
+            ),
         )
 
         // Check payment page
@@ -139,8 +139,8 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
                 paymentMethodToken = null,
                 idempotencyKey = idempotencyKey,
                 paymenMethodNumber = phoneNumber,
-                paymentMethodOwnerName = order.customerName
-            )
+                paymentMethodOwnerName = order.customerName,
+            ),
         )
 
         // Check payment page

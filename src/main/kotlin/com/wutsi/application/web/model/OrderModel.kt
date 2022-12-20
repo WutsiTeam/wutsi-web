@@ -7,5 +7,5 @@ data class OrderModel(
     val customerEmail: String,
     val totalPrice: String,
     val totalDiscount: String,
-    val items: List<OrderItemModel>
+    val items: List<OrderItemModel>,
 )

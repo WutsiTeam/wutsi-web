@@ -34,7 +34,7 @@ import java.time.format.DateTimeFormatter
 
 @Service
 class Mapper(
-    private val imageService: ImageService
+    private val imageService: ImageService,
 ) {
     companion object {
         const val PROFILE_PICTURE_WIDTH = 64
@@ -60,15 +60,15 @@ class Mapper(
                     title = it.title,
                     pictureUrl = it.pictureUrl,
                     quantity = it.quantity,
-                    unitPrice = fmt.format(it.unitPrice)
+                    unitPrice = fmt.format(it.unitPrice),
                 )
-            }
+            },
         )
     }
 
     fun toPaymentProviderModel(provider: PaymentProviderSummary) = PaymentProviderModel(
         logoUrl = provider.logoUrl,
-        name = provider.name
+        name = provider.name,
     )
 
     fun toMemberModel(member: Member) = MemberModel(
@@ -93,11 +93,11 @@ class Mapper(
                     focus = Focus.FACE,
                     dimension = Dimension(
                         width = PROFILE_PICTURE_WIDTH,
-                        height = PROFILE_PICTURE_HEIGHT
-                    )
-                )
+                        height = PROFILE_PICTURE_HEIGHT,
+                    ),
+                ),
             )
-        }
+        },
     )
 
     fun toProductModel(product: ProductSummary, country: Country, merchant: Member) = ProductModel(
@@ -113,14 +113,14 @@ class Mapper(
                 transformation = Transformation(
                     dimension = Dimension(
                         height = PRODUCT_THUMBNAIL_HEIGHT,
-                        width = PRODUCT_THUMBNAIL_WIDTH
-                    )
-                )
+                        width = PRODUCT_THUMBNAIL_WIDTH,
+                    ),
+                ),
             )
         },
         summary = toString(product.summary),
         type = product.type,
-        event = if (product.type == ProductType.EVENT.name) toEvent(product.event, country, merchant) else null
+        event = if (product.type == ProductType.EVENT.name) toEvent(product.event, country, merchant) else null,
     )
 
     fun toProductModel(product: Product, country: Country, merchant: Member) = ProductModel(
@@ -138,14 +138,14 @@ class Mapper(
                 transformation = Transformation(
                     dimension = Dimension(
                         height = PRODUCT_PICTURE_WIDTH,
-                        width = PRODUCT_PICTURE_HEIGHT
-                    )
-                )
+                        width = PRODUCT_PICTURE_HEIGHT,
+                    ),
+                ),
             )
         },
         pictures = product.pictures.map { toPictureMapper(it) },
         type = product.type,
-        event = if (product.type == ProductType.EVENT.name) toEvent(product.event, country, merchant) else null
+        event = if (product.type == ProductType.EVENT.name) toEvent(product.event, country, merchant) else null,
     )
 
     fun toEvent(event: Event?, country: Country, merchant: Member): EventModel? {
@@ -167,7 +167,7 @@ class Mapper(
             startDateTime = starts?.format(dateTimeFormat),
             startDate = starts?.format(dateFormat),
             startTime = starts?.format(timeFormat),
-            endTime = ends?.format(timeFormat)
+            endTime = ends?.format(timeFormat),
         )
     }
 
@@ -176,19 +176,19 @@ class Mapper(
         type = tx.type,
         status = tx.status,
         amount = DecimalFormat(country.monetaryFormat).format(tx.amount),
-        email = tx.email
+        email = tx.email,
     )
 
     fun toBusinessModel(business: Business) = BusinessModel(
         id = business.id,
         country = business.country,
-        currency = business.currency
+        currency = business.currency,
     )
 
     fun toBusinessModel(business: BusinessSummary) = BusinessModel(
         id = business.id,
         country = business.country,
-        currency = business.currency
+        currency = business.currency,
     )
 
     private fun toPictureMapper(picture: PictureSummary) = PictureModel(
@@ -197,10 +197,10 @@ class Mapper(
             transformation = Transformation(
                 dimension = Dimension(
                     height = PRODUCT_PICTURE_WIDTH,
-                    width = PRODUCT_PICTURE_HEIGHT
-                )
-            )
-        )
+                    width = PRODUCT_PICTURE_HEIGHT,
+                ),
+            ),
+        ),
     )
 
     private fun toProductUrl(id: Long, title: String): String =

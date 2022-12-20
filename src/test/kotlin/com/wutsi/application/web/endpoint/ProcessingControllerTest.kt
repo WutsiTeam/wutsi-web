@@ -37,7 +37,7 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
     private val tx = Fixtures.createTransaction(
         transactionId,
         type = TransactionType.CHARGE,
-        status = Status.PENDING
+        status = Status.PENDING,
     )
 
     @BeforeEach
@@ -72,9 +72,9 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
                 Fixtures.createTransaction(
                     status = Status.FAILED,
                     errorCode = ErrorCode.APPROVAL_REJECTED,
-                    orderId = orderId
-                )
-            )
+                    orderId = orderId,
+                ),
+            ),
         )
             .whenever(checkoutManagerApi).getTransaction(transactionId, true)
 
@@ -84,8 +84,8 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
             accountId = account.id,
             price = 10000,
             pictures = listOf(
-                Fixtures.createPictureSummary(4, "https://i.com/4.png")
-            )
+                Fixtures.createPictureSummary(4, "https://i.com/4.png"),
+            ),
         )
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
 

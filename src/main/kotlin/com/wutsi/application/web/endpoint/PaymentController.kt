@@ -31,7 +31,7 @@ import java.util.UUID
 @RequestMapping("/payment")
 class PaymentController(
     private val objectMapper: ObjectMapper,
-    private val messages: MessageSource
+    private val messages: MessageSource,
 ) : AbstractController() {
     companion object {
         const val ERROR_UNEXPECTED = 1000010L
@@ -47,7 +47,7 @@ class PaymentController(
         @RequestParam(name = "i") idempotencyKey: String,
         @RequestParam(name = "e", required = false) error: Long? = null,
         @RequestParam(name = "code", required = false) code: String? = null,
-        model: Model
+        model: Model,
     ): String {
         checkIdempotencyKey(idempotencyKey)
 
@@ -56,8 +56,8 @@ class PaymentController(
         val merchant = membershipManagerApi.getMember(order.business.accountId).member
         val paymentProviders = checkoutManagerApi.searchPaymentProvider(
             request = SearchPaymentProviderRequest(
-                country = order.business.country
-            )
+                country = order.business.country,
+            ),
         ).paymentProviders
 
         model.addAttribute("idempotencyKey", idempotencyKey)
@@ -69,7 +69,7 @@ class PaymentController(
             "mobileProviders",
             paymentProviders
                 .filter { it.type == PaymentMethodType.MOBILE_MONEY.name }
-                .map { mapper.toPaymentProviderModel(it) }
+                .map { mapper.toPaymentProviderModel(it) },
         )
         return "payment"
     }
@@ -86,8 +86,8 @@ class PaymentController(
         val providers = checkoutManagerApi.searchPaymentProvider(
             request = SearchPaymentProviderRequest(
                 number = request.phoneNumber,
-                type = request.paymentMethodType.name
-            )
+                type = request.paymentMethodType.name,
+            ),
         ).paymentProviders
         logger.add("payment_providers", providers.map { it.code })
         if (providers.size != 1) {
@@ -106,8 +106,8 @@ class PaymentController(
                     businessId = request.businessId,
                     orderId = request.orderId,
                     paymentProviderId = providers[0].id,
-                    idempotencyKey = request.idempotencyKey
-                )
+                    idempotencyKey = request.idempotencyKey,
+                ),
             )
             logger.add("transaction_id", response.transactionId)
             logger.add("status", response.status)
@@ -155,9 +155,9 @@ class PaymentController(
                     code = ErrorURN.IDEMPOTENCY_KEY_NOT_VALID.urn,
                     parameter = Parameter(
                         value = idempotencyKey,
-                        type = ParameterType.PARAMETER_TYPE_QUERY
-                    )
-                )
+                        type = ParameterType.PARAMETER_TYPE_QUERY,
+                    ),
+                ),
             )
         }
     }
@@ -167,7 +167,7 @@ class PaymentController(
             val message1 = messages.getMessage(
                 "error-message.transaction-failed",
                 emptyArray(),
-                LocaleContextHolder.getLocale()
+                LocaleContextHolder.getLocale(),
             )
             val message2 = if (code == null) {
                 ""
@@ -176,7 +176,7 @@ class PaymentController(
                     messages.getMessage(
                         "error-message.$code",
                         emptyArray(),
-                        LocaleContextHolder.getLocale()
+                        LocaleContextHolder.getLocale(),
                     )
                 } catch (ex: Exception) {
                     ""
@@ -187,7 +187,7 @@ class PaymentController(
         ERROR_INVALID_PHONE_NUMBER -> messages.getMessage(
             "error-message.no-provider-for-phone-number",
             emptyArray(),
-            LocaleContextHolder.getLocale()
+            LocaleContextHolder.getLocale(),
         )
         else -> messages.getMessage("error-message.unexpected", emptyArray(), LocaleContextHolder.getLocale())
     }
@@ -195,6 +195,6 @@ class PaymentController(
     private fun createPage() = PageModel(
         name = Page.PAYMENT,
         title = "Order",
-        robots = "noindex"
+        robots = "noindex",
     )
 }

@@ -60,15 +60,15 @@ abstract class AbstractController {
         if (!member.active) { // Must be active
             throw NotFoundException(
                 error = Error(
-                    code = ErrorURN.MEMBER_NOT_ACTIVE.urn
-                )
+                    code = ErrorURN.MEMBER_NOT_ACTIVE.urn,
+                ),
             )
         }
         if (!member.business) { // Must be a business account
             throw NotFoundException(
                 error = Error(
-                    code = ErrorURN.MEMBER_NOT_BUSINESS.urn
-                )
+                    code = ErrorURN.MEMBER_NOT_BUSINESS.urn,
+                ),
             )
         }
         return member
@@ -79,8 +79,8 @@ abstract class AbstractController {
         if (product.status != ProductStatus.PUBLISHED.name) {
             throw NotFoundException(
                 error = Error(
-                    code = ErrorURN.PRODUCT_NOT_PUBLISHED.urn
-                )
+                    code = ErrorURN.PRODUCT_NOT_PUBLISHED.urn,
+                ),
             )
         }
         return product

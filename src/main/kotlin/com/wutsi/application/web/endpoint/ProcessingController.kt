@@ -16,7 +16,7 @@ class ProcessingController : AbstractController() {
     @GetMapping
     fun index(
         @RequestParam(name = "t") transactionId: String,
-        model: Model
+        model: Model,
     ): String {
         val tx = checkoutManagerApi.getTransaction(transactionId).transaction
         val merchant = membershipManagerApi.getMember(tx.business.accountId).member
@@ -36,6 +36,6 @@ class ProcessingController : AbstractController() {
     private fun createPage() = PageModel(
         name = Page.PROCESSING,
         title = "Processing",
-        robots = "noindex"
+        robots = "noindex",
     )
 }

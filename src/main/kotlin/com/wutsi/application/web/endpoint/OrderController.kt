@@ -23,7 +23,7 @@ class OrderController : AbstractController() {
     fun index(
         @RequestParam(name = "p") productId: Long,
         @RequestParam(name = "q") quantity: Int,
-        model: Model
+        model: Model,
     ): String {
         val product = findProduct(productId)
         val merchant = findMember(product.store.accountId)
@@ -61,10 +61,10 @@ class OrderController : AbstractController() {
                 items = listOf(
                     CreateOrderItemRequest(
                         productId = request.productId,
-                        quantity = request.quantity
-                    )
-                )
-            )
+                        quantity = request.quantity,
+                    ),
+                ),
+            ),
         ).orderId
         val idempotencyKey = UUID.randomUUID().toString()
         logger.add("order_id", orderId)
@@ -90,6 +90,6 @@ class OrderController : AbstractController() {
     private fun createPage() = PageModel(
         name = Page.ORDER,
         title = "Order",
-        robots = "noindex"
+        robots = "noindex",
     )
 }

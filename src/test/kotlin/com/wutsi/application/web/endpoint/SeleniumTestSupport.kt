@@ -45,8 +45,8 @@ abstract class SeleniumTestSupport {
         options.setExperimentalOption(
             "mobileEmulation",
             mapOf(
-                "deviceName" to "Nexus 5"
-            )
+                "deviceName" to "Nexus 5",
+            ),
         )
 
         return options
@@ -154,13 +154,13 @@ abstract class SeleniumTestSupport {
         assertElementAttribute(
             ".cta-android",
             "href",
-            "https://play.google.com/store/apps/details?id=com.wutsi.wutsi_wallet"
+            "https://play.google.com/store/apps/details?id=com.wutsi.wutsi_wallet",
         )
         assertElementNotPresent(".cta-ios")
     }
 
     protected fun createFeignConflictException(
-        errorCode: String
+        errorCode: String,
     ) = FeignException.Conflict(
         "",
         Request.create(
@@ -169,7 +169,7 @@ abstract class SeleniumTestSupport {
             emptyMap(),
             "".toByteArray(),
             Charset.defaultCharset(),
-            RequestTemplate()
+            RequestTemplate(),
         ),
         """
             {
@@ -178,11 +178,11 @@ abstract class SeleniumTestSupport {
                 }
             }
         """.trimIndent().toByteArray(),
-        emptyMap()
+        emptyMap(),
     )
 
     protected fun createFeignNotFoundException(
-        errorCode: String
+        errorCode: String,
     ) = FeignException.NotFound(
         "",
         Request.create(
@@ -191,7 +191,7 @@ abstract class SeleniumTestSupport {
             emptyMap(),
             "".toByteArray(),
             Charset.defaultCharset(),
-            RequestTemplate()
+            RequestTemplate(),
         ),
         """
             {
@@ -200,6 +200,6 @@ abstract class SeleniumTestSupport {
                 }
             }
         """.trimIndent().toByteArray(),
-        emptyMap()
+        emptyMap(),
     )
 }

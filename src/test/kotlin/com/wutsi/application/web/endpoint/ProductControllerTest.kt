@@ -43,8 +43,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 Fixtures.createPictureSummary(1, "https://i.com/1.png"),
                 Fixtures.createPictureSummary(2, "https://i.com/2.png"),
                 Fixtures.createPictureSummary(3, "https://i.com/3.png"),
-                Fixtures.createPictureSummary(4, "https://i.com/4.png")
-            )
+                Fixtures.createPictureSummary(4, "https://i.com/4.png"),
+            ),
         )
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(product.id)
 
@@ -60,12 +60,12 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementAttribute(
             "head meta[property='og:image']",
             "content",
-            product.thumbnail?.url
+            product.thumbnail?.url,
         )
         assertElementAttributeContains(
             "head meta[property='og:url']",
             "content",
-            "/p/${product.id}"
+            "/p/${product.id}",
         )
 
         assertElementCount("#picture-carousel .carousel-item", product.pictures.size)
@@ -92,13 +92,13 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 Fixtures.createPictureSummary(1, "https://i.com/1.png"),
                 Fixtures.createPictureSummary(2, "https://i.com/2.png"),
                 Fixtures.createPictureSummary(3, "https://i.com/3.png"),
-                Fixtures.createPictureSummary(4, "https://i.com/4.png")
+                Fixtures.createPictureSummary(4, "https://i.com/4.png"),
             ),
             type = ProductType.EVENT,
             event = Fixtures.createEvent(
                 online = true,
-                meetingProvider = Fixtures.createMeetingProviderSummary()
-            )
+                meetingProvider = Fixtures.createMeetingProviderSummary(),
+            ),
         )
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(product.id)
 
@@ -114,12 +114,12 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementAttribute(
             "head meta[property='og:image']",
             "content",
-            product.thumbnail?.url
+            product.thumbnail?.url,
         )
         assertElementAttributeContains(
             "head meta[property='og:url']",
             "content",
-            "/p/${product.id}"
+            "/p/${product.id}",
         )
 
         assertElementCount("#picture-carousel .carousel-item", product.pictures.size)

@@ -48,8 +48,8 @@ internal class OrderControllerTest : SeleniumTestSupport() {
             Fixtures.createPictureSummary(1, "https://i.com/1.png"),
             Fixtures.createPictureSummary(2, "https://i.com/2.png"),
             Fixtures.createPictureSummary(3, "https://i.com/3.png"),
-            Fixtures.createPictureSummary(4, "https://i.com/4.png")
-        )
+            Fixtures.createPictureSummary(4, "https://i.com/4.png"),
+        ),
     )
 
     private val order = Fixtures.createOrder(id = orderId, businessId = account.businessId!!, accountId = account.id)
@@ -98,10 +98,10 @@ internal class OrderControllerTest : SeleniumTestSupport() {
                 items = listOf(
                     CreateOrderItemRequest(
                         productId = product.id,
-                        quantity = 3
-                    )
-                )
-            )
+                        quantity = 3,
+                    ),
+                ),
+            ),
         )
 
         // Check payment page

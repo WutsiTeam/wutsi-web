@@ -7,5 +7,5 @@ data class ChargeOrderRequest(
     val phoneNumber: String = "",
     val businessId: Long = -1,
     val idempotencyKey: String = "",
-    val paymentMethodType: PaymentMethodType = PaymentMethodType.MOBILE_MONEY
+    val paymentMethodType: PaymentMethodType = PaymentMethodType.MOBILE_MONEY,
 )

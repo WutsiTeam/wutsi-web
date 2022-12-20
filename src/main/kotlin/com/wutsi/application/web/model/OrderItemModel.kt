@@ -5,5 +5,5 @@ data class OrderItemModel(
     val title: String,
     val pictureUrl: String?,
     val quantity: Int,
-    val unitPrice: String
+    val unitPrice: String,
 )

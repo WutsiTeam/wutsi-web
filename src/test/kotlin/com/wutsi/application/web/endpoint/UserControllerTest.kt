@@ -33,9 +33,9 @@ internal class UserControllerTest : SeleniumTestSupport() {
             "https://www.google.ca/2.png",
             type = ProductType.EVENT,
             event = Fixtures.createEvent(
-                meetingProvider = Fixtures.createMeetingProviderSummary()
-            )
-        )
+                meetingProvider = Fixtures.createMeetingProviderSummary(),
+            ),
+        ),
     )
 
     @BeforeEach
@@ -59,12 +59,12 @@ internal class UserControllerTest : SeleniumTestSupport() {
         assertElementAttribute("head meta[property='og:title']", "content", account.displayName)
         assertElementAttribute("head meta[property='og:description']", "content", account.biography)
         assertElementNotPresent(
-            "head meta[property='og:image']"
+            "head meta[property='og:image']",
         )
         assertElementAttributeEndsWith(
             "head meta[property='og:url']",
             "content",
-            "/u/${account.id}"
+            "/u/${account.id}",
         )
 
         assertElementPresent("#button-facebook")

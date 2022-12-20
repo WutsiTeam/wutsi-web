@@ -6,5 +6,5 @@ data class CreateOrderRequest(
     val email: String = "",
     val displayName: String = "",
     val notes: String = "",
-    val businessId: Long
+    val businessId: Long,
 )

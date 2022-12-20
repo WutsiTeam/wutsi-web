@@ -33,6 +33,6 @@ class WutsiErrorController : ErrorController, AbstractController() {
     private fun createPage() = PageModel(
         name = Page.ERROR,
         title = "Error",
-        robots = "noindex"
+        robots = "noindex",
     )
 }
