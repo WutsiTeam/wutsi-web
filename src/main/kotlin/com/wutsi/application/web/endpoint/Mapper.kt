@@ -2,6 +2,7 @@ package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.model.BusinessModel
 import com.wutsi.application.web.model.EventModel
+import com.wutsi.application.web.model.FileType
 import com.wutsi.application.web.model.MemberModel
 import com.wutsi.application.web.model.OrderItemModel
 import com.wutsi.application.web.model.OrderModel
@@ -123,6 +124,15 @@ class Mapper(
         event = if (product.type == ProductType.EVENT.name) toEvent(product.event, country, merchant) else null,
     )
 
+    private fun toExtension(name: String): String? {
+        val i = name.lastIndexOf(".")
+        return if (i > 0) {
+            name.substring(i + 1).uppercase()
+        } else {
+            null
+        }
+    }
+
     fun toProductModel(product: Product, country: Country, merchant: Member) = ProductModel(
         id = product.id,
         title = product.title,
@@ -146,6 +156,14 @@ class Mapper(
         pictures = product.pictures.map { toPictureMapper(it) },
         type = product.type,
         event = if (product.type == ProductType.EVENT.name) toEvent(product.event, country, merchant) else null,
+        fileTypes = product.files.groupBy { toExtension(it.name) }
+            .filter { it.key != null }
+            .map {
+                FileType(
+                    type = it.key!!.uppercase(),
+                    count = it.value.size,
+                )
+            },
     )
 
     fun toEvent(event: Event?, country: Country, merchant: Member): EventModel? {

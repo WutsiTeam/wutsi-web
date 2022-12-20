@@ -13,4 +13,5 @@ data class ProductModel(
     val event: EventModel?,
     val description: String? = null,
     val pictures: List<PictureModel> = emptyList(),
+    val fileTypes: List<FileType> = emptyList(),
 )

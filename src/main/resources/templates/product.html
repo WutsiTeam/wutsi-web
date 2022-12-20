@@ -27,7 +27,7 @@
                             <img class="d-block w-100" th:src="${picture.url}">
                         </div>
                     </div>
-                    
+
                     <!-- Controls -->
                     <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#picture-carousel"
                             th:if="${product.pictures.size()} GT 1" type="button">
@@ -84,7 +84,9 @@
                     This is the summary
                 </div>
 
-                <!-- Online event -->
+                <!-- ========================= -->
+                <!-- EVENT                     -->
+                <!-- ========================= -->
                 <div class="padding border-top" th:if="${product.event}">
                     <h4>
                         <span th:if="${product.event.online}" th:text="#{product.event-online}">Online Event</span>
@@ -122,7 +124,7 @@
                     </table>
                 </div>
                 <div class="padding border-top" id="product-delivery" th:if="${product.event}">
-                    <h4 th:if="#{product.delivery}">Delivery</h4>
+                    <h4 th:if="#{product.delivery-instant-download}">Delivery</h4>
                     <div id="product-delivery-event-online"
                          th:if="${product.event.online}"
                          th:text="#{product.delivery-event-online}"
@@ -133,6 +135,29 @@
                          th:if="!${product.event.online}"
                          th:text="#{product.delivery-event-offline}"
                     >
+                        Details...
+                    </div>
+                </div>
+
+                <!-- ========================= -->
+                <!-- DIGITAL DOWNLOAD          -->
+                <!-- ========================= -->
+                <div class="padding" id="digital-download-info"
+                     th:if="${product.type} == 'DIGITAL_DOWNLOAD'">
+                    <ul>
+                        <li>
+                            <i class="fa-solid fa-cloud-arrow-down highlight"></i>
+                            <span th:text="#{product.type.DIGITAL_DOWNLOAD}">Digital Download</span>
+                        </li>
+                        <li th:each="fileType : ${product.fileTypes}">
+                            <span th:text="${fileType.count}">2</span>
+                            <span th:text="${fileType.type}">PDF</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="padding border-top" id="product-delivery" th:if="${product.type} == 'DIGITAL_DOWNLOAD'">
+                    <h4 th:text="#{product.delivery-instant-download}">Delivery</h4>
+                    <div id="product-delivery-digital-download" th:text="#{product.delivery-digital-download}">
                         Details...
                     </div>
                 </div>
