@@ -38,7 +38,7 @@
     <wutsi-errors.version>1.0.13</wutsi-errors.version>
     <wutsi-regulation.version>1.0.12</wutsi-regulation.version>
     <wutsi-checkout-manager.version>1.0.21</wutsi-checkout-manager.version>
-    <wutsi-marketplace-manager.version>1.0.14</wutsi-marketplace-manager.version>
+    <wutsi-marketplace-manager.version>1.0.15</wutsi-marketplace-manager.version>
     <wutsi-membership-manager.version>1.0.25</wutsi-membership-manager.version>
   </properties>
 
