@@ -101,7 +101,6 @@ object Fixtures {
         price: Long = 15000,
         type: ProductType = ProductType.PHYSICAL_PRODUCT,
         event: Event? = null,
-        files: List<FileSummary> = emptyList()
     ) = ProductSummary(
         id = id,
         title = title,
@@ -138,7 +137,7 @@ object Fixtures {
         published: Boolean = true,
         type: ProductType = ProductType.PHYSICAL_PRODUCT,
         event: Event? = null,
-        files: List<FileSummary> = emptyList()
+        files: List<FileSummary> = emptyList(),
     ) = Product(
         id = id,
         store = StoreSummary(

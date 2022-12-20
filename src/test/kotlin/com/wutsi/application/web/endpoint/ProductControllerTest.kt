@@ -138,7 +138,6 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementPresent("#button-youtube")
     }
 
-
     @Test
     fun digitalDownload() {
         // Given
@@ -156,8 +155,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
             files = listOf(
                 Fixtures.createFileSummary(1),
                 Fixtures.createFileSummary(2),
-                Fixtures.createFileSummary(3, "foo.pdf")
-            )
+                Fixtures.createFileSummary(3, "foo.pdf"),
+            ),
         )
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(product.id)
 
