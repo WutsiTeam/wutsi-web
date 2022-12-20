@@ -1,6 +1,6 @@
 wutsi:
   application:
-    asset-url: https://int-wutsi.s3.amazonaws.com/static/wutsi-web
+    asset-url: https://int-wutsi.s3.amazonaws.com/static/wutsi-assets
     server-url: https://wutsi-web-test.herokuapp.com
   platform:
     cache:
