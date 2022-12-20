@@ -28,13 +28,19 @@ internal class UserControllerTest : SeleniumTestSupport() {
         Fixtures.createProductSummary(id = 11L, title = "This is a nice product", "https://www.google.ca/1.png"),
         Fixtures.createProductSummary(id = 22L, title = "Product 2", "https://www.google.ca/2.png"),
         Fixtures.createProductSummary(
-            id = 333,
+            id = 33L,
             title = "Event 3",
-            "https://www.google.ca/2.png",
+            thumbnailUrl = "https://www.google.ca/2.png",
             type = ProductType.EVENT,
             event = Fixtures.createEvent(
                 meetingProvider = Fixtures.createMeetingProviderSummary(),
             ),
+        ),
+        Fixtures.createProductSummary(
+            id = 44L,
+            title = "Weekly Planner",
+            thumbnailUrl = "https://www.google.ca/4.png",
+            type = ProductType.DIGITAL_DOWNLOAD,
         ),
     )
 
