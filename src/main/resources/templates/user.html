@@ -22,10 +22,10 @@
                         <div class="img-container margin-bottom" th:if="${product.thumbnailUrl}">
                             <img th:alt="${product.title}" th:src="${product.thumbnailUrl}"/>
                         </div>
-                        <h2 class="title" th:text="${product.title}">This is a tile</h2>
+                        <h2 class="title margin-bottom" th:text="${product.title}">This is a tile</h2>
 
                         <!-- Event -->
-                        <div class="margin-top margin-bottom" th:if="${product.event}">
+                        <div class=" margin-bottom" th:if="${product.event}">
                             <div th:if="${product.event.startDateTime}">
                                 <i class="fa-solid fa-calendar-days highlight"></i>
                                 <span class="text-small event-date"
@@ -39,7 +39,7 @@
                         </div>
 
                         <!-- Digital download -->
-                        <div class="margin-top margin-bottom" th:if="${product.type} == 'DIGITAL_DOWNLOAD'">
+                        <div class="margin-bottom" th:if="${product.type} == 'DIGITAL_DOWNLOAD'">
                             <i class="fa-solid fa-cloud-arrow-down highlight"></i>
                             <span class="text-small" th:text="#{product.type.DIGITAL_DOWNLOAD}">Digital Download</span>
                         </div>
