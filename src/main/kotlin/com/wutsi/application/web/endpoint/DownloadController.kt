@@ -8,18 +8,16 @@ import com.wutsi.platform.core.storage.StorageService
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.net.URL
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Controller
-@RequestMapping("/download")
 class DownloadController(
     private val storageService: StorageService,
 ) : AbstractController() {
-    @GetMapping
+    @GetMapping("/download")
     fun index(
         @RequestParam(name = "o") orderId: String,
         @RequestParam(name = "p") productId: Long,
@@ -47,9 +45,9 @@ class DownloadController(
             )
 
         // Download
-        storageService.get(URL(file.url), response.outputStream)
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=${file.name}")
         response.setHeader(HttpHeaders.CONTENT_TYPE, file.contentType)
         response.setContentLength(file.contentSize)
+        storageService.get(URL(file.url), response.outputStream)
     }
 }
