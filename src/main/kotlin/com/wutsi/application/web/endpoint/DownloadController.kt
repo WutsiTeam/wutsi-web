@@ -47,21 +47,9 @@ class DownloadController(
             )
 
         // Download
-        try {
-            storageService.get(URL(file.url), response.outputStream)
-
-            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=${file.name}")
-            response.setHeader(HttpHeaders.CONTENT_TYPE, file.contentType)
-            response.setContentLength(file.contentSize)
-        } catch (e: Exception) {
-            throw NotFoundException(
-                error = Error(
-                    code = ErrorURN.PRODUCT_FILE_NOT_FOUND.urn,
-                    data = mapOf(
-                        "file-url" to file.url,
-                    ),
-                ),
-            )
-        }
+        storageService.get(URL(file.url), response.outputStream)
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=${file.name}")
+        response.setHeader(HttpHeaders.CONTENT_TYPE, file.contentType)
+        response.setContentLength(file.contentSize)
     }
 }
