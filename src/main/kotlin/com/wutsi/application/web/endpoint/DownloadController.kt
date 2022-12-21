@@ -47,10 +47,10 @@ class DownloadController(
             )
 
         // Download
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, file.name)
-        response.setContentLength(file.contentSize)
         try {
             storageService.get(URL(file.url), response.outputStream)
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, file.name)
+            response.setContentLength(file.contentSize)
         } catch (e: Exception) {
             throw NotFoundException(
                 error = Error(
