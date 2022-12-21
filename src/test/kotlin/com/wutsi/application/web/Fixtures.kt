@@ -116,11 +116,12 @@ object Fixtures {
         name: String = "$id.png",
         url: String = "https://www.img.com/$id.png",
         contentSize: Int = 12000,
+        contentType: String = "image/png",
     ) = FileSummary(
         id = id,
         url = url,
         name = name,
-        contentType = "image/png",
+        contentType = contentType,
         contentSize = contentSize,
         created = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
     )

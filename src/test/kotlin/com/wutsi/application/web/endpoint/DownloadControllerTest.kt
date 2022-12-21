@@ -47,6 +47,7 @@ internal class DownloadControllerTest {
                     id = 1,
                     name = "Logo.png",
                     contentSize = 10,
+                    contentType = "image/png",
                     url = "https://www.google.ca/f/logo.png",
                 ),
             ),
@@ -75,7 +76,11 @@ internal class DownloadControllerTest {
         try {
             assertEquals(200, cnn.responseCode)
             assertEquals(product.files[0].contentSize, cnn.contentLength)
-            assertEquals(product.files[0].name, cnn.headerFields[HttpHeaders.CONTENT_DISPOSITION]?.get(0))
+            assertEquals(product.files[0].contentType, cnn.contentType)
+            assertEquals(
+                "attachment; filename=" + product.files[0].name,
+                cnn.headerFields[HttpHeaders.CONTENT_DISPOSITION]?.get(0),
+            )
         } finally {
             cnn.disconnect()
         }
