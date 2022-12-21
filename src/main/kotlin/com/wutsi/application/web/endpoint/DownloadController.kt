@@ -49,6 +49,17 @@ class DownloadController(
         // Download
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, file.name)
         response.setContentLength(file.contentSize)
-        storageService.get(URL(file.url), response.outputStream)
+        try {
+            storageService.get(URL(file.url), response.outputStream)
+        } catch (e: Exception) {
+            throw NotFoundException(
+                error = Error(
+                    code = ErrorURN.PRODUCT_FILE_NOT_FOUND.urn,
+                    data = mapOf(
+                        "file-url" to file.url
+                    )
+                ),
+            )
+        }
     }
 }
