@@ -56,8 +56,8 @@ class DownloadController(
                 error = Error(
                     code = ErrorURN.PRODUCT_FILE_NOT_FOUND.urn,
                     data = mapOf(
-                        "file-url" to file.url
-                    )
+                        "file-url" to file.url,
+                    ),
                 ),
             )
         }
