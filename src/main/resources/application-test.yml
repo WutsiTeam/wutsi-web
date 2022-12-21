@@ -14,3 +14,7 @@ wutsi:
       api-key: "${API_KEY}"
     stream:
       type: none
+    storage:
+      type: aws
+      aws:
+        bucket: int-wutsi

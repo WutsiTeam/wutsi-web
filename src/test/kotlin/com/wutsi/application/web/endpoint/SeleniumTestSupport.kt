@@ -1,5 +1,8 @@
 package com.wutsi.application.web.endpoint
 
+import com.wutsi.checkout.manager.CheckoutManagerApi
+import com.wutsi.marketplace.manager.MarketplaceManagerApi
+import com.wutsi.membership.manager.MembershipManagerApi
 import feign.FeignException
 import feign.Request
 import feign.RequestTemplate
@@ -11,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.support.ui.Select
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.boot.test.web.server.LocalServerPort
 import java.nio.charset.Charset
 import java.time.Duration
@@ -30,6 +34,15 @@ abstract class SeleniumTestSupport {
     protected var timeout = 2L
 
     protected lateinit var driver: WebDriver
+
+    @MockBean
+    protected lateinit var membershipManagerApi: MembershipManagerApi
+
+    @MockBean
+    protected lateinit var marketplaceManagerApi: MarketplaceManagerApi
+
+    @MockBean
+    protected lateinit var checkoutManagerApi: CheckoutManagerApi
 
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()

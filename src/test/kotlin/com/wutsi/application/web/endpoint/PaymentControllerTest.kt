@@ -7,7 +7,6 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
-import com.wutsi.checkout.manager.CheckoutManagerApi
 import com.wutsi.checkout.manager.dto.CreateChargeRequest
 import com.wutsi.checkout.manager.dto.CreateChargeResponse
 import com.wutsi.checkout.manager.dto.CreateOrderResponse
@@ -17,26 +16,14 @@ import com.wutsi.checkout.manager.dto.SearchPaymentProviderResponse
 import com.wutsi.enums.PaymentMethodType
 import com.wutsi.enums.TransactionType
 import com.wutsi.error.ErrorURN
-import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.GetProductResponse
-import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import com.wutsi.platform.payment.core.Status
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.mock.mockito.MockBean
 import java.util.UUID
 
 internal class PaymentControllerTest : SeleniumTestSupport() {
-    @MockBean
-    private lateinit var membershipManagerApi: MembershipManagerApi
-
-    @MockBean
-    private lateinit var marketplaceManagerApi: MarketplaceManagerApi
-
-    @MockBean
-    private lateinit var checkoutManagerApi: CheckoutManagerApi
-
     private val orderId = UUID.randomUUID().toString()
     private val transactionId = UUID.randomUUID().toString()
     private val localPhoneNumber = "670000010"

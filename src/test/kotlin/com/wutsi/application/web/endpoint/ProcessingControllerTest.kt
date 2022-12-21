@@ -5,32 +5,19 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
-import com.wutsi.checkout.manager.CheckoutManagerApi
 import com.wutsi.checkout.manager.dto.GetOrderResponse
 import com.wutsi.checkout.manager.dto.GetTransactionResponse
 import com.wutsi.checkout.manager.dto.SearchPaymentProviderResponse
 import com.wutsi.enums.TransactionType
-import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.GetProductResponse
-import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import com.wutsi.platform.payment.core.ErrorCode
 import com.wutsi.platform.payment.core.Status
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.mock.mockito.MockBean
 import java.util.UUID
 
 internal class ProcessingControllerTest : SeleniumTestSupport() {
-    @MockBean
-    private lateinit var membershipManagerApi: MembershipManagerApi
-
-    @MockBean
-    private lateinit var marketplaceManagerApi: MarketplaceManagerApi
-
-    @MockBean
-    private lateinit var checkoutManagerApi: CheckoutManagerApi
-
     private val transactionId = UUID.randomUUID().toString()
     private val account = Fixtures.createMember(id = 1, business = true, storeId = 11L, businessId = 111L)
 

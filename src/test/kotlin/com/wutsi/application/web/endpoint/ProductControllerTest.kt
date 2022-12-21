@@ -8,21 +8,12 @@ import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
 import com.wutsi.enums.ProductType
 import com.wutsi.error.ErrorURN
-import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.GetProductResponse
-import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.mock.mockito.MockBean
 
 internal class ProductControllerTest : SeleniumTestSupport() {
-    @MockBean
-    private lateinit var membershipManagerApi: MembershipManagerApi
-
-    @MockBean
-    private lateinit var marketplaceManagerApi: MarketplaceManagerApi
-
     private val account = Fixtures.createMember(id = 1, business = true, storeId = 111L)
 
     @BeforeEach

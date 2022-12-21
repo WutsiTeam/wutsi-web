@@ -60,6 +60,8 @@ wutsi:
         type: cookie
     stream:
       type: none
+    storage:
+      type: local
 logging:
   level:
     root: INFO

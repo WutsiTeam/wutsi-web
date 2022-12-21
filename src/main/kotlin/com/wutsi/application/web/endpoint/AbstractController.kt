@@ -92,8 +92,14 @@ abstract class AbstractController {
         response.sendError(ex.status(), ex.message)
     }
 
+    @ExceptionHandler(NotFoundException::class)
+    fun onNotFoundException(request: HttpServletRequest, response: HttpServletResponse, ex: NotFoundException) {
+        logger.setException(ex)
+        response.sendError(404, ex.message)
+    }
+
     @ExceptionHandler(Throwable::class)
-    fun onFeignException(request: HttpServletRequest, response: HttpServletResponse, ex: Throwable) {
+    fun onThrowable(request: HttpServletRequest, response: HttpServletResponse, ex: Throwable) {
         logger.setException(ex)
         response.sendError(500, ex.message)
     }

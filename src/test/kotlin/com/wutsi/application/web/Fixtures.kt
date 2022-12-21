@@ -115,12 +115,13 @@ object Fixtures {
         id: Long,
         name: String = "$id.png",
         url: String = "https://www.img.com/$id.png",
+        contentSize: Int = 12000,
     ) = FileSummary(
         id = id,
         url = url,
         name = name,
         contentType = "image/png",
-        contentSize = 12000,
+        contentSize = contentSize,
         created = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
     )
 
@@ -224,6 +225,7 @@ object Fixtures {
         accountId: Long = -1,
         totalPrice: Long = 100000L,
         status: OrderStatus = OrderStatus.UNKNOWN,
+        items: List<OrderItem>? = null,
     ) = Order(
         id = id,
         business = createBusinessSummary(id = businessId, accountId = accountId, currency = "XAF", country = "CM"),
@@ -245,7 +247,7 @@ object Fixtures {
                 type = DiscountType.DYNAMIC.name,
             ),
         ),
-        items = listOf(
+        items = items ?: listOf(
             OrderItem(
                 productId = 999,
                 quantity = 3,
