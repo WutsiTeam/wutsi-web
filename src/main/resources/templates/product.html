@@ -24,7 +24,7 @@
                              th:classappend="${idx.index == 0} ? active"
                              th:each="picture,idx: ${product.pictures}"
                         >
-                            <img class="d-block w-100" th:src="${picture.url}">
+                            <img class="d-block w-100" th:alt="${product.title}" th:src="${picture.url}">
                         </div>
                     </div>
 
