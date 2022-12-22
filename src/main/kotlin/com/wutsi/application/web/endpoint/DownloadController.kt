@@ -45,7 +45,7 @@ class DownloadController(
             )
 
         // Download
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=${file.name}")
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"${file.name}\"")
         response.setHeader(HttpHeaders.CONTENT_TYPE, file.contentType)
         response.setContentLength(file.contentSize)
         storageService.get(URL(file.url), response.outputStream)

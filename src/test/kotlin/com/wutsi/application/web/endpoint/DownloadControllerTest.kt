@@ -78,7 +78,7 @@ internal class DownloadControllerTest {
             assertEquals(product.files[0].contentSize, cnn.contentLength)
             assertEquals(product.files[0].contentType, cnn.contentType)
             assertEquals(
-                "attachment; filename=" + product.files[0].name,
+                "attachment; filename=\"${product.files[0].name}\"",
                 cnn.headerFields[HttpHeaders.CONTENT_DISPOSITION]?.get(0),
             )
         } finally {
