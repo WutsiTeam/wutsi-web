@@ -38,6 +38,10 @@
                              th:text="#{order.email.hint.event-offline}">
                             Email hint offline
                         </div>
+                        <div class="hint" th:if="${product.type} == 'DIGITAL_DOWNLOAD'"
+                             th:text="#{order.email.hint.digital-download}">
+                            Digital Download hint offline
+                        </div>
 
                         <textarea class="w-100" maxlength="1000" name="notes"
                                   rows="3"
