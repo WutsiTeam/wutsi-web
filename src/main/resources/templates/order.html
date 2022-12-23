@@ -30,18 +30,7 @@
                         <input class="w-100" maxlength="100" name="email" required="true"
                                th:placeholder="#{order.email}"
                                type="email"/>
-                        <div class="hint" th:if="${product.event} AND ${product.event.online}"
-                             th:text="#{order.email.hint.event-online}">
-                            Email hint online
-                        </div>
-                        <div class="hint" th:if="${product.event} AND !${product.event.online}"
-                             th:text="#{order.email.hint.event-offline}">
-                            Email hint offline
-                        </div>
-                        <div class="hint" th:if="${product.type} == 'DIGITAL_DOWNLOAD'"
-                             th:text="#{order.email.hint.digital-download}">
-                            Digital Download hint offline
-                        </div>
+                        <div class="hint" th:text="#{order.email.hint}">Email hint online</div>
 
                         <textarea class="w-100" maxlength="1000" name="notes"
                                   rows="3"

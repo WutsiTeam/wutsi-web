@@ -539,10 +539,6 @@ form .hint {
 }
 
 /* ==== PRODUCT DETAILS ====== */
-.product h1.title {
-    font-size: 1.5em;
-}
-
 .product .price {
     color: var(--highlight-color);
     font-size: 1.2em;
