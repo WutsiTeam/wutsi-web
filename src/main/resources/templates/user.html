@@ -10,9 +10,7 @@
 <div class="container offset-md-2 col-md-8 col-sm-12 content-main margin-top">
     <div class="border main-content">
         <div th:replace="component/layout :: merchant-profile(${member}, true, true)"></div>
-        <div th:if="${device.isMobile()}">
-            <div th:replace="component/layout :: toolbar(${member})"></div>
-        </div>
+        <div th:replace="component/layout :: toolbar(${member})"></div>
 
         <div class="container">
             <div class="row">

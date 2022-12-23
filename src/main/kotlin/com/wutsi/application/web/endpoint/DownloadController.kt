@@ -37,17 +37,26 @@ class DownloadController(
 
         // Get product
         val product = marketplaceManagerApi.getProduct(orderItem.productId).product
-        val file = product.files.find { it.id == fileId }
-            ?: throw NotFoundException(
-                error = Error(
-                    code = ErrorURN.PRODUCT_FILE_NOT_FOUND.urn,
-                ),
-            )
+        try {
+            // File
+            val file = product.files.find { it.id == fileId }
+                ?: throw NotFoundException(
+                    error = Error(
+                        code = ErrorURN.PRODUCT_FILE_NOT_FOUND.urn,
+                    ),
+                )
 
-        // Download
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"${file.name}\"")
-        response.setHeader(HttpHeaders.CONTENT_TYPE, file.contentType)
-        response.setContentLength(file.contentSize)
-        storageService.get(URL(file.url), response.outputStream)
+            // Download
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"${file.name}\"")
+            response.setHeader(HttpHeaders.CONTENT_TYPE, file.contentType)
+            response.setContentLength(file.contentSize)
+            storageService.get(URL(file.url), response.outputStream)
+        } catch (ex: Throwable) {
+            request.setAttribute(WutsiErrorController.WUTSI_MERCHANT_ID, order.business.accountId)
+            request.setAttribute(WutsiErrorController.WUTSI_DOWNLOAD_ERROR, true)
+            request.setAttribute(WutsiErrorController.WUTSI_PRODUCT_ID, productId)
+            request.setAttribute(WutsiErrorController.WUTSI_FILE_ID, fileId)
+            throw ex
+        }
     }
 }

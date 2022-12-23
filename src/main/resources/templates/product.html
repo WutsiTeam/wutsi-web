@@ -77,9 +77,7 @@
                         </button>
                     </form>
                 </div>
-                <div th:if="${device.isMobile()}">
-                    <div th:replace="component/layout :: toolbar(${merchant})"></div>
-                </div>
+                <div th:replace="component/layout :: toolbar(${merchant})"></div>
                 <div class="summary padding" th:if="${product.summary}" th:text="${product.summary}">
                     This is the summary
                 </div>

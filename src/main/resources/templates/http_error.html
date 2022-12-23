@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="component/layout :: head"></div>
+</head>
+
+<body>
+
+<div th:replace="component/layout :: navbar"></div>
+
+<div class="container col-md-12 col-sm-12 content-main margin-top">
+    <div class="border main-content container">
+        <div class="row border-bottom" th:if="${merchant}">
+            <div class="col-12">
+                <div th:replace="component/layout :: merchant-profile(${merchant}, false, false)"></div>
+                <div th:replace="component/layout :: toolbar(${merchant})"></div>
+            </div>
+        </div>
+        <div class="row border-bottom">
+            <div class="col-12">
+                <div class="padding">
+                    <h1 th:text="${statusCode}">404</h1>
+                    <h2 th:if="${statusCode} == 404" th:text="#{error-message.404}"></h2>
+                    <h2 th:if="${statusCode} == 500" th:text="#{error-message.500}"></h2>
+
+                    <div class="margin-top" th:if="${downloadError}" th:utext="#{error-message.download-error}">Download
+                        Error
+                    </div>
+                    <div class="margin-top text-center">
+                        <a class="btn btn-primary" th:href="${retryUrl}" th:text="#{error.button.try-again}">Try
+                            Again</a>
+                    </div>
+                    <div class="margin-top text-center" th:utext="#{error-message.try-again}">....</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

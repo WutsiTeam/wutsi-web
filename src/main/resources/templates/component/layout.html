@@ -134,46 +134,48 @@
 <!-- ##################### -->
 <!-- Toolbar               -->
 <!-- ##################### -->
-<div class="border-top border-bottom padding toolbar" th:fragment="toolbar(member)">
-    <div class="button" id="button-phone">
-        <a th:href="'tel:' + ${member.phoneNumber}">
-            <div class="icon">
-                <i class="fa-solid fa-phone"></i>
-            </div>
-            <span th:text="#{toolbar.call}">Call</span>
-        </a>
-    </div>
-    <div class="button" id="button-message" th:if="${member.whatsapp}">
-        <a th:href="'https://wa.me/' + ${member.phoneNumber}">
-            <div class="icon">
-                <i class="fa-regular fa-message"></i>
-            </div>
-            <span th:text="#{toolbar.chat}">Chat</span>
-        </a>
-    </div>
-    <div class="button" id="button-share">
-        <a href="#" onclick="return share()">
-            <div class="icon">
-                <i class="fa-solid fa-arrow-up-from-bracket"></i>
-            </div>
-            <span th:text="#{toolbar.share}">Share</span>
-        </a>
-    </div>
+<div th:fragment="toolbar(member)">
+    <div class="border-top border-bottom padding toolbar" th:if="${device.isMobile()}">
+        <div class="button" id="button-phone">
+            <a th:href="'tel:' + ${member.phoneNumber}">
+                <div class="icon">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <span th:text="#{toolbar.call}">Call</span>
+            </a>
+        </div>
+        <div class="button" id="button-message" th:if="${member.whatsapp}">
+            <a th:href="'https://wa.me/' + ${member.phoneNumber}">
+                <div class="icon">
+                    <i class="fa-regular fa-message"></i>
+                </div>
+                <span th:text="#{toolbar.chat}">Chat</span>
+            </a>
+        </div>
+        <div class="button" id="button-share">
+            <a href="#" onclick="return share()">
+                <div class="icon">
+                    <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                </div>
+                <span th:text="#{toolbar.share}">Share</span>
+            </a>
+        </div>
 
-    <script th:inline="javascript">
-        /*<![CDATA[*/
+        <script th:inline="javascript">
+            /*<![CDATA[*/
 
-        function share() {
-            navigator.share(
-                {
-                    title: document.title,
-                    url: document.querySelector("link[rel='canonical']").getAttribute("href")
-                }
-            );
-        }
+            function share() {
+                navigator.share(
+                    {
+                        title: document.title,
+                        url: document.querySelector("link[rel='canonical']").getAttribute("href")
+                    }
+                );
+            }
 
-        /*]]>*/
-    </script>
+            /*]]>*/
+        </script>
+    </div>
 </div>
 
 <!-- ################# -->

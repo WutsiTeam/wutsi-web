@@ -41,7 +41,6 @@ class UserController : AbstractController() {
         description = member.biography,
         url = "$serverUrl/${member.url}",
         imageUrl = null,
-        canonicalUrl = "$serverUrl/u/${member.id}",
     )
 
     private fun findProducts(member: Member): List<ProductSummary> {

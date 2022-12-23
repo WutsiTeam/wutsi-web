@@ -86,7 +86,7 @@ class Mapper(
         twitterId = member.twitterId,
         youtubeId = member.youtubeId,
         website = member.website,
-        url = "/u/${member.id}",
+        url = toMemberUrl(member.id),
         pictureUrl = member.pictureUrl?.let {
             imageService.transform(
                 url = it,
@@ -100,6 +100,9 @@ class Mapper(
             )
         },
     )
+
+    fun toMemberUrl(memberId: Long): String =
+        "/u/$memberId"
 
     fun toProductModel(product: ProductSummary, country: Country, merchant: Member) = ProductModel(
         id = product.id,
