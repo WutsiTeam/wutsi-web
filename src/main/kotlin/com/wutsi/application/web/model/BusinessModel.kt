@@ -5,5 +5,5 @@ data class BusinessModel(
     val country: String = "",
     val currency: String? = null,
     val totalSales: Long = 0,
-    val totalOrders: Long = 0
+    val totalOrders: Long = 0,
 )

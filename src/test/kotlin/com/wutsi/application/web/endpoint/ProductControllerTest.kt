@@ -9,8 +9,6 @@ import com.wutsi.application.web.Page
 import com.wutsi.enums.ProductType
 import com.wutsi.error.ErrorURN
 import com.wutsi.marketplace.manager.dto.GetProductResponse
-import com.wutsi.membership.manager.dto.GetMemberResponse
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class ProductControllerTest : SeleniumTestSupport() {
