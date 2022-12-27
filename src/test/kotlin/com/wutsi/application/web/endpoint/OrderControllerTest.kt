@@ -23,13 +23,10 @@ import java.util.UUID
 
 internal class OrderControllerTest : SeleniumTestSupport() {
     private val orderId = UUID.randomUUID().toString()
-    private val account = Fixtures.createMember(id = 1, business = true, storeId = 11L, businessId = 111L)
-    private val business =
-        Fixtures.createBusiness(id = account.businessId!!, accountId = account.id, country = "CM", currency = "XAF")
     private val product = Fixtures.createProduct(
         id = 11,
-        storeId = account.storeId!!,
-        accountId = account.id,
+        storeId = merchant.storeId!!,
+        accountId = merchant.id,
         price = 10000,
         pictures = listOf(
             Fixtures.createPictureSummary(1, "https://i.com/1.png"),
@@ -39,7 +36,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         ),
     )
 
-    private val order = Fixtures.createOrder(id = orderId, businessId = account.businessId!!, accountId = account.id)
+    private val order = Fixtures.createOrder(id = orderId, businessId = merchant.businessId!!, accountId = merchant.id)
 
     private val mtn = Fixtures.createPaymentProviderSummary(1, "MTN")
     private val orange = Fixtures.createPaymentProviderSummary(2, "Orange")
@@ -48,7 +45,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
     override fun setUp() {
         super.setUp()
 
-        doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(any())
+        doReturn(GetMemberResponse(merchant)).whenever(membershipManagerApi).getMember(any())
 
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
 
@@ -78,7 +75,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
             CreateOrderRequest(
                 deviceType = DeviceType.MOBILE.name,
                 channelType = ChannelType.WEB.name,
-                businessId = account.businessId!!,
+                businessId = merchant.businessId!!,
                 notes = "This is a note :-)",
                 customerEmail = "ray.sponsible@gmail.com",
                 customerName = "Ray Sponsible",

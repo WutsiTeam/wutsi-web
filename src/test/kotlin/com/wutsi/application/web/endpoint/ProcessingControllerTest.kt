@@ -19,7 +19,6 @@ import java.util.UUID
 
 internal class ProcessingControllerTest : SeleniumTestSupport() {
     private val transactionId = UUID.randomUUID().toString()
-    private val account = Fixtures.createMember(id = 1, business = true, storeId = 11L, businessId = 111L)
 
     private val tx = Fixtures.createTransaction(
         transactionId,
@@ -31,7 +30,7 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
     override fun setUp() {
         super.setUp()
 
-        doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(any())
+        doReturn(GetMemberResponse(merchant)).whenever(membershipManagerApi).getMember(any())
 
         doReturn(GetTransactionResponse(tx)).whenever(checkoutManagerApi).getTransaction(transactionId)
     }
@@ -67,8 +66,8 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
 
         val product = Fixtures.createProduct(
             id = 11,
-            storeId = account.storeId!!,
-            accountId = account.id,
+            storeId = merchant.storeId!!,
+            accountId = merchant.id,
             price = 10000,
             pictures = listOf(
                 Fixtures.createPictureSummary(4, "https://i.com/4.png"),
@@ -76,7 +75,7 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
         )
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
 
-        val order = Fixtures.createOrder(id = orderId, businessId = account.businessId!!, accountId = account.id)
+        val order = Fixtures.createOrder(id = orderId, businessId = merchant.businessId!!, accountId = merchant.id)
         doReturn(GetOrderResponse(order)).whenever(checkoutManagerApi).getOrder(any())
 
         val mtn = Fixtures.createPaymentProviderSummary(1, "MTN")

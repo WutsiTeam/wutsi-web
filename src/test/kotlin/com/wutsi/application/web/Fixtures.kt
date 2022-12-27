@@ -211,6 +211,8 @@ object Fixtures {
         accountId = accountId,
         country = country,
         currency = currency,
+        totalSales = 30000,
+        totalOrders = 100
     )
 
     fun createPaymentProviderSummary(id: Long, code: String) = PaymentProviderSummary(

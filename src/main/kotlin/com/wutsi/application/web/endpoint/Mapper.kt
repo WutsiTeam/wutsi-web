@@ -72,7 +72,7 @@ class Mapper(
         name = provider.name,
     )
 
-    fun toMemberModel(member: Member) = MemberModel(
+    fun toMemberModel(member: Member, business: Business? = null) = MemberModel(
         id = member.id,
         businessId = member.businessId,
         displayName = member.displayName,
@@ -99,6 +99,7 @@ class Mapper(
                 ),
             )
         },
+        business = business?.let { toBusinessModel(it) },
     )
 
     fun toMemberUrl(memberId: Long): String =
@@ -204,6 +205,8 @@ class Mapper(
         id = business.id,
         country = business.country,
         currency = business.currency,
+        totalOrders = business.totalOrders,
+        totalSales = business.totalSales,
     )
 
     fun toBusinessModel(business: BusinessSummary) = BusinessModel(

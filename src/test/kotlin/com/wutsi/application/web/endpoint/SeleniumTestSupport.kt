@@ -1,8 +1,14 @@
 package com.wutsi.application.web.endpoint
 
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.whenever
+import com.wutsi.application.web.Fixtures
 import com.wutsi.checkout.manager.CheckoutManagerApi
+import com.wutsi.checkout.manager.dto.GetBusinessResponse
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.membership.manager.MembershipManagerApi
+import com.wutsi.membership.manager.dto.GetMemberResponse
 import feign.FeignException
 import feign.Request
 import feign.RequestTemplate
@@ -44,6 +50,10 @@ abstract class SeleniumTestSupport {
     @MockBean
     protected lateinit var checkoutManagerApi: CheckoutManagerApi
 
+    protected val merchant = Fixtures.createMember(id = 1, business = true, storeId = 111L, businessId = 333L)
+    protected val business = Fixtures.createBusiness(id = 333L, accountId = 1L, country = "CM", currency = "XAF")
+    protected val store = Fixtures.createStore(id = 111L, accountId = 1L)
+
     protected fun driverOptions(): ChromeOptions {
         val options = ChromeOptions()
         options.addArguments("--disable-web-security") // To prevent CORS issues
@@ -72,6 +82,9 @@ abstract class SeleniumTestSupport {
         this.url = "http://localhost:$port"
 
         driver.manage().timeouts().implicitlyWait(Duration.of(timeout, ChronoUnit.SECONDS))
+
+        doReturn(GetMemberResponse(merchant)).whenever(membershipManagerApi).getMember(any())
+        doReturn(GetBusinessResponse(business)).whenever(checkoutManagerApi).getBusiness(any())
     }
 
     @AfterEach

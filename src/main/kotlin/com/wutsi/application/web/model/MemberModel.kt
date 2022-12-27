@@ -16,4 +16,5 @@ data class MemberModel(
     val instagramId: String? = null,
     val url: String = "",
     val businessId: Long? = null,
+    val business: BusinessModel? = null,
 )

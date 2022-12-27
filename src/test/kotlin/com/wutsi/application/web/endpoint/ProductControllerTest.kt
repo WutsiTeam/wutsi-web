@@ -14,22 +14,13 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class ProductControllerTest : SeleniumTestSupport() {
-    private val account = Fixtures.createMember(id = 1, business = true, storeId = 111L)
-
-    @BeforeEach
-    override fun setUp() {
-        super.setUp()
-
-        doReturn(GetMemberResponse(account)).whenever(membershipManagerApi).getMember(any())
-    }
-
     @Test
     fun physicalProduct() {
         // Given
         val product = Fixtures.createProduct(
             id = 11,
-            storeId = account.storeId!!,
-            accountId = account.id,
+            storeId = merchant.storeId!!,
+            accountId = merchant.id,
             pictures = listOf(
                 Fixtures.createPictureSummary(1, "https://i.com/1.png"),
                 Fixtures.createPictureSummary(2, "https://i.com/2.png"),
@@ -77,8 +68,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         // Given
         val product = Fixtures.createProduct(
             id = 11,
-            storeId = account.storeId!!,
-            accountId = account.id,
+            storeId = merchant.storeId!!,
+            accountId = merchant.id,
             pictures = listOf(
                 Fixtures.createPictureSummary(1, "https://i.com/1.png"),
                 Fixtures.createPictureSummary(2, "https://i.com/2.png"),
@@ -134,8 +125,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         // Given
         val product = Fixtures.createProduct(
             id = 11,
-            storeId = account.storeId!!,
-            accountId = account.id,
+            storeId = merchant.storeId!!,
+            accountId = merchant.id,
             pictures = listOf(
                 Fixtures.createPictureSummary(1, "https://i.com/1.png"),
                 Fixtures.createPictureSummary(2, "https://i.com/2.png"),
