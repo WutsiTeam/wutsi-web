@@ -12,8 +12,6 @@ wutsi:
         ttl: 86400
     security:
       api-key: "${API_KEY}"
-    stream:
-      type: none
     storage:
       type: aws
       aws:
