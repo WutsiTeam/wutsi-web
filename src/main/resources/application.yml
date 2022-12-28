@@ -59,7 +59,8 @@ wutsi:
       device-id-provider:
         type: cookie
     stream:
-      type: none
+      name: ${wutsi.application.name}
+      type: local
     storage:
       type: local
 logging:

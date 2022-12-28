@@ -18,3 +18,7 @@ wutsi:
       type: aws
       aws:
         bucket: int-wutsi
+    stream:
+      type: rabbitmq
+      rabbitmq:
+        url: ${CLOUDAMQP_URL}

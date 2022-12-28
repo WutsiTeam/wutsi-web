@@ -58,6 +58,7 @@ jobs:
           API_KEY: ${{secrets.API_KEY_TEST}}
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_TEST }}
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY_TEST }}
+          CLOUDAMQP_URL: ${{secrets.CLOUDAMQP_URL_TEST}}
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY_TEST }}
           HEROKU_APP: wutsi-web-test
         run: |
@@ -68,6 +69,7 @@ jobs:
           heroku config:set --app ${HEROKU_APP} API_KEY=${API_KEY}
           heroku config:set --app ${HEROKU_APP} AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
           heroku config:set --app ${HEROKU_APP} AWS_SECRET_KEY=${AWS_SECRET_KEY}
+          heroku config:set --app ${HEROKU_APP} CLOUDAMQP_URL=${CLOUDAMQP_URL}
           heroku addons -a ${HEROKU_APP} | grep papertrail && echo 'addon: papertrail exists' ||  heroku addons:create papertrail -a ${HEROKU_APP}
           heroku addons -a ${HEROKU_APP} | grep memcachier && echo 'addon: memcachier exists' ||  heroku addons:create memcachier -a ${HEROKU_APP}
           heroku deploy:jar wutsi-web.jar --app ${HEROKU_APP}
@@ -111,6 +113,7 @@ jobs:
           API_KEY: ${{secrets.API_KEY_PROD}}
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_PROD }}
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY_PROD }}
+          CLOUDAMQP_URL: ${{secrets.CLOUDAMQP_URL_PROD}}
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY_PROD }}
           HEROKU_APP: wutsi-web-prod
         run: |
@@ -121,6 +124,7 @@ jobs:
           heroku config:set --app ${HEROKU_APP} API_KEY=${API_KEY}
           heroku config:set --app ${HEROKU_APP} AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
           heroku config:set --app ${HEROKU_APP} AWS_SECRET_KEY=${AWS_SECRET_KEY}
+          heroku config:set --app ${HEROKU_APP} CLOUDAMQP_URL=${CLOUDAMQP_URL}
           heroku addons -a ${HEROKU_APP} | grep papertrail && echo 'addon: papertrail exists' ||  heroku addons:create papertrail -a ${HEROKU_APP}
           heroku addons -a ${HEROKU_APP} | grep memcachier && echo 'addon: memcachier exists' ||  heroku addons:create memcachier -a ${HEROKU_APP}
           heroku deploy:jar wutsi-web.jar --app ${HEROKU_APP}
