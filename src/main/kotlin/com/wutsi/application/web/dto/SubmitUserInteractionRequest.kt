@@ -9,5 +9,5 @@ data class SubmitUserInteractionRequest(
     val productId: String? = null,
     val ua: String? = null,
     val url: String? = null,
-    val referrer: String? = null
+    val referrer: String? = null,
 )

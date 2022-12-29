@@ -39,8 +39,8 @@ class TrackController(
                 correlationId = request.hitId,
                 page = request.page,
                 deviceId = tracingContext.deviceId(),
-                referrer = request.referrer
-            )
+                referrer = request.referrer,
+            ),
         )
     }
 }
