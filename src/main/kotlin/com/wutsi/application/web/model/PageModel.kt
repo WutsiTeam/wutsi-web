@@ -1,5 +1,7 @@
 package com.wutsi.application.web.model
 
+import java.util.UUID
+
 data class PageModel(
     val name: String = "",
     val title: String = "",
@@ -25,4 +27,6 @@ data class PageModel(
     val showNotificationOptIn: Boolean = false,
     val rssUrl: String? = null,
     val preloadImageUrls: List<String> = emptyList(),
+    val hitId: String = UUID.randomUUID().toString(),
+    val productId: Long? = null,
 )

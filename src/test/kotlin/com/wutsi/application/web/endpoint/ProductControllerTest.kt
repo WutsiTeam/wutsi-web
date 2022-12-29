@@ -31,6 +31,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         // Goto product page
         navigate(url("p/${product.id}"))
         assertCurrentPageIs(Page.PRODUCT)
+        assertElementAttribute("head meta[name='wutsi\\:product_id']", "content", product.id.toString())
+        assertElementPresent("head meta[name='wutsi\\:hit_id']")
 
         assertElementAttribute("head title", "text", "${product.title} | Wutsi")
         assertElementAttribute("head meta[name='description']", "content", product.summary)
@@ -85,6 +87,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         // Goto product page
         navigate(url("p/${product.id}"))
         assertCurrentPageIs(Page.PRODUCT)
+        assertElementAttribute("head meta[name='wutsi\\:product_id']", "content", product.id.toString())
+        assertElementPresent("head meta[name='wutsi\\:hit_id']")
 
         assertElementAttribute("head title", "text", "${product.title} | Wutsi")
         assertElementAttribute("head meta[name='description']", "content", product.summary)
@@ -143,6 +147,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         // Goto product page
         navigate(url("p/${product.id}"))
         assertCurrentPageIs(Page.PRODUCT)
+        assertElementAttribute("head meta[name='wutsi\\:product_id']", "content", product.id.toString())
+        assertElementPresent("head meta[name='wutsi\\:hit_id']")
 
         assertElementAttribute("head title", "text", "${product.title} | Wutsi")
         assertElementAttribute("head meta[name='description']", "content", product.summary)

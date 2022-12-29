@@ -54,6 +54,7 @@ class ProductController(
         description = product.summary,
         url = "$serverUrl/${product.url}",
         canonicalUrl = "$serverUrl/p/${product.id}",
+        productId = product.id,
         imageUrl = original.thumbnail?.url?.let {
             imageService.transform(
                 url = it,

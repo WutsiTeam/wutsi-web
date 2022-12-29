@@ -73,6 +73,8 @@
           referrerpolicy="no-referrer" rel="stylesheet"/>
 
     <meta name="wutsi:page_name" th:content="${page.name}"/>
+    <meta name="wutsi:hit_id" th:content="${page.hitId}"/>
+    <meta name="wutsi:product_id" th:content="${page.productId}" th:if="${page.productId}"/>
 </div>
 
 
@@ -106,6 +108,40 @@
         integrity="sha512-jEc69+XeOdfDwLui+HpPWl8/8+cxkHcwcznwbVGrmVlECJD+L1yN0PljgF2MPs6+1bTX+gNvo/9C3YJ7n4i9qw=="
         referrerpolicy="no-referrer"
         src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.min.js"></script>
+
+    <script>
+        function track(event, value) {
+            const data = {
+                time: new Date().getTime(),
+                productId: wutsi_meta("product_id"),
+                hitId: wutsi_meta("hit_id"),
+                page: wutsi_meta("page_name"),
+                event: event,
+                value: (value ? value : null),
+                url: window.location.href,
+                ua: navigator.userAgent,
+                referrer: (document.referrer ? document.referrer : null)
+            };
+
+            jQuery.ajax(
+                '/track',
+                {
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    type: 'POST',
+                }
+            );
+        }
+
+        function wutsi_meta(name) {
+            const meta = document.head.querySelector("[name=wutsi\\:" + name + "]");
+            return meta ? meta.content : null
+        }
+
+        jQuery(document).ready(function () {
+            track('load');
+        });
+    </script>
 </footer>
 
 

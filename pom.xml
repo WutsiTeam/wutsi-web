@@ -34,7 +34,8 @@
 
     <wutsi-platform-core.version>0.0.196</wutsi-platform-core.version>
     <wutsi-platform-payment.version>0.0.105</wutsi-platform-payment.version>
-    <wutsi-enums.version>1.0.19</wutsi-enums.version>
+    <wutsi-enums.version>1.0.22</wutsi-enums.version>
+    <wutsi-events.version>1.0.15</wutsi-events.version>
     <wutsi-errors.version>1.0.14</wutsi-errors.version>
     <wutsi-regulation.version>1.0.12</wutsi-regulation.version>
     <wutsi-checkout-manager.version>1.0.24</wutsi-checkout-manager.version>
@@ -57,6 +58,11 @@
       <groupId>com.wutsi</groupId>
       <artifactId>wutsi-enums</artifactId>
       <version>${wutsi-enums.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.wutsi</groupId>
+      <artifactId>wutsi-events</artifactId>
+      <version>${wutsi-events.version}</version>
     </dependency>
     <dependency>
       <groupId>com.wutsi</groupId>
