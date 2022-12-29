@@ -5,7 +5,7 @@ data class SubmitUserInteractionRequest(
     val hitId: String = "",
     val page: String = "",
     val event: String? = null,
-    val value: Double? = null,
+    val value: String? = null,
     val productId: String? = null,
     val ua: String? = null,
     val url: String? = null,

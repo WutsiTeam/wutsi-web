@@ -139,8 +139,15 @@
         }
 
         jQuery(document).ready(function () {
+            // Page loaded
             track('load');
         });
+
+        // Handle all errors
+        window.onerror = function (message, source, line, col, error) {
+            const value = source + ' - ' + line + ':' + col + ' - ' + error;
+            track('error', value);
+        };
     </script>
 </footer>
 

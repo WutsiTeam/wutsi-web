@@ -37,12 +37,12 @@ internal class TrackControllerTest {
         val deviceId = UUID.randomUUID().toString()
         doReturn(deviceId).whenever(tracingContext).deviceId()
 
-        // THEN
+        // WHEN
         val request = SubmitUserInteractionRequest(
             hitId = UUID.randomUUID().toString(),
             page = Page.PRODUCT,
             event = "load",
-            value = 1000.0,
+            value = "xxxx",
             productId = "1111",
             time = System.currentTimeMillis(),
             url = "https://wutsi.com/p/1/30493-43094",
@@ -66,7 +66,7 @@ internal class TrackControllerTest {
                 ua = request.ua,
                 event = request.event,
                 deviceId = deviceId,
-                referer = request.referrer
+                referrer = request.referrer
             )
         )
     }
