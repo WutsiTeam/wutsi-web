@@ -33,9 +33,11 @@ class ReferrerFilter(
             val referrer = request.getHeader(HttpHeaders.REFERER)
             val forwardedIP = request.getHeader("X-Forwarded-For")
             val forwardedHost = request.getHeader("X-Forwarded-Host")
+            val forwardedProto = request.getHeader("X-Forwarded-Proto")
             logger.add("referrer", referrer)
             logger.add("x-forwarded-for", forwardedIP)
             logger.add("x-forwarded-host", forwardedHost)
+            logger.add("x-forwarded-proto", forwardedProto)
 
             if (!referrer.startsWith(serverUrl)) {
                 var cookie = getCookie(request)
@@ -55,5 +57,4 @@ class ReferrerFilter(
 
     private fun getCookie(request: HttpServletRequest): Cookie? =
         request.cookies?.find { it.name == RFRR_COOKIE }
-
 }
