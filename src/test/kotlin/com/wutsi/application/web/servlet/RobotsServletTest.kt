@@ -34,7 +34,7 @@ internal class RobotsServletTest {
                 User-agent: *
                 Allow: /
             """.trimIndent(),
-            content.trimIndent()
+            content.trimIndent(),
         )
     }
 
@@ -52,7 +52,7 @@ internal class RobotsServletTest {
                 User-agent: *
                 Disallow: /
             """.trimIndent(),
-            content.trimIndent()
+            content.trimIndent(),
         )
     }
 }
