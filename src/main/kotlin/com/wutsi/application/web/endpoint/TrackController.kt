@@ -42,7 +42,7 @@ class TrackController(
                 correlationId = request.hitId,
                 page = request.page,
                 deviceId = tracingContext.deviceId(),
-                referrer = httpRequest.cookies?.find { it.name == ReferrerFilter.RFRR_COOKIE }?.value
+                referrer = httpRequest.cookies?.find { it.name == ReferrerFilter.RFRR_COOKIE }?.value,
             ),
         )
     }
