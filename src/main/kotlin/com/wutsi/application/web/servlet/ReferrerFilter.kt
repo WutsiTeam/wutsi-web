@@ -8,7 +8,6 @@ import javax.servlet.Filter
 import javax.servlet.FilterChain
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
-import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -39,22 +38,22 @@ class ReferrerFilter(
             logger.add("x-forwarded-host", forwardedHost)
             logger.add("x-forwarded-proto", forwardedProto)
 
-            if (!referrer.startsWith(serverUrl)) {
-                var cookie = getCookie(request)
-                if (cookie == null) {
-                    cookie = Cookie(RFRR_COOKIE, referrer)
-                    cookie.path = "/"
-                    cookie.maxAge = 86400
-                    response.addCookie(cookie)
-                } else {
-                    cookie.value = referrer
-                }
-            }
+//            if (!referrer.startsWith(serverUrl)) {
+//                var cookie = getCookie(request)
+//                if (cookie == null) {
+//                    cookie = Cookie(RFRR_COOKIE, referrer)
+//                    cookie.path = "/"
+//                    cookie.maxAge = 86400
+//                    response.addCookie(cookie)
+//                } else {
+//                    cookie.value = referrer
+//                }
+//            }
         } finally {
             chain.doFilter(request, response)
         }
     }
-
-    private fun getCookie(request: HttpServletRequest): Cookie? =
-        request.cookies?.find { it.name == RFRR_COOKIE }
+//
+//    private fun getCookie(request: HttpServletRequest): Cookie? =
+//        request.cookies?.find { it.name == RFRR_COOKIE }
 }
