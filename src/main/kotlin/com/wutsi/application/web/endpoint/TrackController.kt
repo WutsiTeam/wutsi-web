@@ -1,6 +1,7 @@
 package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.dto.SubmitUserInteractionRequest
+import com.wutsi.application.web.servlet.ReferrerFilter
 import com.wutsi.event.EventURN
 import com.wutsi.event.TrackEventPayload
 import com.wutsi.platform.core.stream.EventStream
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.context.request.RequestContextHolder
+import org.springframework.web.context.request.ServletRequestAttributes
 
 @RestController
 @RequestMapping("/track")
@@ -25,8 +28,8 @@ class TrackController(
         logger.add("request_event", request.event)
         logger.add("request_value", request.value)
         logger.add("request_time", request.time)
-        logger.add("request_referrer", request.referrer)
 
+        val httpRequest = (RequestContextHolder.getRequestAttributes() as ServletRequestAttributes).request
         eventStream.publish(
             type = EventURN.TRACK.urn,
             payload = TrackEventPayload(
@@ -39,7 +42,7 @@ class TrackController(
                 correlationId = request.hitId,
                 page = request.page,
                 deviceId = tracingContext.deviceId(),
-                referrer = request.referrer
+                referrer = httpRequest.cookies?.find { it.name == ReferrerFilter.RFRR_COOKIE }?.value
             ),
         )
     }
