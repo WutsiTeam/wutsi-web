@@ -25,6 +25,7 @@ class TrackController(
         logger.add("request_event", request.event)
         logger.add("request_value", request.value)
         logger.add("request_time", request.time)
+        logger.add("request_referrer", request.referrer)
 
         eventStream.publish(
             type = EventURN.TRACK.urn,
@@ -38,6 +39,7 @@ class TrackController(
                 correlationId = request.hitId,
                 page = request.page,
                 deviceId = tracingContext.deviceId(),
+                referrer = request.referrer
             ),
         )
     }
