@@ -44,8 +44,7 @@ class WutsiErrorController : ErrorController, AbstractController() {
             model.addAttribute("merchant", getMerchant(merchantId)?.let { mapper.toMemberModel(it) })
         }
 
-        // Retrie
-        val qs = request.queryString
+        // Retry
         val retryUrl = if (request.queryString.isNullOrEmpty()) {
             request.requestURL
         } else {

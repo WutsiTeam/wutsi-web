@@ -20,7 +20,6 @@ class TrackController(
     fun index(@RequestBody request: SubmitUserInteractionRequest) {
         logger.add("request_ua", request.ua)
         logger.add("request_url", request.url)
-        logger.add("request_referrer", request.referrer)
         logger.add("request_hit_id", request.hitId)
         logger.add("request_page", request.page)
         logger.add("request_event", request.event)
@@ -39,7 +38,6 @@ class TrackController(
                 correlationId = request.hitId,
                 page = request.page,
                 deviceId = tracingContext.deviceId(),
-                referrer = request.referrer,
             ),
         )
     }

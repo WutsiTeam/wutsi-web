@@ -47,7 +47,6 @@ internal class TrackControllerTest {
             time = System.currentTimeMillis(),
             url = "https://wutsi.com/p/1/30493-43094",
             ua = "43094309",
-            referrer = "http://mail.google.com",
         )
         val response = rest.postForEntity(url(), request, Any::class.java)
 
@@ -66,7 +65,6 @@ internal class TrackControllerTest {
                 ua = request.ua,
                 event = request.event,
                 deviceId = deviceId,
-                referrer = request.referrer,
             ),
         )
     }
