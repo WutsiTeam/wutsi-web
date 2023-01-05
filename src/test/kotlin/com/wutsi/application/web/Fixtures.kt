@@ -341,17 +341,17 @@ object Fixtures {
 
     fun createOffer(
         product: Product,
-        price: ProductPriceSummary,
+        price: ProductPriceSummary = createProductPriceSummary(),
     ) = Offer(
         product = product,
         price = price,
     )
 
     fun createProductPriceSummary(
-        productId: Long,
+        productId: Long = -1,
         discountId: Long? = null,
         savings: Long = 0,
-        price: Long,
+        price: Long = 1500,
         referencePrice: Long? = null,
     ) = ProductPriceSummary(
         productId = productId,

@@ -537,8 +537,25 @@ form .hint {
 .product-card .reference-price {
     text-decoration: line-through;
     font-size: 0.8em;
-    color: var(--text-color)
+    color: var(--text-color-success);
+    margin-left: 0.5em;
 }
+
+.product-card .discount-percent {
+    font-size: 0.8em;
+    color: var(--text-color-success);
+    font-width: bold;
+    margin-left: 0.5em;
+}
+
+.product-card .discount-percent::before {
+    content: "(";
+}
+
+.product-card .discount-percent::after {
+    content: ")";
+}
+
 
 .product-card a {
     text-decoration: none;
@@ -549,6 +566,38 @@ form .hint {
     color: var(--highlight-color);
     font-size: 1.2em;
 }
+
+.product .reference-price {
+    text-decoration: line-through;
+    color: var(--text-color-success);
+    font-size: 1.0em;
+    margin-left: 0.5em;
+}
+
+.product .discount-percent {
+    font-size: 1.0em;
+    color: var(--text-color-success);
+    font-width: bold;
+    margin-left: 0.5em;
+}
+
+.product .discount-percent::before {
+    content: "("
+}
+
+.product .discount-percent::after {
+    content: ")"
+}
+
+.product .urgency {
+    font-size: 0.8em;
+    color: white;
+    background: var(--text-color-success);
+    padding: 5px;
+    border-radius: 10px 10px 10px 10px;
+    display: inline;
+}
+
 
 .product .carousel-item img {
     max-height: 512px;

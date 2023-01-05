@@ -8,7 +8,7 @@ import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
 import com.wutsi.enums.ProductType
 import com.wutsi.error.ErrorURN
-import com.wutsi.marketplace.manager.dto.GetProductResponse
+import com.wutsi.marketplace.manager.dto.GetOfferResponse
 import org.junit.jupiter.api.Test
 
 internal class ProductControllerTest : SeleniumTestSupport() {
@@ -26,7 +26,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 Fixtures.createPictureSummary(4, "https://i.com/4.png"),
             ),
         )
-        doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(product.id)
+        val offer = Fixtures.createOffer(product = product)
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
 
         // Goto product page
         navigate(url("p/${product.id}"))
@@ -82,7 +83,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 meetingProvider = Fixtures.createMeetingProviderSummary(),
             ),
         )
-        doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(product.id)
+        val offer = Fixtures.createOffer(product = product)
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
 
         // Goto product page
         navigate(url("p/${product.id}"))
@@ -142,7 +144,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 Fixtures.createFileSummary(3, "foo.pdf"),
             ),
         )
-        doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(product.id)
+        val offer = Fixtures.createOffer(product = product)
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
 
         // Goto product page
         navigate(url("p/${product.id}"))

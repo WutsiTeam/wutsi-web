@@ -243,7 +243,7 @@ class Mapper(
 
     fun getExpiryText(date: OffsetDateTime): Int? {
         val now = OffsetDateTime.now(ZoneOffset.UTC)
-        val duration = Duration.between(date, now)
+        val duration = Duration.between(now, date)
         return if (duration.toDays() > 2) {
             null
         } else {

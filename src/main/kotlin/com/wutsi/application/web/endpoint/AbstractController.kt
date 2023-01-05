@@ -74,6 +74,7 @@ abstract class AbstractController {
         return member
     }
 
+    @Deprecated("")
     protected fun findProduct(id: Long): Product {
         val product = marketplaceManagerApi.getProduct(id).product
         if (product.status != ProductStatus.PUBLISHED.name) {

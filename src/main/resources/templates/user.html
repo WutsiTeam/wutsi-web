@@ -44,9 +44,15 @@
                         </div>
 
                         <!-- Price -->
-                        <div class="price" th:text="${offer.price.price}">15000 FCFA</div>
-                        <div class="reference-price" th:if="${offer.price.referencePrice}"
-                             th:text="${offer.price.referencePrice}">15000 FCFA
+                        <div class="flex">
+                            <div class="price" th:text="${offer.price.price}">15000 FCFA</div>
+                            <div class="reference-price" th:if="${offer.price.referencePrice}"
+                                 th:text="${offer.price.referencePrice}">15000 FCFA
+                            </div>
+                            <div class="discount-percent"
+                                 th:if="${offer.price.savingsPercentage}"
+                                 th:text="${offer.price.savingsPercentage}">30%
+                            </div>
                         </div>
                     </a>
                 </div>

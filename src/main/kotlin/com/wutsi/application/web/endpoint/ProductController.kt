@@ -22,19 +22,19 @@ class ProductController(
 ) : AbstractController() {
     @GetMapping("/{id}")
     fun index(@PathVariable id: Long, model: Model): String {
-        val product = findProduct(id)
-        val merchant = findMember(product.store.accountId)
+        val offer = marketplaceManagerApi.getOffer(id).offer
+        val merchant = findMember(offer.product.store.accountId)
         val country = regulationEngine.country(merchant.country)
 
-        val productModel = mapper.toProductModel(product, country, merchant)
-        model.addAttribute("page", createPage(productModel, product))
-        model.addAttribute("product", productModel)
+        val offerModel = mapper.toOfferModel(offer, country, merchant)
+        model.addAttribute("page", createPage(offerModel.product))
+        model.addAttribute("offer", mapper.toOfferModel(offer, country, merchant))
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
 
-        if (cannotOrderMultipleItems(product)) {
+        if (cannotOrderMultipleItems(offer.product)) {
             // Online event, you cannot more buy than 1
-        } else if (product.quantity == null || product.quantity!! > 1) {
-            val quantities = 1..min(10, (product.quantity ?: Integer.MAX_VALUE))
+        } else if (offer.product.quantity == null || offer.product.quantity!! > 1) {
+            val quantities = 1..min(10, (offer.product.quantity ?: Integer.MAX_VALUE))
             model.addAttribute("quantities", quantities)
         }
         return "product"
@@ -48,14 +48,14 @@ class ProductController(
         (product.type == ProductType.EVENT.name) && (product.event?.online == true) ||
             (product.type == ProductType.DIGITAL_DOWNLOAD.name)
 
-    private fun createPage(product: ProductModel, original: Product) = PageModel(
+    private fun createPage(product: ProductModel) = PageModel(
         name = Page.PRODUCT,
         title = product.title,
         description = product.summary,
         url = "$serverUrl/${product.url}",
         canonicalUrl = "$serverUrl/p/${product.id}",
         productId = product.id,
-        imageUrl = original.thumbnail?.url?.let {
+        imageUrl = product.thumbnailUrl?.let {
             imageService.transform(
                 url = it,
                 transformation = Transformation(
