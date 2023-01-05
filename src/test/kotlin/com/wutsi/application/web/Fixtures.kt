@@ -2,7 +2,6 @@ package com.wutsi.application.web
 
 import com.wutsi.checkout.manager.dto.Business
 import com.wutsi.checkout.manager.dto.BusinessSummary
-import com.wutsi.checkout.manager.dto.Discount
 import com.wutsi.checkout.manager.dto.Order
 import com.wutsi.checkout.manager.dto.OrderItem
 import com.wutsi.checkout.manager.dto.PaymentMethodSummary
@@ -18,11 +17,15 @@ import com.wutsi.enums.PaymentMethodStatus
 import com.wutsi.enums.PaymentMethodType
 import com.wutsi.enums.ProductType
 import com.wutsi.enums.TransactionType
+import com.wutsi.marketplace.manager.dto.DiscountSummary
 import com.wutsi.marketplace.manager.dto.Event
 import com.wutsi.marketplace.manager.dto.FileSummary
 import com.wutsi.marketplace.manager.dto.MeetingProviderSummary
+import com.wutsi.marketplace.manager.dto.Offer
+import com.wutsi.marketplace.manager.dto.OfferSummary
 import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
+import com.wutsi.marketplace.manager.dto.ProductPriceSummary
 import com.wutsi.marketplace.manager.dto.ProductSummary
 import com.wutsi.marketplace.manager.dto.Store
 import com.wutsi.marketplace.manager.dto.StoreSummary
@@ -242,14 +245,6 @@ object Fixtures {
         currency = "XAF",
         notes = "Yo man",
         deviceId = "4309403-43094039-43094309",
-        discounts = listOf(
-            Discount(
-                code = "111",
-                amount = 1000,
-                rate = 0,
-                type = DiscountType.DYNAMIC.name,
-            ),
-        ),
         items = items ?: listOf(
             OrderItem(
                 productId = 999,
@@ -259,14 +254,6 @@ object Fixtures {
                 totalPrice = totalPrice,
                 unitPrice = totalPrice / 3,
                 totalDiscount = 100,
-                discounts = listOf(
-                    Discount(
-                        code = "111",
-                        amount = 1000,
-                        rate = 0,
-                        type = DiscountType.DYNAMIC.name,
-                    ),
-                ),
             ),
         ),
         created = OffsetDateTime.of(2020, 1, 1, 10, 30, 0, 0, ZoneOffset.UTC),
@@ -342,5 +329,42 @@ object Fixtures {
         country = country,
         status = status.name,
         accountId = accountId,
+    )
+
+    fun createOfferSummary(
+        product: ProductSummary,
+        price: ProductPriceSummary = createProductPriceSummary(productId = -1, price = 2000),
+    ) = OfferSummary(
+        product = product,
+        price = price,
+    )
+
+    fun createOffer(
+        product: Product,
+        price: ProductPriceSummary,
+    ) = Offer(
+        product = product,
+        price = price,
+    )
+
+    fun createProductPriceSummary(
+        productId: Long,
+        discountId: Long? = null,
+        savings: Long = 0,
+        price: Long,
+        referencePrice: Long? = null,
+    ) = ProductPriceSummary(
+        productId = productId,
+        discountId = discountId,
+        savings = savings,
+        price = price,
+        referencePrice = referencePrice,
+    )
+
+    fun createDiscountSummary(id: Long) = DiscountSummary(
+        id = id,
+        name = "FIN25",
+        rate = 25,
+        type = DiscountType.SALES.name,
     )
 }

@@ -534,6 +534,12 @@ form .hint {
     color: var(--highlight-color);
 }
 
+.product-card .reference-price {
+    text-decoration: line-through;
+    font-size: 0.8em;
+    color: var(--text-color)
+}
+
 .product-card a {
     text-decoration: none;
 }

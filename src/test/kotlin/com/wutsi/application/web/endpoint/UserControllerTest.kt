@@ -8,29 +8,50 @@ import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
 import com.wutsi.enums.ProductType
 import com.wutsi.error.ErrorURN
-import com.wutsi.marketplace.manager.dto.SearchProductResponse
+import com.wutsi.marketplace.manager.dto.SearchOfferResponse
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class UserControllerTest : SeleniumTestSupport() {
-    private val products = listOf(
-        Fixtures.createProductSummary(id = 11L, title = "This is a nice product", "https://www.google.ca/1.png"),
-        Fixtures.createProductSummary(id = 22L, title = "Product 2", "https://www.google.ca/2.png"),
-        Fixtures.createProductSummary(
-            id = 33L,
-            title = "Event 3",
-            thumbnailUrl = "https://www.google.ca/2.png",
-            type = ProductType.EVENT,
-            event = Fixtures.createEvent(
-                meetingProvider = Fixtures.createMeetingProviderSummary(),
+    private val offers = listOf(
+        Fixtures.createOfferSummary(
+            Fixtures.createProductSummary(
+                id = 11L,
+                title = "This is a nice product",
+                "https://www.google.ca/1.png",
+                price = 1000L,
+            ),
+            Fixtures.createProductPriceSummary(
+                11L,
+                discountId = 11L,
+                savings = 100,
+                price = 1000,
+                referencePrice = 1500,
             ),
         ),
-        Fixtures.createProductSummary(
-            id = 44L,
-            title = "Weekly Planner",
-            thumbnailUrl = "https://www.google.ca/4.png",
-            type = ProductType.DIGITAL_DOWNLOAD,
+        Fixtures.createOfferSummary(
+            Fixtures.createProductSummary(id = 22L, title = "Product 2", "https://www.google.ca/2.png", price = 2000),
+            Fixtures.createProductPriceSummary(11L, discountId = null, savings = 0, price = 2000, referencePrice = null),
+        ),
+        Fixtures.createOfferSummary(
+            Fixtures.createProductSummary(
+                id = 33L,
+                title = "Event 3",
+                thumbnailUrl = "https://www.google.ca/2.png",
+                type = ProductType.EVENT,
+                event = Fixtures.createEvent(
+                    meetingProvider = Fixtures.createMeetingProviderSummary(),
+                ),
+            ),
+        ),
+        Fixtures.createOfferSummary(
+            Fixtures.createProductSummary(
+                id = 44L,
+                title = "Weekly Planner",
+                thumbnailUrl = "https://www.google.ca/4.png",
+                type = ProductType.DIGITAL_DOWNLOAD,
+            ),
         ),
     )
 
@@ -40,7 +61,7 @@ internal class UserControllerTest : SeleniumTestSupport() {
 
         doReturn(GetMemberResponse(merchant)).whenever(membershipManagerApi).getMember(merchant.id)
 
-        doReturn(SearchProductResponse(products)).whenever(marketplaceManagerApi).searchProduct(any())
+        doReturn(SearchOfferResponse(offers)).whenever(marketplaceManagerApi).searchOffer(any())
     }
 
     @Test
@@ -68,9 +89,9 @@ internal class UserControllerTest : SeleniumTestSupport() {
         assertElementPresent("#button-instagram")
         assertElementPresent("#button-youtube")
 
-        assertElementPresent("#product-${products[0].id}")
-        assertElementPresent("#product-${products[1].id}")
-        assertElementPresent("#product-${products[2].id}")
+        assertElementPresent("#product-${offers[0].product.id}")
+        assertElementPresent("#product-${offers[1].product.id}")
+        assertElementPresent("#product-${offers[2].product.id}")
     }
 
     @Test

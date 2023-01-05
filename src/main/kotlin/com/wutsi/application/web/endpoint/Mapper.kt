@@ -4,6 +4,8 @@ import com.wutsi.application.web.model.BusinessModel
 import com.wutsi.application.web.model.EventModel
 import com.wutsi.application.web.model.FileType
 import com.wutsi.application.web.model.MemberModel
+import com.wutsi.application.web.model.OfferModel
+import com.wutsi.application.web.model.OfferPriceModel
 import com.wutsi.application.web.model.OrderItemModel
 import com.wutsi.application.web.model.OrderModel
 import com.wutsi.application.web.model.PaymentProviderModel
@@ -19,8 +21,11 @@ import com.wutsi.checkout.manager.dto.PaymentProviderSummary
 import com.wutsi.checkout.manager.dto.Transaction
 import com.wutsi.enums.ProductType
 import com.wutsi.marketplace.manager.dto.Event
+import com.wutsi.marketplace.manager.dto.Offer
+import com.wutsi.marketplace.manager.dto.OfferSummary
 import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
+import com.wutsi.marketplace.manager.dto.ProductPriceSummary
 import com.wutsi.marketplace.manager.dto.ProductSummary
 import com.wutsi.membership.manager.dto.Member
 import com.wutsi.platform.core.image.Dimension
@@ -31,6 +36,9 @@ import com.wutsi.regulation.Country
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Service
 import java.text.DecimalFormat
+import java.time.Duration
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 @Service
@@ -214,6 +222,34 @@ class Mapper(
         country = business.country,
         currency = business.currency,
     )
+
+    fun toOfferModel(offer: OfferSummary, country: Country, member: Member) = OfferModel(
+        product = toProductModel(offer.product, country, member),
+        price = toOfferPriceModel(offer.price, country),
+    )
+
+    fun toOfferModel(offer: Offer, country: Country, member: Member) = OfferModel(
+        product = toProductModel(offer.product, country, member),
+        price = toOfferPriceModel(offer.price, country),
+    )
+
+    fun toOfferPriceModel(offerPrice: ProductPriceSummary, country: Country) = OfferPriceModel(
+        price = DecimalFormat(country.monetaryFormat).format(offerPrice.price),
+        referencePrice = offerPrice.referencePrice?.let { DecimalFormat(country.monetaryFormat).format(it) },
+        savings = if (offerPrice.savings > 0) DecimalFormat(country.monetaryFormat).format(offerPrice.savings) else null,
+        savingsPercentage = if (offerPrice.savingsPercentage > 0) "${offerPrice.savingsPercentage}%" else null,
+        expiresHours = offerPrice.expires?.let { getExpiryText(it) },
+    )
+
+    fun getExpiryText(date: OffsetDateTime): Int? {
+        val now = OffsetDateTime.now(ZoneOffset.UTC)
+        val duration = Duration.between(date, now)
+        return if (duration.toDays() > 2) {
+            null
+        } else {
+            duration.toHours().toInt()
+        }
+    }
 
     private fun toPictureMapper(picture: PictureSummary) = PictureModel(
         url = imageService.transform(

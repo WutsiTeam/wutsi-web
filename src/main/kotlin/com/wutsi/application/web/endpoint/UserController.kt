@@ -4,9 +4,8 @@ import com.wutsi.application.web.Page
 import com.wutsi.application.web.model.MemberModel
 import com.wutsi.application.web.model.PageModel
 import com.wutsi.enums.ProductSort
-import com.wutsi.enums.ProductStatus
-import com.wutsi.marketplace.manager.dto.ProductSummary
-import com.wutsi.marketplace.manager.dto.SearchProductRequest
+import com.wutsi.marketplace.manager.dto.OfferSummary
+import com.wutsi.marketplace.manager.dto.SearchOfferRequest
 import com.wutsi.membership.manager.dto.Member
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -22,13 +21,14 @@ class UserController : AbstractController() {
         val member = findMember(id)
         val country = regulationEngine.country(member.country)
         val memberModel = mapper.toMemberModel(member)
+        val offers = findOffers(member)
 
         model.addAttribute("page", createPage(memberModel))
         model.addAttribute("member", memberModel)
         model.addAttribute(
-            "products",
-            findProducts(member).map {
-                mapper.toProductModel(it, country, member)
+            "offers",
+            offers.map {
+                mapper.toOfferModel(it, country, member)
             },
         )
 
@@ -43,18 +43,17 @@ class UserController : AbstractController() {
         imageUrl = null,
     )
 
-    private fun findProducts(member: Member): List<ProductSummary> {
+    private fun findOffers(member: Member): List<OfferSummary> {
         if (member.storeId == null) {
             return emptyList()
         }
 
-        return marketplaceManagerApi.searchProduct(
-            request = SearchProductRequest(
+        return marketplaceManagerApi.searchOffer(
+            request = SearchOfferRequest(
                 storeId = member.storeId,
                 limit = regulationEngine.maxProducts(),
                 sortBy = ProductSort.RECOMMENDED.name,
-                status = ProductStatus.PUBLISHED.name,
             ),
-        ).products
+        ).offers
     }
 }

@@ -14,36 +14,40 @@
 
         <div class="container">
             <div class="row">
-                <div class="product-card col-6 col-md-4 col-lg-3 border" th:each="product : ${products}"
-                     th:id="'product-' + ${product.id}" th:title="${product.title}">
-                    <a th:href="${product.url}">
-                        <div class="img-container margin-bottom" th:if="${product.thumbnailUrl}">
-                            <img th:alt="${product.title}" th:src="${product.thumbnailUrl}"/>
+                <div class="product-card col-6 col-md-4 col-lg-3 border" th:each="offer : ${offers}"
+                     th:id="'product-' + ${offer.product.id}">
+                    <a th:alt="${offer.product.title}" th:href="${offer.product.url}">
+                        <div class="img-container margin-bottom" th:if="${offer.product.thumbnailUrl}">
+                            <img th:alt="${offer.product.title}" th:src="${offer.product.thumbnailUrl}"/>
                         </div>
-                        <h2 class="title margin-bottom" th:text="${product.title}">This is a tile</h2>
+                        <h2 class="title margin-bottom" th:text="${offer.product.title}">This is a tile</h2>
 
                         <!-- Event -->
-                        <div class=" margin-bottom" th:if="${product.event}">
-                            <div th:if="${product.event.startDateTime}">
+                        <div class=" margin-bottom" th:if="${offer.product.event}">
+                            <div th:if="${offer.product.event.startDateTime}">
                                 <i class="fa-solid fa-calendar-days highlight"></i>
                                 <span class="text-small event-date"
-                                      th:text="${product.event.startDateTime}">2020-02-01</span>
+                                      th:text="${offer.product.event.startDateTime}">2020-02-01</span>
                             </div>
-                            <div th:if="${product.event.meetingProviderName}">
-                                <img height="16" th:if="${product.event.meetingProviderLogoUrl}"
-                                     th:src="${product.event.meetingProviderLogoUrl}" width="16"/>
-                                <span class="text-small event-provider" th:text="${product.event.meetingProviderName}">Zoom</span>
+                            <div th:if="${offer.product.event.meetingProviderName}">
+                                <img height="16" th:if="${offer.product.event.meetingProviderLogoUrl}"
+                                     th:src="${offer.product.event.meetingProviderLogoUrl}" width="16"/>
+                                <span class="text-small event-provider"
+                                      th:text="${offer.product.event.meetingProviderName}">Zoom</span>
                             </div>
                         </div>
 
                         <!-- Digital download -->
-                        <div class="margin-bottom" th:if="${product.type} == 'DIGITAL_DOWNLOAD'">
+                        <div class="margin-bottom" th:if="${offer.product.type} == 'DIGITAL_DOWNLOAD'">
                             <i class="fa-solid fa-cloud-arrow-down highlight"></i>
                             <span class="text-small" th:text="#{product.type.DIGITAL_DOWNLOAD}">Digital Download</span>
                         </div>
 
                         <!-- Price -->
-                        <div class="price" th:text="${product.price}">15000 FCFA</div>
+                        <div class="price" th:text="${offer.price.price}">15000 FCFA</div>
+                        <div class="reference-price" th:if="${offer.price.referencePrice}"
+                             th:text="${offer.price.referencePrice}">15000 FCFA
+                        </div>
                     </a>
                 </div>
             </div>
