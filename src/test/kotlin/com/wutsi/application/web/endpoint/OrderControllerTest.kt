@@ -99,7 +99,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
     @Test
     fun notFound() {
         val ex = createFeignNotFoundException(errorCode = "xx")
-        doThrow(ex).whenever(marketplaceManagerApi).getProduct(product.id)
+        doThrow(ex).whenever(marketplaceManagerApi).getOffer(product.id)
 
         navigate(url("order?p=${product.id}&q=3"))
         assertCurrentPageIs(Page.ERROR)
