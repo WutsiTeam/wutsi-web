@@ -25,18 +25,31 @@ class OrderController : AbstractController() {
         @RequestParam(name = "q") quantity: Int,
         model: Model,
     ): String {
-        val product = findProduct(productId)
-        val merchant = findMember(product.store.accountId)
+        val offer = marketplaceManagerApi.getOffer(productId).offer
+        val merchant = findMember(offer.product.store.accountId)
         val business = checkoutManagerApi.getBusiness(merchant.businessId!!).business
         val country = regulationEngine.country(business.country)
-        val productModel = mapper.toProductModel(product, country, merchant)
-        val totalPrice = DecimalFormat(country.monetaryFormat).format((product.price ?: 0) * quantity)
+        val offerModel = mapper.toOfferModel(offer, country, merchant)
+
+        val subTotal = offer.product.price?.let {
+            DecimalFormat(country.monetaryFormat).format(it * quantity)
+        }
+
+        val totalSavings = if (offer.price.savings > 0) {
+            DecimalFormat(country.monetaryFormat).format(offer.price.savings * quantity)
+        } else {
+            null
+        }
+
+        val totalPrice = DecimalFormat(country.monetaryFormat).format(offer.price.price * quantity)
 
         model.addAttribute("page", createPage())
-        model.addAttribute("product", productModel)
+        model.addAttribute("offer", offerModel)
         model.addAttribute("quantity", quantity)
-        model.addAttribute("totalPrice", totalPrice)
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
+        model.addAttribute("subTotal", subTotal)
+        model.addAttribute("totalSavings", totalSavings)
+        model.addAttribute("totalPrice", totalPrice)
 
         return "order"
     }

@@ -15,6 +15,7 @@ import com.wutsi.checkout.manager.dto.GetOrderResponse
 import com.wutsi.checkout.manager.dto.SearchPaymentProviderResponse
 import com.wutsi.enums.ChannelType
 import com.wutsi.enums.DeviceType
+import com.wutsi.marketplace.manager.dto.GetOfferResponse
 import com.wutsi.marketplace.manager.dto.GetProductResponse
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import org.junit.jupiter.api.BeforeEach
@@ -48,6 +49,9 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         doReturn(GetMemberResponse(merchant)).whenever(membershipManagerApi).getMember(any())
 
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
+
+        val offer = Fixtures.createOffer(product)
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(any())
 
         doReturn(GetBusinessResponse(business)).whenever(checkoutManagerApi).getBusiness(any())
 

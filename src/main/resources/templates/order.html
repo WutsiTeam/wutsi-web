@@ -46,7 +46,15 @@
                 <div class="col-12 col-sm-12 col-md-4 padding">
                     <div class="border">
                         <div
-                            th:replace="component/layout :: order-item-card(${product}, ${quantity})">
+                            th:replace="component/layout :: order-item-card(${offer.product}, ${quantity})">
+                        </div>
+                        <div class="order-sub-total-card  padding-right border-top">
+                            <span th:text="#{order.sub-total}">Total</span>:
+                            <span th:text="${subTotal}">3000</span>
+                        </div>
+                        <div class="order-savings-card padding-right" th:if="${totalSavings}">
+                            <span th:text="#{order.savings}">Savings</span>:
+                            <span th:text="'-' + ${totalSavings}">3000</span>
                         </div>
                         <div class="order-total-card padding border-top">
                             <span th:text="#{order.total}">Total</span>:
@@ -57,7 +65,7 @@
             </div>
 
             <input name="businessId" th:value="${merchant.businessId}" type="hidden"/>
-            <input name="productId" th:value="${product.id}" type="hidden"/>
+            <input name="productId" th:value="${offer.product.id}" type="hidden"/>
             <input name="quantity" th:value="${quantity}" type="hidden"/>
         </form>
     </div>

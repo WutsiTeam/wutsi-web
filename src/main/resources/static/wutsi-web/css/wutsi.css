@@ -532,6 +532,7 @@ form .hint {
 
 .product-card .price {
     color: var(--highlight-color);
+    white-space: nowrap;
 }
 
 .product-card .reference-price {
@@ -539,6 +540,7 @@ form .hint {
     font-size: 0.8em;
     color: var(--text-color-success);
     margin-left: 0.5em;
+    white-space: nowrap;
 }
 
 .product-card .discount-percent {
@@ -546,6 +548,7 @@ form .hint {
     color: var(--text-color-success);
     font-width: bold;
     margin-left: 0.5em;
+    white-space: nowrap;
 }
 
 .product-card .discount-percent::before {
@@ -565,6 +568,7 @@ form .hint {
 .product .price {
     color: var(--highlight-color);
     font-size: 1.2em;
+    white-space: nowrap;
 }
 
 .product .reference-price {
@@ -572,6 +576,7 @@ form .hint {
     color: var(--text-color-success);
     font-size: 1.0em;
     margin-left: 0.5em;
+    white-space: nowrap;
 }
 
 .product .discount-percent {
@@ -579,6 +584,7 @@ form .hint {
     color: var(--text-color-success);
     font-width: bold;
     margin-left: 0.5em;
+    white-space: nowrap;
 }
 
 .product .discount-percent::before {
@@ -675,6 +681,17 @@ form .hint {
 .order-total-card {
     text-align: right;
     font-size: 1.2em
+}
+
+.order-sub-total-card,
+.order-savings-card {
+    text-align: right;
+    font-size: 1em
+}
+
+.order-savings-card {
+    color: var(--text-color-success);
+    font-weight: bold;
 }
 
 

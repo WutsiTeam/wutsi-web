@@ -62,7 +62,7 @@
                         </div>
                         <div class="urgency"
                              th:if="${offer.price.expiresHours}"
-                             th:text="#{product.sales-expires-in(${offer.price.expiresHours})}"
+                             th:utext="#{product.sales-expires-in(${offer.price.expiresHours})}"
                         >
                             Expires in 00 hours
                         </div>
