@@ -22,7 +22,7 @@ internal class UserControllerTest : SeleniumTestSupport() {
                 "https://www.google.ca/1.png",
                 price = 1000L,
             ),
-            Fixtures.createProductPriceSummary(
+            Fixtures.createOfferPrice(
                 11L,
                 discountId = 11L,
                 savings = 100,
@@ -32,7 +32,7 @@ internal class UserControllerTest : SeleniumTestSupport() {
         ),
         Fixtures.createOfferSummary(
             Fixtures.createProductSummary(id = 22L, title = "Product 2", "https://www.google.ca/2.png", price = 2000),
-            Fixtures.createProductPriceSummary(11L, discountId = null, savings = 0, price = 2000, referencePrice = null),
+            Fixtures.createOfferPrice(11L, discountId = null, savings = 0, price = 2000, referencePrice = null),
         ),
         Fixtures.createOfferSummary(
             Fixtures.createProductSummary(

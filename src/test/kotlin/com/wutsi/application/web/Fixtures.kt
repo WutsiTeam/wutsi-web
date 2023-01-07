@@ -22,10 +22,10 @@ import com.wutsi.marketplace.manager.dto.Event
 import com.wutsi.marketplace.manager.dto.FileSummary
 import com.wutsi.marketplace.manager.dto.MeetingProviderSummary
 import com.wutsi.marketplace.manager.dto.Offer
+import com.wutsi.marketplace.manager.dto.OfferPrice
 import com.wutsi.marketplace.manager.dto.OfferSummary
 import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
-import com.wutsi.marketplace.manager.dto.ProductPriceSummary
 import com.wutsi.marketplace.manager.dto.ProductSummary
 import com.wutsi.marketplace.manager.dto.Store
 import com.wutsi.marketplace.manager.dto.StoreSummary
@@ -333,7 +333,7 @@ object Fixtures {
 
     fun createOfferSummary(
         product: ProductSummary,
-        price: ProductPriceSummary = createProductPriceSummary(productId = -1, price = 2000),
+        price: OfferPrice = createOfferPrice(productId = -1, price = 2000),
     ) = OfferSummary(
         product = product,
         price = price,
@@ -341,19 +341,19 @@ object Fixtures {
 
     fun createOffer(
         product: Product,
-        price: ProductPriceSummary = createProductPriceSummary(),
+        price: OfferPrice = createOfferPrice(),
     ) = Offer(
         product = product,
         price = price,
     )
 
-    fun createProductPriceSummary(
+    fun createOfferPrice(
         productId: Long = -1,
         discountId: Long? = null,
         savings: Long = 0,
         price: Long = 1500,
         referencePrice: Long? = null,
-    ) = ProductPriceSummary(
+    ) = OfferPrice(
         productId = productId,
         discountId = discountId,
         savings = savings,

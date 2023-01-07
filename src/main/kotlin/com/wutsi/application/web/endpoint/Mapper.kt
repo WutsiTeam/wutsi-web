@@ -22,10 +22,10 @@ import com.wutsi.checkout.manager.dto.Transaction
 import com.wutsi.enums.ProductType
 import com.wutsi.marketplace.manager.dto.Event
 import com.wutsi.marketplace.manager.dto.Offer
+import com.wutsi.marketplace.manager.dto.OfferPrice
 import com.wutsi.marketplace.manager.dto.OfferSummary
 import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
-import com.wutsi.marketplace.manager.dto.ProductPriceSummary
 import com.wutsi.marketplace.manager.dto.ProductSummary
 import com.wutsi.membership.manager.dto.Member
 import com.wutsi.platform.core.image.Dimension
@@ -236,7 +236,7 @@ class Mapper(
         price = toOfferPriceModel(offer.price, country),
     )
 
-    fun toOfferPriceModel(offerPrice: ProductPriceSummary, country: Country) = OfferPriceModel(
+    fun toOfferPriceModel(offerPrice: OfferPrice, country: Country) = OfferPriceModel(
         price = DecimalFormat(country.monetaryFormat).format(offerPrice.price),
         referencePrice = offerPrice.referencePrice?.let { DecimalFormat(country.monetaryFormat).format(it) },
         savings = if (offerPrice.savings > 0) DecimalFormat(country.monetaryFormat).format(offerPrice.savings) else null,
