@@ -52,6 +52,7 @@ class Mapper(
         const val PRODUCT_THUMBNAIL_WIDTH = 300
         const val PRODUCT_PICTURE_HEIGHT = 512
         const val PRODUCT_PICTURE_WIDTH = 512
+        const val QUANTITY_THRESHOLD = 5
     }
 
     fun toOrderModel(order: Order, country: Country): OrderModel {
@@ -120,6 +121,7 @@ class Mapper(
         url = toProductUrl(product.id, product.title),
         quantity = product.quantity,
         available = product.quantity != null && product.quantity!! > 0,
+        lowAvailability = product.quantity != null && product.quantity!! < QUANTITY_THRESHOLD,
         thumbnailUrl = product.thumbnailUrl?.let {
             imageService.transform(
                 url = it,
@@ -152,6 +154,7 @@ class Mapper(
         summary = toString(product.summary),
         description = toString(product.description),
         available = product.quantity != null && product.quantity!! > 0,
+        lowAvailability = product.quantity != null && product.quantity!! < QUANTITY_THRESHOLD,
         quantity = product.quantity,
         url = toProductUrl(product.id, product.title),
         thumbnailUrl = product.thumbnail?.url?.let {
@@ -238,14 +241,14 @@ class Mapper(
         referencePrice = offerPrice.referencePrice?.let { DecimalFormat(country.monetaryFormat).format(it) },
         savings = if (offerPrice.savings > 0) DecimalFormat(country.monetaryFormat).format(offerPrice.savings) else null,
         savingsPercentage = if (offerPrice.savingsPercentage > 0) "${offerPrice.savingsPercentage}%" else null,
-        expiresHours = offerPrice.expires?.let { getExpiryText(it) },
+        expiresHours = offerPrice.expires?.let { getExpiryHours(it) },
     )
 
-    fun getExpiryText(date: OffsetDateTime): Int? {
+    fun getExpiryHours(date: OffsetDateTime): Int? {
         val now = OffsetDateTime.now(ZoneOffset.UTC)
-        val duration = Duration.between(now, date)
-        return if (duration.toDays() <= 2L && duration.toHours() > 0L) {
-            duration.toHours().toInt()
+        val hours = Duration.between(now, date).toHours()
+        return if (hours in 1..24L) {
+            hours.toInt()
         } else {
             null
         }

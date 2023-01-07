@@ -8,6 +8,7 @@ data class ProductModel(
     val quantity: Int?,
     val url: String,
     val available: Boolean,
+    val lowAvailability: Boolean,
     val summary: String?,
     val type: String,
     val event: EventModel?,

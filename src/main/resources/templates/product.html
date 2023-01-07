@@ -72,6 +72,9 @@
                         <i class="fa-solid fa-ban"></i>
                         <span th:text="#{product.out-of-stock}">In Stock</span>
                     </div>
+                    <div class="quantity unavailable" th:if="${offer.product.lowAvailability}">
+                        <span th:text="#{product.low-stock(${offer.product.quantity})}">Only 00 in stock</span>
+                    </div>
                 </div>
                 <div>
                     <form action="/order" method="GET">
