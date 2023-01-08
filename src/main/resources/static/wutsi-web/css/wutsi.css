@@ -475,8 +475,11 @@ form .hint {
     border: 2px solid var(--border-color);
 }
 
-.profile a h1,
-.profile a h2 {
+.profile a,
+.profile a:link,
+.profile a:visited,
+.profile a:active,
+.profile a:hover {
     color: var(--text-color);
     text-decoration: none;
 }
