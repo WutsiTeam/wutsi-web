@@ -475,6 +475,12 @@ form .hint {
     border: 2px solid var(--border-color);
 }
 
+.profile a h1,
+.profile a h2 {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
 .profile .bio {
     font-size: 0.9em;
 }
