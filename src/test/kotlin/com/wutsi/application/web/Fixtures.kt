@@ -361,6 +361,7 @@ object Fixtures {
         price = price,
         referencePrice = referencePrice,
         expires = expires,
+        savingsPercentage = if (referencePrice != null && referencePrice > 0) (100 * (referencePrice - price) / savings).toInt() else 0
     )
 
     fun createDiscountSummary(id: Long) = DiscountSummary(

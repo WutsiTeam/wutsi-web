@@ -150,8 +150,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
             product = product,
             price = Fixtures.createOfferPrice(
                 productId = product.id,
-                referencePrice = null,
                 price = 50000,
+                referencePrice = null,
                 savings = 0,
                 discountId = null,
             ),
@@ -188,7 +188,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .price", "50,000 FCFA")
         assertElementNotPresent(".product .reference-price")
         assertElementNotPresent(".product .discount-percent")
-        assertElementPresent("#expiry-countdown")
+        assertElementNotPresent("#expiry-countdown")
 
         assertElementPresent("#product-delivery")
         assertElementPresent("#product-delivery-digital-download")
