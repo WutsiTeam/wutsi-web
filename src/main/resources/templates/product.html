@@ -9,14 +9,11 @@
 <div th:replace="component/layout :: navbar"></div>
 
 <div class="container col-md-12 col-sm-12 content-main margin-top">
-    <div class="border main-content container">
-        <div class="row border-bottom">
-            <div class="col-12">
-                <div th:replace="component/layout :: merchant-profile(${merchant}, false, false)"></div>
-            </div>
-        </div>
+    <div class="border main-content">
+        <div th:replace="component/layout :: merchant-profile(${merchant}, false, false)"></div>
 
         <div class="row">
+            <div class="border-top"></div>
             <div class="col-12 col-sm-12 col-md-6">
                 <div class="carousel slide" data-bs-interval="300000" data-bs-ride="carousel" id="picture-carousel">
                     <div class="carousel-inner">
@@ -43,7 +40,7 @@
             </div>
 
             <div class="col-12 col-sm-12 col-md-6">
-                <div class="padding">
+                <div class="padding-left padding-right">
                     <h1 class="title" th:text="${offer.product.title}">Title</h1>
                     <div class="price-container">
                         <div th:replace="component/layout :: offer-price(${offer})"></div>
@@ -57,9 +54,8 @@
                     <div class="quantity unavailable" th:if="${offer.product.lowAvailability}">
                         <span th:text="#{product.low-stock(${offer.product.quantity})}">Only 00 in stock</span>
                     </div>
-                </div>
-                <div>
-                    <form action="/order" method="GET">
+
+                    <form action="/order" class="padding-top" method="GET">
                         <input name="p" th:value="${offer.product.id}" type="hidden"/>
 
                         <input name="q" th:if="!${quantities}" type="hidden" value="1"/>
@@ -78,93 +74,95 @@
                             Buy Now
                         </button>
                     </form>
-                </div>
-                <div th:replace="component/layout :: toolbar(${merchant})"></div>
-                <div class="summary padding" th:if="${offer.product.summary}" th:text="${offer.product.summary}">
-                    This is the summary
-                </div>
 
-                <!-- ========================= -->
-                <!-- EVENT                     -->
-                <!-- ========================= -->
-                <div th:if="${offer.product.type} == 'EVENT'">
-                    <div class="padding border-top">
-                        <h4>
+                    <div th:replace="component/layout :: toolbar(${merchant})"></div>
+                    <div class="summary padding" th:if="${offer.product.summary}" th:text="${offer.product.summary}">
+                        This is the summary
+                    </div>
+
+                    <!-- ========================= -->
+                    <!-- EVENT                     -->
+                    <!-- ========================= -->
+                    <div th:if="${offer.product.type} == 'EVENT'">
+                        <div class="padding border-top">
+                            <h4>
                             <span th:if="${offer.product.event.online}"
                                   th:text="#{product.event-online}">Online Event</span>
-                            <span th:if="!${offer.product.event.online}" th:text="#{product.event-offline}">Event</span>
-                        </h4>
-                        <table class="event-info">
-                            <tr th:if="${offer.product.event.startDate}">
-                                <td>
-                                    <i class="fa-solid fa-calendar-days highlight"></i>
-                                </td>
-                                <td class="padding-left" th:text="${offer.product.event.startDate}">2020-12-01</td>
-                            </tr>
-                            <tr th:if="${offer.product.event.startTime}">
-                                <td>
-                                    <i class="fa-solid fa-clock highlight"></i>
-                                </td>
-                                <td class="padding-left">
-                                    <span th:text="${offer.product.event.startTime}">12:30</span>
-                                    <span th:if="${offer.product.event.endTime}">-</span>
-                                    <span th:if="${offer.product.event.endTime}"
-                                          th:text="${offer.product.event.endTime}">13:30</span>
-                                </td>
-                            </tr>
-                            <tr th:if="${offer.product.event.meetingProviderName}">
-                                <td>
-                                    <i class="fa-solid fa-location-dot highlight"></i>
-                                </td>
-                                <td class="padding-left" valign="middle">
-                                    <img height="24"
-                                         th:if="${offer.product.event.meetingProviderLogoUrl}"
-                                         th:src="${offer.product.event.meetingProviderLogoUrl}" width="24"
-                                    />
-                                    <span th:text="${offer.product.event.meetingProviderName}">Zoom</span>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="padding border-top" id="product-delivery">
-                        <h2 th:text="#{product.delivery}">Delivery</h2>
-                        <h3 th:text="#{product.delivery-email}">Delivery</h3>
-                        <div>
+                                <span th:if="!${offer.product.event.online}"
+                                      th:text="#{product.event-offline}">Event</span>
+                            </h4>
+                            <table class="event-info">
+                                <tr th:if="${offer.product.event.startDate}">
+                                    <td>
+                                        <i class="fa-solid fa-calendar-days highlight"></i>
+                                    </td>
+                                    <td class="padding-left" th:text="${offer.product.event.startDate}">2020-12-01</td>
+                                </tr>
+                                <tr th:if="${offer.product.event.startTime}">
+                                    <td>
+                                        <i class="fa-solid fa-clock highlight"></i>
+                                    </td>
+                                    <td class="padding-left">
+                                        <span th:text="${offer.product.event.startTime}">12:30</span>
+                                        <span th:if="${offer.product.event.endTime}">-</span>
+                                        <span th:if="${offer.product.event.endTime}"
+                                              th:text="${offer.product.event.endTime}">13:30</span>
+                                    </td>
+                                </tr>
+                                <tr th:if="${offer.product.event.meetingProviderName}">
+                                    <td>
+                                        <i class="fa-solid fa-location-dot highlight"></i>
+                                    </td>
+                                    <td class="padding-left" valign="middle">
+                                        <img height="24"
+                                             th:if="${offer.product.event.meetingProviderLogoUrl}"
+                                             th:src="${offer.product.event.meetingProviderLogoUrl}" width="24"
+                                        />
+                                        <span th:text="${offer.product.event.meetingProviderName}">Zoom</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="padding border-top" id="product-delivery">
+                            <h2 th:text="#{product.delivery}">Delivery</h2>
+                            <h3 th:text="#{product.delivery-email}">Delivery</h3>
+                            <div>
                             <span id="product-delivery-event-online"
                                   th:if="${offer.product.event.online}"
                                   th:text="#{product.delivery-event-online}">
                                 Details...
                             </span>
-                            <span id="product-delivery-event-offline"
-                                  th:if="!${offer.product.event.online}"
-                                  th:text="#{product.delivery-event-offline}">
+                                <span id="product-delivery-event-offline"
+                                      th:if="!${offer.product.event.online}"
+                                      th:text="#{product.delivery-event-offline}">
                                 Details...
                             </span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- ========================= -->
-                <!-- DIGITAL DOWNLOAD          -->
-                <!-- ========================= -->
-                <div th:if="${offer.product.type} == 'DIGITAL_DOWNLOAD'">
-                    <div class="padding" id="digital-download-info">
-                        <ul>
-                            <li>
-                                <i class="fa-solid fa-cloud-arrow-down highlight"></i>
-                                <span th:text="#{product.type.DIGITAL_DOWNLOAD}">Digital Download</span>
-                            </li>
-                            <li th:each="fileType : ${offer.product.fileTypes}">
-                                <span th:text="${fileType.count}">2</span>
-                                <span th:text="${fileType.type}">PDF</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="padding border-top" id="product-delivery">
-                        <h2 th:text="#{product.delivery}">Delivery</h2>
-                        <h3 th:text="#{product.delivery-instant-download}">Delivery</h3>
-                        <div id="product-delivery-digital-download" th:text="#{product.delivery-digital-download}">
-                            Details...
+                    <!-- ========================= -->
+                    <!-- DIGITAL DOWNLOAD          -->
+                    <!-- ========================= -->
+                    <div th:if="${offer.product.type} == 'DIGITAL_DOWNLOAD'">
+                        <div class="padding" id="digital-download-info">
+                            <ul>
+                                <li>
+                                    <i class="fa-solid fa-cloud-arrow-down highlight"></i>
+                                    <span th:text="#{product.type.DIGITAL_DOWNLOAD}">Digital Download</span>
+                                </li>
+                                <li th:each="fileType : ${offer.product.fileTypes}">
+                                    <span th:text="${fileType.count}">2</span>
+                                    <span th:text="${fileType.type}">PDF</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="padding border-top" id="product-delivery">
+                            <h2 th:text="#{product.delivery}">Delivery</h2>
+                            <h3 th:text="#{product.delivery-instant-download}">Delivery</h3>
+                            <div id="product-delivery-digital-download" th:text="#{product.delivery-digital-download}">
+                                Details...
+                            </div>
                         </div>
                     </div>
                 </div>

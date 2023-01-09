@@ -9,14 +9,10 @@
 <div th:replace="component/layout :: navbar"></div>
 
 <div class="container col-md-12 col-sm-12 content-main margin-top">
-    <div class="border main-content container">
-        <div class="row border-bottom">
-            <div class="col-12">
-                <div th:replace="component/layout :: merchant-profile(${merchant}, false, false)"></div>
-            </div>
-        </div>
+    <div class="border main-content">
+        <div th:replace="component/layout :: merchant-profile(${merchant}, false, false)"></div>
 
-        <div class="row border-bottom">
+        <div class="row border-bottom border-top">
             <div class="col-12">
                 <div class="tx-status tx-success padding-2x text-center">
                     <h3 class="padding-2x" th:text="#{success.title}">Thank your for your payment!</h3>

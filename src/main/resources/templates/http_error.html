@@ -9,13 +9,10 @@
 <div th:replace="component/layout :: navbar"></div>
 
 <div class="container col-md-12 col-sm-12 content-main margin-top">
-    <div class="border main-content container">
-        <div class="row border-bottom" th:if="${merchant}">
-            <div class="col-12">
-                <div th:replace="component/layout :: merchant-profile(${merchant}, false, false)"></div>
-                <div th:replace="component/layout :: toolbar(${merchant})"></div>
-            </div>
-        </div>
+    <div class="border main-content">
+        <div th:replace="component/layout :: merchant-profile(${merchant}, false, false)"></div>
+        <div th:replace="component/layout :: toolbar(${merchant})"></div>
+
         <div class="row border-bottom">
             <div class="col-12">
                 <div class="padding">

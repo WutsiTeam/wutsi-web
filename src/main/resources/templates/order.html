@@ -9,12 +9,8 @@
 <div th:replace="component/layout :: navbar"></div>
 
 <div class="container col-md-12 col-sm-12 content-main margin-top">
-    <div class="border main-content container">
-        <div class="row border-bottom">
-            <div class="col-12">
-                <div th:replace="component/layout :: merchant-profile(${merchant}, false, false)"></div>
-            </div>
-        </div>
+    <div class="border main-content">
+        <div th:replace="component/layout :: merchant-profile(${merchant}, false, false)"></div>
 
         <form action="/order/submit" method="POST"
               onsubmit="document.getElementById('btn-submit').disabled=true; return true">
@@ -43,8 +39,8 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-6 padding">
-                    <div class="border">
+                <div class="col-12 col-sm-12 col-md-6 border-top">
+                    <div class="border margin">
                         <div
                             th:replace="component/layout :: order-item-card(${offer}, ${quantity})">
                         </div>
