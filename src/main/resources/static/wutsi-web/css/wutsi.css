@@ -255,6 +255,10 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.8em;
 }
 
+.text-right {
+    text-align: right;
+}
+
 .uppercase {
     text-transform: uppercase;
 }
@@ -490,6 +494,24 @@ form .hint {
 
 
 /* ==== PRODUCT CARD ====== */
+.price {
+    color: var(--highlight-color);
+    white-space: nowrap;
+}
+
+.reference-price {
+    text-decoration: line-through;
+    color: var(--text-color-success);
+    white-space: nowrap;
+}
+
+.discount-percent {
+    color: var(--text-color-success);
+    font-width: bold;
+    white-space: nowrap;
+}
+
+
 .product-card {
     background: var(--card-background-color);
 }
@@ -539,31 +561,26 @@ form .hint {
     color: var(--text-color);
 }
 
-.product-card .price {
-    color: var(--highlight-color);
-    white-space: nowrap;
+.product-card .reference-price {
+    font-size: 1.0em;
 }
 
 .product-card .reference-price {
-    text-decoration: line-through;
     font-size: 0.8em;
-    color: var(--text-color-success);
     margin-left: 0.5em;
-    white-space: nowrap;
 }
 
 .product-card .discount-percent {
     font-size: 0.8em;
-    color: var(--text-color-success);
-    font-width: bold;
     margin-left: 0.5em;
-    white-space: nowrap;
 }
 
+.product .discount-percent::before,
 .product-card .discount-percent::before {
     content: "(";
 }
 
+.product .discount-percent::after,
 .product-card .discount-percent::after {
     content: ")";
 }
@@ -574,37 +591,7 @@ form .hint {
 }
 
 /* ==== PRODUCT DETAILS ====== */
-.product .price {
-    color: var(--highlight-color);
-    font-size: 1.2em;
-    white-space: nowrap;
-}
-
-.product .reference-price {
-    text-decoration: line-through;
-    color: var(--text-color-success);
-    font-size: 1.0em;
-    margin-left: 0.5em;
-    white-space: nowrap;
-}
-
-.product .discount-percent {
-    font-size: 1.0em;
-    color: var(--text-color-success);
-    font-width: bold;
-    margin-left: 0.5em;
-    white-space: nowrap;
-}
-
-.product .discount-percent::before {
-    content: "("
-}
-
-.product .discount-percent::after {
-    content: ")"
-}
-
-.product .urgency {
+.urgency {
     font-size: 0.8em;
     color: white;
     background: var(--text-color-success);
@@ -613,6 +600,19 @@ form .hint {
     display: inline;
 }
 
+.product .price {
+    font-size: 1.2em;
+}
+
+.product .reference-price {
+    margin-left: 0.5em;
+    margin-left: 0.5em;
+}
+
+.product .discount-percent {
+    font-size: 1.0em;
+    margin-left: 0.5em;
+}
 
 .product .carousel-item img {
     max-height: 512px;
@@ -661,10 +661,6 @@ form .hint {
 }
 
 /*==== order item === */
-.order-item-card {
-    display: flex;
-}
-
 .order-item-card img {
     width: 150px;
     max-height: 150px;

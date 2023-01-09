@@ -46,21 +46,8 @@
                 <div class="padding">
                     <h1 class="title" th:text="${offer.product.title}">Title</h1>
                     <div class="price-container">
-                        <div class="flex">
-                            <div class="price"
-                                 th:if="${offer.product.price}"
-                                 th:text="${offer.price.price}">10.000 FCFA
-                            </div>
-                            <div class="reference-price"
-                                 th:if="${offer.price.referencePrice}"
-                                 th:text="${offer.price.referencePrice}">10.000 FCFA
-                            </div>
-                            <div class="discount-percent"
-                                 th:if="${offer.price.savingsPercentage}"
-                                 th:text="${offer.price.savingsPercentage}">30%
-                            </div>
-                        </div>
-                        <div th:replace="component/layout :: urgency-badge(${offer})"></div>
+                        <div th:replace="component/layout :: offer-price(${offer})"></div>
+                        <div th:replace="component/layout :: offer-urgency-badge(${offer})"></div>
                     </div>
 
                     <div class="quantity unavailable" th:if="!${offer.product.available}">

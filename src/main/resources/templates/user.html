@@ -7,7 +7,7 @@
 
 <div th:replace="component/layout :: navbar"></div>
 
-<div class="container offset-md-2 col-md-8 col-sm-12 content-main margin-top">
+<div class="container col-md-12 col-sm-12 content-main margin-top">
     <div class="border main-content">
         <div th:replace="component/layout :: merchant-profile(${member}, true, true)"></div>
         <div th:replace="component/layout :: toolbar(${member})"></div>
@@ -44,16 +44,7 @@
                         </div>
 
                         <!-- Price -->
-                        <div class="flex">
-                            <div class="price" th:text="${offer.price.price}">15000 FCFA</div>
-                            <div class="reference-price" th:if="${offer.price.referencePrice}"
-                                 th:text="${offer.price.referencePrice}">15000 FCFA
-                            </div>
-                            <div class="discount-percent"
-                                 th:if="${offer.price.savingsPercentage}"
-                                 th:text="${offer.price.savingsPercentage}">30%
-                            </div>
-                        </div>
+                        <div th:replace="component/layout :: offer-price(${offer})"></div>
                     </a>
                 </div>
             </div>

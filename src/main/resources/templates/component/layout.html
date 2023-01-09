@@ -265,27 +265,52 @@
 <!-- ################# -->
 <!-- Order Item        -->
 <!-- ################# -->
-<div class="order-item-card" th:fragment="order-item-card(product, quantity)">
-    <img th:src="${product.thumbnailUrl}"/>
-    <div class="padding">
-        <div class="title" th:text="${product.title}">Product Title</div>
-        <div class="event-date" th:if="${product.event} AND ${product.event.startDate}">
-            <i class="fa-solid fa-calendar-days highlight"></i>
-            <span th:if="${product.event.startDateTime}" th:text="${product.event.startDateTime}">2020-01-01</span>
-        </div>
+<div class="order-item-card" th:fragment="order-item-card(offer, quantity)">
+    <div class="flex">
+        <img th:src="${offer.product.thumbnailUrl}"/>
+        <div class="padding">
+            <div class="title" th:text="${offer.product.title}">Product Title</div>
+            <div class="event-date" th:if="${offer.product.event} AND ${offer.product.event.startDate}">
+                <i class="fa-solid fa-calendar-days highlight"></i>
+                <span th:if="${offer.product.event.startDateTime}"
+                      th:text="${offer.product.event.startDateTime}">2020-01-01</span>
+            </div>
 
-        <div class="price" th:text="${product.price}">10,000 FCFA</div>
-        <div th:if="${quantity GT 1}">
-            <span th:text="#{order.quantity}">Quantity</span>:
-            <span th:text="${quantity}">10</span>
+            <div class="price text-right" th:text="${offer.price.price}">10.000 FCFA</div>
+            <div class="reference-price text-right"
+                 th:if="${offer.price.referencePrice}"
+                 th:text="${offer.price.referencePrice}">10.000 FCFA
+            </div>
+            <div th:if="${quantity GT 1}">
+                <span th:text="#{order.quantity}">Quantity</span>: <span th:text="${quantity}">10</span>
+            </div>
         </div>
+    </div>
+    <div class="padding-bottom padding-right text-right"
+         th:if="${offer.price.expiresHours} OR ${offer.price.expiresMinutes}">
+        <div th:replace="component/layout :: offer-urgency-badge(${offer})"></div>
+    </div>
+</div>
+
+<!-- ################## -->
+<!--  PRICE           -->
+<!-- ################## -->
+<div class="flex" th:fragment="offer-price(offer)">
+    <div class="price" th:text="${offer.price.price}">10.000 FCFA</div>
+    <div class="reference-price"
+         th:if="${offer.price.referencePrice}"
+         th:text="${offer.price.referencePrice}">10.000 FCFA
+    </div>
+    <div class="discount-percent"
+         th:if="${offer.price.savingsPercentage}"
+         th:text="${offer.price.savingsPercentage}">30%
     </div>
 </div>
 
 <!-- ################## -->
 <!--  URGENCY           -->
 <!-- ################## -->
-<div th:fragment="urgency-badge(offer)">
+<div th:fragment="offer-urgency-badge(offer)">
     <div
         class="urgency"
         th:if="${offer.price.expiresHours}"
