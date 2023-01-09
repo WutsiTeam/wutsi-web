@@ -297,7 +297,7 @@
         <div class="urgency" th:utext="#{product.sales-expires-in-minutes(${offer.price.expiresMinutes})}">
             Expires in 00:00 minutes
         </div>
-        <script id="expiry-countdown" th:inline="javascript">
+        <script id="urgency-countdown" th:inline="javascript">
             /*<![CDATA[*/
 
             // Set the date we're counting down to

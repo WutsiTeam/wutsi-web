@@ -188,7 +188,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .price", "50,000 FCFA")
         assertElementNotPresent(".product .reference-price")
         assertElementNotPresent(".product .discount-percent")
-        assertElementNotPresent("#expiry-countdown")
+        assertElementNotPresent("#urgency-countdown")
 
         assertElementPresent("#product-delivery")
         assertElementPresent("#product-delivery-digital-download")
@@ -225,7 +225,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .price", "40,000 FCFA")
         assertElementText(".product .reference-price", "50,000 FCFA")
         assertElementText(".product .discount-percent", "20%")
-        assertElementNotPresent("#expiry-countdown")
+        assertElementNotPresent("#urgency-countdown")
     }
 
     @Test
@@ -259,7 +259,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .price", "40,000 FCFA")
         assertElementText(".product .reference-price", "50,000 FCFA")
         assertElementText(".product .discount-percent", "20%")
-        assertElementPresent("#expiry-countdown")
+        assertElementPresent("#urgency-countdown")
     }
 
     @Test
