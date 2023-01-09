@@ -282,5 +282,53 @@
     </div>
 </div>
 
+<!-- ################## -->
+<!--  URGENCY           -->
+<!-- ################## -->
+<div th:fragment="urgency-badge(offer)">
+    <div
+        class="urgency"
+        th:if="${offer.price.expiresHours}"
+        th:utext="#{product.sales-expires-in-hours(${offer.price.expiresHours})}">
+        Expires in 00 hours
+    </div>
+
+    <div th:if="${offer.price.expiresHours} == 0 AND ${offer.price.expiresMinutes}">
+        <div class="urgency" th:utext="#{product.sales-expires-in-minutes(${offer.price.expiresMinutes})}">
+            Expires in 00:00 minutes
+        </div>
+        <script id="expiry-countdown" th:inline="javascript">
+            /*<![CDATA[*/
+
+            // Set the date we're counting down to
+            const minutes = /*[[${offer.price.expiresMinutes}]]*/ '0';
+            const countDownDate = new Date().getTime() + minutes * 60 * 1000;
+
+            // Update the countdown every 1 second
+            const expiryHandle = setInterval(function () {
+                const distance = countDownDate - new Date().getTime();
+
+                // Time calculations for days, hours, minutes and seconds
+                const min = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="demo"
+                const xmin = min < 10 ? '0' + min : min;
+                const xsecs = secs < 10 ? '0' + secs : secs;
+                document.getElementById("expiry-time").innerHTML = xmin + ":" + xsecs;
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(expiryHandle);
+                    document.getElementById("demo").style.display = 'none';
+                }
+            }, 1000);
+
+            /*]]>*/
+        </script>
+    </div>
+</div>
+
+
 </body>
 </html>

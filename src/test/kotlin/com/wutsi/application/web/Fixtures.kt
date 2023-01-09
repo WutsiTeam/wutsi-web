@@ -353,12 +353,14 @@ object Fixtures {
         savings: Long = 0,
         price: Long = 1500,
         referencePrice: Long? = null,
+        expires: OffsetDateTime? = null,
     ) = OfferPrice(
         productId = productId,
         discountId = discountId,
         savings = savings,
         price = price,
         referencePrice = referencePrice,
+        expires = expires,
     )
 
     fun createDiscountSummary(id: Long) = DiscountSummary(

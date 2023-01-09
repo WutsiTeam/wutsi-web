@@ -6,4 +6,5 @@ data class OfferPriceModel(
     public val savings: String?,
     public val savingsPercentage: String?,
     public val expiresHours: Int?,
+    public val expiresMinutes: Int?,
 )

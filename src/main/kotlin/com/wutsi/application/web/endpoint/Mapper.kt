@@ -242,16 +242,30 @@ class Mapper(
         savings = if (offerPrice.savings > 0) DecimalFormat(country.monetaryFormat).format(offerPrice.savings) else null,
         savingsPercentage = if (offerPrice.savingsPercentage > 0) "${offerPrice.savingsPercentage}%" else null,
         expiresHours = offerPrice.expires?.let { getExpiryHours(it) },
+        expiresMinutes = offerPrice.expires?.let { getExpiryMinutes(it) },
     )
 
     fun getExpiryHours(date: OffsetDateTime): Int? {
-        val now = OffsetDateTime.now(ZoneOffset.UTC)
-        val hours = Duration.between(now, date).toHours()
+        val hours = getExpiryDuration(date).toHours()
         return if (hours in 1..24L) {
             hours.toInt()
         } else {
             null
         }
+    }
+
+    fun getExpiryMinutes(date: OffsetDateTime): Int? {
+        val minutes = getExpiryDuration(date).toMinutes()
+        return if (minutes > 0) {
+            minutes.toInt()
+        } else {
+            null
+        }
+    }
+
+    fun getExpiryDuration(date: OffsetDateTime): Duration {
+        val now = OffsetDateTime.now(ZoneOffset.UTC)
+        return Duration.between(now, date)
     }
 
     private fun toPictureMapper(picture: PictureSummary) = PictureModel(
