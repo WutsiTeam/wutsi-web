@@ -225,7 +225,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .price", "40,000 FCFA")
         assertElementText(".product .reference-price", "50,000 FCFA")
         assertElementText(".product .discount-percent", "20%")
-        assertElementPresent("#expiry-countdown")
+        assertElementNotPresent("#expiry-countdown")
     }
 
     @Test
@@ -247,7 +247,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 price = 40000,
                 savings = 10000,
                 discountId = 11,
-                expires = OffsetDateTime.now().plusMinutes(50),
+                expires = OffsetDateTime.now().plusMinutes(15),
             ),
         )
         doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
@@ -259,7 +259,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .price", "40,000 FCFA")
         assertElementText(".product .reference-price", "50,000 FCFA")
         assertElementText(".product .discount-percent", "20%")
-        assertElementPresent("script#expiry-countdown")
+        assertElementPresent("#expiry-countdown")
     }
 
     @Test
