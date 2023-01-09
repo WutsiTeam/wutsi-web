@@ -224,7 +224,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(Page.PRODUCT)
         assertElementText(".product .price", "40,000 FCFA")
         assertElementText(".product .reference-price", "50,000 FCFA")
-        assertElementText(".product .discount-percent", "(20%)")
+        assertElementText(".product .discount-percent", "20%")
         assertElementPresent("#expiry-countdown")
     }
 
@@ -258,7 +258,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(Page.PRODUCT)
         assertElementText(".product .price", "40,000 FCFA")
         assertElementText(".product .reference-price", "50,000 FCFA")
-        assertElementText(".product .discount-percent", "(20%)")
+        assertElementText(".product .discount-percent", "20%")
         assertElementPresent("script#expiry-countdown")
     }
 
