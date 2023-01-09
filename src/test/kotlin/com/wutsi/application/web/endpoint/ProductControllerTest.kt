@@ -11,6 +11,7 @@ import com.wutsi.error.ErrorURN
 import com.wutsi.marketplace.manager.dto.GetOfferResponse
 import org.junit.jupiter.api.Test
 import java.time.OffsetDateTime
+import java.time.ZoneId
 
 internal class ProductControllerTest : SeleniumTestSupport() {
     @Test
@@ -213,7 +214,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 price = 40000,
                 savings = 10000,
                 discountId = 11,
-                expires = OffsetDateTime.now().plusHours(23),
+                expires = OffsetDateTime.now(ZoneId.of("UTC")).plusHours(23),
             ),
         )
         doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
@@ -247,7 +248,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 price = 40000,
                 savings = 10000,
                 discountId = 11,
-                expires = OffsetDateTime.now().plusMinutes(15),
+                expires = OffsetDateTime.now(ZoneId.of("UTC")).plusMinutes(15),
             ),
         )
         doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
@@ -259,7 +260,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .price", "40,000 FCFA")
         assertElementText(".product .reference-price", "50,000 FCFA")
         assertElementText(".product .discount-percent", "20%")
-//        assertElementPresent("#urgency-countdown")
+        assertElementPresent("#urgency-countdown")
     }
 
     @Test
