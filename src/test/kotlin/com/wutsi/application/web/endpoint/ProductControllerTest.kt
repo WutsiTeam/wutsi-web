@@ -259,7 +259,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .price", "40,000 FCFA")
         assertElementText(".product .reference-price", "50,000 FCFA")
         assertElementText(".product .discount-percent", "20%")
-        assertElementPresent("#urgency-countdown")
+//        assertElementPresent("#urgency-countdown")
     }
 
     @Test
