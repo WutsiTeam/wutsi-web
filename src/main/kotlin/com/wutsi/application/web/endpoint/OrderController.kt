@@ -2,6 +2,7 @@ package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.Page
 import com.wutsi.application.web.model.PageModel
+import com.wutsi.application.web.servlet.ChannelFilter
 import com.wutsi.checkout.manager.dto.CreateOrderItemRequest
 import com.wutsi.enums.ChannelType
 import com.wutsi.enums.DeviceType
@@ -15,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.text.DecimalFormat
 import java.util.UUID
+import javax.servlet.http.HttpServletRequest
 
 @Controller
 @RequestMapping("/order")
-class OrderController : AbstractController() {
+class OrderController(
+    private val httpRequest: HttpServletRequest,
+) : AbstractController() {
     @GetMapping
     fun index(
         @RequestParam(name = "p") productId: Long,
@@ -55,7 +59,9 @@ class OrderController : AbstractController() {
     }
 
     @PostMapping("/submit")
-    fun submit(@ModelAttribute request: com.wutsi.application.web.dto.CreateOrderRequest): String {
+    fun submit(
+        @ModelAttribute request: com.wutsi.application.web.dto.CreateOrderRequest,
+    ): String {
         logger.add("request_business_id", request.businessId)
         logger.add("request_product_id", request.productId)
         logger.add("request_quantity", request.quantity)
@@ -97,8 +103,16 @@ class OrderController : AbstractController() {
         }
     }
 
-    private fun toChannelType(): ChannelType =
-        ChannelType.WEB
+    private fun toChannelType(): ChannelType {
+        val cookie = httpRequest.cookies.find { it.name == ChannelFilter.CHANNEL_COOKIE }
+            ?: return ChannelType.WEB
+
+        return try {
+            ChannelType.valueOf(cookie.value.uppercase())
+        } catch (ex: Throwable) {
+            ChannelType.WEB
+        }
+    }
 
     private fun createPage() = PageModel(
         name = Page.ORDER,
