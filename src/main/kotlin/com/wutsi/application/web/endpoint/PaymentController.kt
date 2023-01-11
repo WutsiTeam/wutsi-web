@@ -37,6 +37,7 @@ class PaymentController(
         const val ERROR_UNEXPECTED = 1000010L
         const val ERROR_INVALID_PHONE_NUMBER = 1000011L
         const val ERROR_TRANSACTION_FAILED = 1000012L
+        const val ERROR_ORDER_EXPIRED = 1000013L
 
         private val LOGGER = LoggerFactory.getLogger(PaymentController::class.java)
     }
@@ -117,9 +118,17 @@ class PaymentController(
             } else {
                 "redirect:/processing?t=${response.transactionId}"
             }
-        } catch (ex: Exception) {
+        } catch (ex: FeignException) {
             LOGGER.error("Unexpected error", ex)
-            return redirectToError(request.orderId, ERROR_TRANSACTION_FAILED, ex)
+            try {
+                val response = objectMapper.readValue(ex.contentUTF8(), ErrorResponse::class.java)
+                return when (response.error.code) {
+                    ErrorURN.ORDER_EXPIRED.urn -> redirectToError(request.orderId, ERROR_ORDER_EXPIRED, ex)
+                    else -> redirectToError(request.orderId, ERROR_TRANSACTION_FAILED, ex)
+                }
+            } catch (ex1: Throwable) {
+                return redirectToError(request.orderId, ERROR_TRANSACTION_FAILED, ex)
+            }
         }
     }
 
@@ -131,10 +140,13 @@ class PaymentController(
             if (ex is FeignException) {
                 try {
                     val response = objectMapper.readValue(ex.contentUTF8(), ErrorResponse::class.java)
-                    if (response.error.code == ErrorURN.TRANSACTION_FAILED.name) {
-                        return "redirect:/payment?o=$orderId&e=$ERROR_UNEXPECTED&code=" +
-                            (response.error.downstreamCode ?: "")
+                    val err = when (response.error.code) {
+                        ErrorURN.ORDER_EXPIRED.urn -> ERROR_ORDER_EXPIRED
+                        ErrorURN.TRANSACTION_FAILED.urn -> ERROR_TRANSACTION_FAILED
+                        else -> ERROR_UNEXPECTED
                     }
+                    return "redirect:/payment?o=$orderId&e=$err&i=$idempotencyKey" +
+                        "&code=" + (response.error.downstreamCode ?: "")
                 } catch (e: Exception) {
                     // Nothing
                 }
@@ -186,6 +198,11 @@ class PaymentController(
         }
         ERROR_INVALID_PHONE_NUMBER -> messages.getMessage(
             "error-message.no-provider-for-phone-number",
+            emptyArray(),
+            LocaleContextHolder.getLocale(),
+        )
+        ERROR_ORDER_EXPIRED -> messages.getMessage(
+            "error-message.order-expired",
             emptyArray(),
             LocaleContextHolder.getLocale(),
         )
