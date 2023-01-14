@@ -58,10 +58,12 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .title", product.title)
         assertElementText(".product .summary", product.summary!!)
         assertElementText(".product .description", product.description!!)
+
         assertElementPresent(".product .price")
-        assertElementPresent(".product [name='q']")
         assertElementNotPresent("#quantity-out-of-stock")
         assertElementNotPresent("#quantity-low-of-stock")
+        assertElementPresent(".product [name='q']")
+        assertElementAttribute(".product [name='p']", "value", "${product.id}")
 
         assertElementPresent("#button-facebook")
         assertElementPresent("#button-twitter")
@@ -118,11 +120,13 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .title", product.title)
         assertElementText(".product .summary", product.summary!!)
         assertElementText(".product .description", product.description!!)
+
         assertElementPresent(".product .price")
-        assertElementAttribute(".product [name='q']", "value", "1")
         assertElementNotPresent("#quantity-out-of-stock")
         assertElementNotPresent("#quantity-low-of-stock")
 
+        assertElementAttribute(".product [name='q']", "value", "1")
+        assertElementAttribute(".product [name='p']", "value", "${product.id}")
         assertElementPresent("#product-delivery")
         assertElementPresent("#product-delivery-event-online")
 
@@ -192,14 +196,15 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .title", product.title)
         assertElementText(".product .summary", product.summary!!)
         assertElementText(".product .description", product.description!!)
-        assertElementText(".product .price", "50,000 FCFA")
-        assertElementAttribute(".product [name='q']", "value", "1")
-        assertElementNotPresent("#quantity-out-of-stock")
-        assertElementNotPresent("#quantity-low-of-stock")
 
+        assertElementText(".product .price", "50,000 FCFA")
         assertElementNotPresent(".product .reference-price")
         assertElementNotPresent(".product .discount-percent")
-        assertElementNotPresent("#urgency-countdown")
+
+        assertElementAttribute(".product [name='q']", "value", "1")
+        assertElementAttribute(".product [name='p']", "value", "${product.id}")
+        assertElementNotPresent("#quantity-out-of-stock")
+        assertElementNotPresent("#quantity-low-of-stock")
 
         assertElementPresent("#product-delivery")
         assertElementPresent("#product-delivery-digital-download")
@@ -236,7 +241,6 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .price", "40,000 FCFA")
         assertElementText(".product .reference-price", "50,000 FCFA")
         assertElementText(".product .discount-percent", "20%")
-        assertElementNotPresent("#urgency-countdown")
     }
 
     @Test
@@ -294,6 +298,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertCurrentPageIs(Page.PRODUCT)
         assertElementPresent("#quantity-out-of-stock")
         assertElementNotPresent(".product [name='q']")
+        assertElementNotPresent(".product [name='p']")
     }
 
     @Test
@@ -316,7 +321,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
 
         assertCurrentPageIs(Page.PRODUCT)
         assertElementPresent("#quantity-low-of-stock")
-        assertElementNotPresent(".product [name='q']")
+        assertElementPresent(".product [name='q']")
+        assertElementPresent(".product [name='p']")
     }
 
     @Test
