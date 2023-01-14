@@ -120,8 +120,8 @@ class Mapper(
         price = DecimalFormat(country.monetaryFormat).format(product.price),
         url = toProductUrl(product.id, product.title),
         quantity = product.quantity,
-        available = product.quantity != null && product.quantity!! > 0,
-        lowAvailability = product.quantity != null && product.quantity!! < QUANTITY_THRESHOLD,
+        available = product.quantity == null || product.quantity!! > 0,
+        lowAvailability = product.quantity != null && product.quantity!! <= QUANTITY_THRESHOLD,
         thumbnailUrl = product.thumbnailUrl?.let {
             imageService.transform(
                 url = it,

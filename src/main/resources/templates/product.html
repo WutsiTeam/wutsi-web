@@ -49,10 +49,10 @@
 
                     <div class="quantity unavailable" th:if="!${offer.product.available}">
                         <i class="fa-solid fa-ban"></i>
-                        <span th:text="#{product.out-of-stock}">In Stock</span>
+                        <span id="quantity-out-of-stock" th:text="#{product.out-of-stock}">In Stock</span>
                     </div>
                     <div class="quantity unavailable" th:if="${offer.product.lowAvailability}">
-                        <span th:text="#{product.low-stock(${offer.product.quantity})}">Only 00 in stock</span>
+                        <span id="quantity-low-stock" th:text="#{product.low-stock(${offer.product.quantity})}">Only 00 in stock</span>
                     </div>
 
                     <form action="/order" class="padding-top" method="GET">
@@ -63,12 +63,14 @@
                             <option th:each="value : ${quantities}" th:text="${value}" th:value="${value}">1</option>
                         </select>
 
-                        <button class="btn btn-lg btn-primary w-100" th:if="${offer.product.type} == 'EVENT'"
+                        <button class="btn btn-lg btn-primary w-100" id="buy-now"
+                                th:if="${offer.product.type} == 'EVENT'"
                                 th:text="#{product.button.register}"
                                 type="submit">
                             Register Now
                         </button>
-                        <button class="btn btn-lg btn-primary w-100" th:if="${offer.product.type} != 'EVENT'"
+                        <button class="btn btn-lg btn-primary w-100" id="buy-now"
+                                th:if="${offer.product.type} != 'EVENT'"
                                 th:text="#{product.button.buy}"
                                 type="submit">
                             Buy Now

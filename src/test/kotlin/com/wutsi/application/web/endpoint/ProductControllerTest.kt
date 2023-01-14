@@ -59,6 +59,9 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .summary", product.summary!!)
         assertElementText(".product .description", product.description!!)
         assertElementPresent(".product .price")
+        assertElementPresent(".product [name='q']")
+        assertElementNotPresent("#quantity-out-of-stock")
+        assertElementNotPresent("#quantity-low-of-stock")
 
         assertElementPresent("#button-facebook")
         assertElementPresent("#button-twitter")
@@ -116,6 +119,9 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .summary", product.summary!!)
         assertElementText(".product .description", product.description!!)
         assertElementPresent(".product .price")
+        assertElementAttribute(".product [name='q']", "value", "1")
+        assertElementNotPresent("#quantity-out-of-stock")
+        assertElementNotPresent("#quantity-low-of-stock")
 
         assertElementPresent("#product-delivery")
         assertElementPresent("#product-delivery-event-online")
@@ -187,6 +193,10 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .summary", product.summary!!)
         assertElementText(".product .description", product.description!!)
         assertElementText(".product .price", "50,000 FCFA")
+        assertElementAttribute(".product [name='q']", "value", "1")
+        assertElementNotPresent("#quantity-out-of-stock")
+        assertElementNotPresent("#quantity-low-of-stock")
+
         assertElementNotPresent(".product .reference-price")
         assertElementNotPresent(".product .discount-percent")
         assertElementNotPresent("#urgency-countdown")
@@ -261,6 +271,52 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .reference-price", "50,000 FCFA")
         assertElementText(".product .discount-percent", "20%")
 //        assertElementPresent("#urgency-countdown")
+    }
+
+    @Test
+    fun `product not out-of-stock`() {
+        // Given
+        val product = Fixtures.createProduct(
+            id = 11,
+            storeId = merchant.storeId!!,
+            accountId = merchant.id,
+            pictures = listOf(
+                Fixtures.createPictureSummary(1, "https://i.com/1.png"),
+            ),
+            quantity = 0,
+        )
+        val offer = Fixtures.createOffer(product = product)
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
+
+        // Goto product page
+        navigate(url("p/${product.id}"))
+
+        assertCurrentPageIs(Page.PRODUCT)
+        assertElementPresent("#quantity-out-of-stock")
+        assertElementNotPresent(".product [name='q']")
+    }
+
+    @Test
+    fun `product not low-stock`() {
+        // Given
+        val product = Fixtures.createProduct(
+            id = 11,
+            storeId = merchant.storeId!!,
+            accountId = merchant.id,
+            pictures = listOf(
+                Fixtures.createPictureSummary(1, "https://i.com/1.png"),
+            ),
+            quantity = Mapper.QUANTITY_THRESHOLD,
+        )
+        val offer = Fixtures.createOffer(product = product)
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
+
+        // Goto product page
+        navigate(url("p/${product.id}"))
+
+        assertCurrentPageIs(Page.PRODUCT)
+        assertElementPresent("#quantity-low-of-stock")
+        assertElementNotPresent(".product [name='q']")
     }
 
     @Test
