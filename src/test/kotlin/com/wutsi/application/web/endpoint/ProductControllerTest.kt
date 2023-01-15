@@ -62,8 +62,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementPresent(".product .price")
         assertElementNotPresent("#quantity-out-of-stock")
         assertElementNotPresent("#quantity-low-of-stock")
-        assertElementPresent(".product [name='q']")
-        assertElementAttribute(".product [name='p']", "value", "${product.id}")
+        assertElementPresent("select[name='q']")
+        assertElementAttribute("input[name='p']", "value", "${product.id}")
 
         assertElementPresent("#button-facebook")
         assertElementPresent("#button-twitter")
