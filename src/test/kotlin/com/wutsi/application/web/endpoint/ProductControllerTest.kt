@@ -70,6 +70,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementPresent("#button-twitter")
         assertElementPresent("#button-instagram")
         assertElementPresent("#button-youtube")
+        assertElementPresent("#button-website")
     }
 
     @Test

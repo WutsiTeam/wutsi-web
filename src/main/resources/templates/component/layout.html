@@ -171,6 +171,10 @@
         <a th:href="'https://www.twitter.com/' + ${member.twitterId}">
             <img th:src="${assetUrl} + '/images/social/twitter.png'"></a>
     </div>
+    <div class="button" id="button-website" th:if="${member.website}">
+        <a th:href="${member.website}">
+            <img th:src="${assetUrl} + '/images/social/website.png'"></a>
+    </div>
 </div>
 
 <!-- ##################### -->
