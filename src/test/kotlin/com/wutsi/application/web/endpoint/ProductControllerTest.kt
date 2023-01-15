@@ -62,8 +62,9 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementPresent(".product .price")
         assertElementNotPresent("#quantity-out-of-stock")
         assertElementNotPresent("#quantity-low-stock")
-        assertElementPresent("select[name='q']")
-        assertElementAttribute("input[name='p']", "value", "${product.id}")
+        assertElementPresent(".product [name='q']")
+        assertElementAttribute(".product input[name='p']", "value", "${product.id}")
+        assertElementPresent("#btn-buy")
 
         assertElementPresent("#button-facebook")
         assertElementPresent("#button-twitter")
@@ -124,9 +125,10 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementPresent(".product .price")
         assertElementNotPresent("#quantity-out-of-stock")
         assertElementNotPresent("#quantity-low-stock")
-
         assertElementAttribute(".product [name='q']", "value", "1")
         assertElementAttribute(".product [name='p']", "value", "${product.id}")
+        assertElementPresent("#btn-buy")
+        
         assertElementPresent("#product-delivery")
         assertElementPresent("#product-delivery-event-online")
 
@@ -205,6 +207,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementAttribute(".product [name='p']", "value", "${product.id}")
         assertElementNotPresent("#quantity-out-of-stock")
         assertElementNotPresent("#quantity-low-stock")
+        assertElementPresent("#btn-buy")
 
         assertElementPresent("#product-delivery")
         assertElementPresent("#product-delivery-digital-download")
@@ -278,7 +281,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun `product not out-of-stock`() {
+    fun `product out-of-stock`() {
         // Given
         val product = Fixtures.createProduct(
             id = 11,
@@ -297,12 +300,13 @@ internal class ProductControllerTest : SeleniumTestSupport() {
 
         assertCurrentPageIs(Page.PRODUCT)
         assertElementPresent("#quantity-out-of-stock")
-        assertElementNotPresent("select[name='q']")
-        assertElementNotPresent("input[name='p']")
+        assertElementNotPresent(".product [name='q']")
+        assertElementNotPresent(".product [name='p']")
+        assertElementNotPresent("#btn-buy")
     }
 
     @Test
-    fun `product not low-stock`() {
+    fun `product low-stock`() {
         // Given
         val product = Fixtures.createProduct(
             id = 11,
@@ -323,6 +327,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementPresent("#quantity-low-stock")
         assertElementPresent(".product [name='q']")
         assertElementPresent(".product [name='p']")
+        assertElementPresent("#btn-buy")
     }
 
     @Test
