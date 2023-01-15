@@ -13,7 +13,6 @@
         <div th:replace="component/layout :: merchant-profile(${merchant}, false, false)"></div>
 
         <div class="row">
-            <div class="border-top"></div>
             <div class="col-12 col-sm-12 col-md-6">
                 <div class="carousel slide" data-bs-interval="300000" data-bs-ride="carousel" id="picture-carousel">
                     <div class="carousel-inner">
@@ -41,7 +40,7 @@
 
             <div class="col-12 col-sm-12 col-md-6">
                 <div class="padding-left padding-right">
-                    <h1 class="title" th:text="${offer.product.title}">Title</h1>
+                    <h1 class="title margin-top" th:text="${offer.product.title}">Title</h1>
                     <div class="price-container">
                         <div th:replace="component/layout :: offer-price(${offer})"></div>
                         <div th:replace="component/layout :: offer-urgency-badge(${offer})"></div>
@@ -122,7 +121,7 @@
                         </div>
                         <div class="padding border-top" id="product-delivery">
                             <h2 th:text="#{product.delivery}">Delivery</h2>
-                            <h3 th:text="#{product.delivery-email}">Delivery</h3>
+                            <h4 th:text="#{product.delivery-email}">Delivery</h4>
                             <div>
                             <span id="product-delivery-event-online"
                                   th:if="${offer.product.event.online}"
@@ -156,7 +155,7 @@
                         </div>
                         <div class="padding border-top" id="product-delivery">
                             <h2 th:text="#{product.delivery}">Delivery</h2>
-                            <h3 th:text="#{product.delivery-instant-download}">Delivery</h3>
+                            <h4 th:text="#{product.delivery-instant-download}">Delivery</h4>
                             <div id="product-delivery-digital-download" th:text="#{product.delivery-digital-download}">
                                 Details...
                             </div>

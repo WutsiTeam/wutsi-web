@@ -229,7 +229,7 @@
 <!-- ################# -->
 <div th:fragment="navbar">
     <nav class="navbar navbar-expand navbar-light border-bottom fixed-top navbar-site">
-        <img alt="Wutsi" height="50" th:src="${assetUrl} + '/logo/wutsi-wordmark-dark.png'" title="Wutsi"/>
+        <img alt="Wutsi" class="logo" height="50" th:src="${assetUrl} + '/logo/wutsi-wordmark-dark.png'" title="Wutsi"/>
     </nav>
     <div class="navbar-margin">&nbsp;</div>
 </div>
@@ -237,22 +237,27 @@
 <!-- ############## -->
 <!-- Profile        -->
 <!-- ############## -->
-<div class="profile padding flex" th:fragment="merchant-profile(member, showBiography, h1)">
-    <a th:href="${member.url}" th:if="${member}">
-        <img class="margin-right" th:if="${member.pictureUrl}" th:src="${member.pictureUrl}"/></a>
+<div class="profile border-bottom" th:fragment="merchant-profile(member, showBiography, h1)">
+    <div class="padding flex">
+        <a th:href="${member.url}" th:if="${member}">
+            <img class="margin-right" th:if="${member.pictureUrl}" th:src="${member.pictureUrl}"/></a>
 
-    <div th:if="${member}">
-        <a th:href="${member.url}">
-            <h1 th:if="${h1}" th:text="${member.displayName}">Ray Sponsible</h1>
-            <h2 th:if="!${h1}" th:text="${member.displayName}">Ray Sponsible</h2>
-        </a>
+        <div th:if="${member}">
+            <a th:href="${member.url}">
+                <h1 th:if="${h1}" th:text="${member.displayName}">Ray Sponsible</h1>
+                <h2 th:if="!${h1}" th:text="${member.displayName}">Ray Sponsible</h2>
+            </a>
 
-        <div th:if="${member.category}" th:text="${member.category}">Category</div>
-        <div th:if="${member.location}">
-            <i class="fa-solid fa-location-dot"></i>
-            <span th:text="${member.location}">Yaounde, Cameroun</span>
+            <div th:if="${member.category}" th:text="${member.category}">Category</div>
+            <div th:if="${member.location}">
+                <i class="fa-solid fa-location-dot"></i>
+                <span th:text="${member.location}">Yaounde, Cameroun</span>
+            </div>
         </div>
-        <div class="bio" th:if="${showBiography} AND ${member.biography}" th:text="${member.biography}">Bio</div>
+    </div>
+    <div class="bio padding-bottom padding-left padding-right"
+         th:if="${member} AND ${showBiography} AND ${member.biography}"
+         th:text="${member.biography}">Bio
     </div>
 </div>
 
@@ -260,7 +265,7 @@
 <!-- Back to Products  -->
 <!-- ################# -->
 <div class="border-top border-bottom padding" th:fragment="merchant-back-to-products(merchant)">
-    <a th:href="${merchant.url}" th:if="${member}">
+    <a th:href="${merchant.url}" th:if="${merchant}">
         <i class="fa-solid fa-arrow-left"></i>
         <span th:utext="#{product.all_products(${merchant.displayName})}">View all products</span>
     </a>

@@ -307,6 +307,10 @@ nav.super-user {
     font-size: 2em;
 }
 
+.navbar .logo {
+    margin: 0 auto;
+}
+
 .navbar-nav .dropdown-menu {
     position: fixed;
     float: none;
@@ -497,6 +501,10 @@ form .hint {
 
 .profile .bio {
     font-size: 0.9em;
+}
+
+.profile .fa-location-dot {
+    color: var(--highlight-color);
 }
 
 

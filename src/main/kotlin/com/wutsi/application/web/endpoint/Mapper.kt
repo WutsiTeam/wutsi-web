@@ -29,7 +29,6 @@ import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.ProductSummary
 import com.wutsi.membership.manager.dto.Member
 import com.wutsi.platform.core.image.Dimension
-import com.wutsi.platform.core.image.Focus
 import com.wutsi.platform.core.image.ImageService
 import com.wutsi.platform.core.image.Transformation
 import com.wutsi.regulation.Country
@@ -96,18 +95,7 @@ class Mapper(
         youtubeId = member.youtubeId,
         website = member.website,
         url = toMemberUrl(member.id),
-        pictureUrl = member.pictureUrl?.let {
-            imageService.transform(
-                url = it,
-                transformation = Transformation(
-                    focus = Focus.FACE,
-                    dimension = Dimension(
-                        width = PROFILE_PICTURE_WIDTH,
-                        height = PROFILE_PICTURE_HEIGHT,
-                    ),
-                ),
-            )
-        },
+        pictureUrl = member.pictureUrl,
         business = business?.let { toBusinessModel(it) },
     )
 
