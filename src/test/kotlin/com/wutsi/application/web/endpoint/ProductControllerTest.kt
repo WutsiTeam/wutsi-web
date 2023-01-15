@@ -128,7 +128,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementAttribute(".product [name='q']", "value", "1")
         assertElementAttribute(".product [name='p']", "value", "${product.id}")
         assertElementPresent("#btn-buy")
-        
+
         assertElementPresent("#product-delivery")
         assertElementPresent("#product-delivery-event-online")
 
@@ -214,7 +214,42 @@ internal class ProductControllerTest : SeleniumTestSupport() {
     }
 
     @Test
-    fun `product with discount ends within 24h`() {
+    fun `product with discount ends in more than 24h`() {
+        // Given
+        val product = Fixtures.createProduct(
+            id = 11,
+            storeId = merchant.storeId!!,
+            accountId = merchant.id,
+            pictures = listOf(
+                Fixtures.createPictureSummary(1, "https://i.com/1.png"),
+            ),
+        )
+        val offer = Fixtures.createOffer(
+            product = product,
+            price = Fixtures.createOfferPrice(
+                productId = product.id,
+                referencePrice = 50000,
+                price = 40000,
+                savings = 10000,
+                discountId = 11,
+                expires = OffsetDateTime.now(ZoneId.of("UTC")).plusHours(25),
+            ),
+        )
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
+
+        // Goto product page
+        navigate(url("p/${product.id}"))
+
+        assertCurrentPageIs(Page.PRODUCT)
+        assertElementText(".product .price", "40,000 FCFA")
+        assertElementText(".product .reference-price", "50,000 FCFA")
+        assertElementText(".product .discount-percent", "20%")
+        assertElementNotPresent(".product .urgency")
+        assertElementNotPresent(".product urgency-countdown")
+    }
+
+    @Test
+    fun `product with discount ends in less than 24h`() {
         // Given
         val product = Fixtures.createProduct(
             id = 11,
@@ -244,6 +279,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .price", "40,000 FCFA")
         assertElementText(".product .reference-price", "50,000 FCFA")
         assertElementText(".product .discount-percent", "20%")
+        assertElementPresent(".product .urgency")
+        assertElementNotPresent(".product urgency-countdown")
     }
 
     @Test
@@ -277,7 +314,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .price", "40,000 FCFA")
         assertElementText(".product .reference-price", "50,000 FCFA")
         assertElementText(".product .discount-percent", "20%")
-//        assertElementPresent("#urgency-countdown")
+        assertElementPresent(".product .urgency")
+        assertElementPresent(".product urgency-countdown")
     }
 
     @Test

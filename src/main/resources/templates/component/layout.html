@@ -319,11 +319,11 @@
         Expires in 00 hours
     </div>
 
-    <div th:if="${offer.price.expiresHours} == 0 AND ${offer.price.expiresMinutes}">
+    <div class="urgency-countdown" th:if="${offer.price.expiresHours} == 0 AND ${offer.price.expiresMinutes}">
         <div class="urgency" th:utext="#{product.sales-expires-in-minutes(${offer.price.expiresMinutes})}">
             Expires in 00:00 minutes
         </div>
-        <script id="urgency-countdown" th:inline="javascript">
+        <script th:inline="javascript">
             /*<![CDATA[*/
 
             // Set the date we're counting down to
