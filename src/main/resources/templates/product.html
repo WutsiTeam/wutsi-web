@@ -46,16 +46,16 @@
                         <div th:replace="component/layout :: offer-urgency-badge(${offer})"></div>
                     </div>
 
-                    <div class="quantity unavailable" th:if="!${offer.product.available}">
+                    <div class="quantity out-of-stock padding-bottom" th:if="${offer.product.outOfStock}">
                         <i class="fa-solid fa-ban"></i>
                         <span id="quantity-out-of-stock" th:text="#{product.out-of-stock}">In Stock</span>
                     </div>
-                    <div class="quantity unavailable"
-                         th:if="${offer.product.available} AND ${offer.product.lowAvailability}">
+                    <div class="quantity low-stock padding-bottom"
+                         th:if="${offer.product.lowStock}">
                         <span id="quantity-low-stock" th:text="#{product.low-stock(${offer.product.quantity})}">Only 00 in stock</span>
                     </div>
 
-                    <form action="/order" class="padding-top" method="GET" th:if="${offer.product.available}">
+                    <form action="/order" class="padding-top" method="GET" th:if="!${offer.product.outOfStock}">
                         <input name="p" th:value="${offer.product.id}" type="hidden"/>
 
                         <input name="q" th:if="!${quantities}" type="hidden" value="1"/>

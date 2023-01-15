@@ -108,8 +108,8 @@ class Mapper(
         price = DecimalFormat(country.monetaryFormat).format(product.price),
         url = toProductUrl(product.id, product.title),
         quantity = product.quantity,
-        available = product.quantity == null || product.quantity!! > 0,
-        lowAvailability = product.quantity != null && product.quantity!! <= QUANTITY_THRESHOLD,
+        outOfStock = product.outOfStock,
+        lowStock = !product.outOfStock && product.quantity != null && product.quantity!! <= QUANTITY_THRESHOLD,
         thumbnailUrl = product.thumbnailUrl?.let {
             imageService.transform(
                 url = it,
@@ -133,8 +133,8 @@ class Mapper(
         summary = toString(product.summary),
         description = toString(product.description),
         quantity = product.quantity,
-        available = product.quantity == null || product.quantity!! > 0,
-        lowAvailability = product.quantity != null && product.quantity!! < QUANTITY_THRESHOLD,
+        outOfStock = product.outOfStock,
+        lowStock = !product.outOfStock && product.quantity != null && product.quantity!! <= QUANTITY_THRESHOLD,
         url = toProductUrl(product.id, product.title),
         thumbnailUrl = product.thumbnail?.url?.let {
             imageService.transform(

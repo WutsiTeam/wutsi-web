@@ -21,6 +21,7 @@ body {
     --text-color-gray: gray;
     --text-color-error: darkred;
     --text-color-success: #4CAF50;
+    --text-color-warning: #856404;
     --border-color: rgba(0, 0, 0, .125);
 
     --margin: 1em;
@@ -600,6 +601,16 @@ form .hint {
     content: ")";
 }
 
+.product-card .out-of-stock,
+.product-card .out-of-stock .fa-solid {
+    color: var(--text-color-error);
+    font-size: 0.8em;
+}
+
+.product-card .low-stock {
+    color: var(--text-color-warning);
+    font-size: 0.8em;
+}
 
 .product-card a {
     text-decoration: none;
@@ -638,9 +649,13 @@ form .hint {
     color: var(--text-color-success);
 }
 
-.product .unavailable,
-.product .unavailable .fa-solid {
+.product .out-of-stock,
+.product .out-of-stock .fa-solid {
     color: var(--text-color-error);
+}
+
+.product .low-stock {
+    color: var(--text-color-warning);
 }
 
 .customer-infos {

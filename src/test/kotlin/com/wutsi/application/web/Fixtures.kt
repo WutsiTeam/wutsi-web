@@ -104,6 +104,7 @@ object Fixtures {
         price: Long = 15000,
         type: ProductType = ProductType.PHYSICAL_PRODUCT,
         event: Event? = null,
+        quantity: Int = 10,
     ) = ProductSummary(
         id = id,
         title = title,
@@ -112,6 +113,8 @@ object Fixtures {
         price = price,
         type = type.name,
         event = event,
+        outOfStock = quantity <= 0,
+        quantity = quantity
     )
 
     fun createFileSummary(
@@ -161,6 +164,7 @@ object Fixtures {
         type = type.name,
         event = event,
         files = files,
+        outOfStock = quantity <= 0,
     )
 
     fun createEvent(

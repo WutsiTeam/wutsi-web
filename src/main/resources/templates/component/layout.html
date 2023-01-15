@@ -155,23 +155,23 @@
 <!-- Social Toolbar        -->
 <!-- ##################### -->
 <div class="padding toolbar" th:fragment="social-toolbar(member)">
-    <div class="button" id="button-instagram" th:if="${member.instagramId}">
+    <div class="button" id="button-instagram" th:if="${member} AND ${member.instagramId}">
         <a th:href="'https://www.instagram.com/' + ${member.instagramId}">
             <img th:src="${assetUrl} + '/images/social/instagram.png'"></a>
     </div>
-    <div class="button" id="button-youtube" th:if="${member.youtubeId}">
+    <div class="button" id="button-youtube" th:if="${member} AND ${member.youtubeId}">
         <a th:href="'https://www.youtube.com/' + ${member.youtubeId}">
             <img th:src="${assetUrl} + '/images/social/youtube.png'"></a>
     </div>
-    <div class="button" id="button-facebook" th:if="${member.facebookId}">
+    <div class="button" id="button-facebook" th:if="${member} AND ${member.facebookId}">
         <a th:href="'https://www.facebook.com/' + ${member.facebookId}">
             <img th:src="${assetUrl} + '/images/social/facebook.png'"></a>
     </div>
-    <div class="button" id="button-twitter" th:if="${member.twitterId}">
+    <div class="button" id="button-twitter" th:if="${member} AND ${member.twitterId}">
         <a th:href="'https://www.twitter.com/' + ${member.twitterId}">
             <img th:src="${assetUrl} + '/images/social/twitter.png'"></a>
     </div>
-    <div class="button" id="button-website" th:if="${member.website}">
+    <div class="button" id="button-website" th:if="${member} AND ${member.website}">
         <a th:href="${member.website}">
             <img th:src="${assetUrl} + '/images/social/website.png'"></a>
     </div>
@@ -181,7 +181,7 @@
 <!-- Toolbar               -->
 <!-- ##################### -->
 <div th:fragment="toolbar(member)">
-    <div class="border-top border-bottom padding toolbar" th:if="${device.isMobile()}">
+    <div class="border-top border-bottom padding toolbar" th:if="${device.isMobile()} AND ${member}">
         <div class="button" id="button-phone">
             <a th:href="'tel:' + ${member.phoneNumber}">
                 <div class="icon">

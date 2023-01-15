@@ -40,7 +40,15 @@
                         <!-- Digital download -->
                         <div class="margin-bottom" th:if="${offer.product.type} == 'DIGITAL_DOWNLOAD'">
                             <i class="fa-solid fa-cloud-arrow-down highlight"></i>
-                            <span class="text-small" th:text="#{product.type.DIGITAL_DOWNLOAD}">Digital Download</span>
+                            <span class="text-small" th:text="#{product.download}">Download</span>
+                        </div>
+
+                        <!-- Stock -->
+                        <div class="out-of-stock" th:if="${offer.product.outOfStock}">
+                            <span th:text="#{product.out-of-stock}">Out of stock</span>
+                        </div>
+                        <div class="low-stock" th:if="${offer.product.lowStock}">
+                            <span th:text="#{product.low-stock(${offer.product.quantity})}">Low stock</span>
                         </div>
 
                         <!-- Price -->
