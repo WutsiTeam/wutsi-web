@@ -138,24 +138,15 @@ class Mapper(
         event = if (product.type == ProductType.EVENT.name) toEvent(product.event, country, merchant) else null,
     )
 
-    private fun toExtension(name: String): String? {
-        val i = name.lastIndexOf(".")
-        return if (i > 0) {
-            name.substring(i + 1).uppercase()
-        } else {
-            null
-        }
-    }
-
     fun toProductModel(product: Product, country: Country, merchant: Member) = ProductModel(
         id = product.id,
         title = product.title,
         price = DecimalFormat(country.monetaryFormat).format(product.price),
         summary = toString(product.summary),
         description = toString(product.description),
-        available = product.quantity != null && product.quantity!! > 0,
-        lowAvailability = product.quantity != null && product.quantity!! < QUANTITY_THRESHOLD,
         quantity = product.quantity,
+        available = product.quantity == null || product.quantity!! > 0,
+        lowAvailability = product.quantity != null && product.quantity!! < QUANTITY_THRESHOLD,
         url = toProductUrl(product.id, product.title),
         thumbnailUrl = product.thumbnail?.url?.let {
             imageService.transform(
@@ -180,6 +171,15 @@ class Mapper(
                 )
             },
     )
+
+    private fun toExtension(name: String): String? {
+        val i = name.lastIndexOf(".")
+        return if (i > 0) {
+            name.substring(i + 1).uppercase()
+        } else {
+            null
+        }
+    }
 
     fun toEvent(event: Event?, country: Country, merchant: Member): EventModel? {
         if (event == null) {
