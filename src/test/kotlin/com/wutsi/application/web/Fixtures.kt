@@ -114,7 +114,7 @@ object Fixtures {
         type = type.name,
         event = event,
         outOfStock = quantity <= 0,
-        quantity = quantity
+        quantity = quantity,
     )
 
     fun createFileSummary(
