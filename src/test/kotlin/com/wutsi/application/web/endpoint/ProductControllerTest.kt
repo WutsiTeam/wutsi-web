@@ -338,6 +338,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
 
         assertCurrentPageIs(Page.PRODUCT)
         assertElementPresent("#quantity-out-of-stock")
+        assertElementNotPresent("#quantity-low-stock")
         assertElementNotPresent(".product [name='q']")
         assertElementNotPresent(".product [name='p']")
         assertElementNotPresent("#btn-buy")
@@ -362,6 +363,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         navigate(url("p/${product.id}"))
 
         assertCurrentPageIs(Page.PRODUCT)
+        assertElementNotPresent("#quantity-out-of-stock")
         assertElementPresent("#quantity-low-stock")
         assertElementPresent(".product [name='q']")
         assertElementPresent(".product [name='p']")
