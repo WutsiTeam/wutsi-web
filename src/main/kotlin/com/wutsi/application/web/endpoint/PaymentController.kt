@@ -129,6 +129,8 @@ class PaymentController(
             } catch (ex1: Throwable) {
                 return redirectToError(request.orderId, ERROR_TRANSACTION_FAILED, ex)
             }
+        } catch (ex: Exception) {
+            return redirectToError(request.orderId, ERROR_UNEXPECTED, ex)
         }
     }
 
