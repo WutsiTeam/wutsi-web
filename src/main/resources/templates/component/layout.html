@@ -234,10 +234,10 @@
 <!-- Profile        -->
 <!-- ############## -->
 <div class="profile padding flex" th:fragment="merchant-profile(member, showBiography, h1)">
-    <a th:href="${member.url}">
+    <a th:href="${member.url}" th:if="${member}">
         <img class="margin-right" th:if="${member.pictureUrl}" th:src="${member.pictureUrl}"/></a>
 
-    <div>
+    <div th:if="${member}">
         <a th:href="${member.url}">
             <h1 th:if="${h1}" th:text="${member.displayName}">Ray Sponsible</h1>
             <h2 th:if="!${h1}" th:text="${member.displayName}">Ray Sponsible</h2>
@@ -256,7 +256,7 @@
 <!-- Back to Products  -->
 <!-- ################# -->
 <div class="border-top border-bottom padding" th:fragment="merchant-back-to-products(merchant)">
-    <a th:href="${merchant.url}">
+    <a th:href="${merchant.url}" th:if="${member}">
         <i class="fa-solid fa-arrow-left"></i>
         <span th:utext="#{product.all_products(${merchant.displayName})}">View all products</span>
     </a>
@@ -319,7 +319,7 @@
         Expires in 00 hours
     </div>
 
-    <div class="urgency-countdown" th:if="${offer.price.expiresHours} == 0 AND ${offer.price.expiresMinutes}">
+    <div class="urgency-countdown" th:if="${offer.price.expiresHours} == 0 AND ${offer.price.expiresMinutes} GT 0">
         <div class="urgency" th:utext="#{product.sales-expires-in-minutes(${offer.price.expiresMinutes})}">
             Expires in 00:00 minutes
         </div>

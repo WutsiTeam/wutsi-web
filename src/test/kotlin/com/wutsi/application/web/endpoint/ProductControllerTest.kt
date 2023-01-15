@@ -315,7 +315,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .reference-price", "50,000 FCFA")
         assertElementText(".product .discount-percent", "20%")
         assertElementPresent(".product .urgency")
-        assertElementPresent(".product .urgency-countdown")
+        assertElementPresent(".product .urgency-countdown script")
     }
 
     @Test
