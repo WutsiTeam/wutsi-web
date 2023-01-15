@@ -232,7 +232,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 price = 40000,
                 savings = 10000,
                 discountId = 11,
-                expires = OffsetDateTime.now(ZoneId.of("UTC")).plusHours(25),
+                expires = OffsetDateTime.now(ZoneId.of("UTC")).plusHours(40),
             ),
         )
         doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
@@ -302,7 +302,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 price = 40000,
                 savings = 10000,
                 discountId = 11,
-                expires = OffsetDateTime.now(ZoneId.of("UTC")).plusMinutes(15),
+                expires = OffsetDateTime.now(ZoneId.of("UTC")).plusMinutes(35),
             ),
         )
         doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
