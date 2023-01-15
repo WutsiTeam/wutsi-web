@@ -238,7 +238,7 @@
 <!-- Profile        -->
 <!-- ############## -->
 <div class="profile border-bottom" th:fragment="merchant-profile(member, showBiography, h1)">
-    <div class="padding flex">
+    <div class="padding flex" th:if="${member}">
         <a th:href="${member.url}" th:if="${member}">
             <img class="margin-right" th:if="${member.pictureUrl}" th:src="${member.pictureUrl}"/></a>
 

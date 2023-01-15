@@ -23,11 +23,13 @@
                     <div class="margin-top" th:if="${downloadError}" th:utext="#{error-message.download-error}">Download
                         Error
                     </div>
-                    <div class="margin-top text-center">
-                        <a class="btn btn-primary" th:href="${retryUrl}" th:text="#{error.button.try-again}">Try
-                            Again</a>
+                    <div class="margin-top text-center" th:if="${statusCode} != 404">
+                        <a class="btn btn-primary" th:href="${retryUrl}" th:text="#{error.button.try-again}">
+                            Try Again</a>
+                        <div class="margin-top text-center" th:utext="#{error-message.try-again}">
+                            Try Again
+                        </div>
                     </div>
-                    <div class="margin-top text-center" th:utext="#{error-message.try-again}">....</div>
                 </div>
             </div>
         </div>
