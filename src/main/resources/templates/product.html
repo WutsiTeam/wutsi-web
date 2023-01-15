@@ -55,7 +55,7 @@
                         <span id="quantity-low-stock" th:text="#{product.low-stock(${offer.product.quantity})}">Only 00 in stock</span>
                     </div>
 
-                    <form action="/order" class="padding-top" method="GET" th:if="!${offer.product.available}">
+                    <form action="/order" class="padding-top" method="GET" th:if="${offer.product.available}">
                         <input name="p" th:value="${offer.product.id}" type="hidden"/>
 
                         <input name="q" th:if="!${quantities}" type="hidden" value="1"/>

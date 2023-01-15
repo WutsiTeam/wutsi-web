@@ -61,7 +61,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
 
         assertElementPresent(".product .price")
         assertElementNotPresent("#quantity-out-of-stock")
-        assertElementNotPresent("#quantity-low-of-stock")
+        assertElementNotPresent("#quantity-low-stock")
         assertElementPresent("select[name='q']")
         assertElementAttribute("input[name='p']", "value", "${product.id}")
 
@@ -123,7 +123,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
 
         assertElementPresent(".product .price")
         assertElementNotPresent("#quantity-out-of-stock")
-        assertElementNotPresent("#quantity-low-of-stock")
+        assertElementNotPresent("#quantity-low-stock")
 
         assertElementAttribute(".product [name='q']", "value", "1")
         assertElementAttribute(".product [name='p']", "value", "${product.id}")
@@ -204,7 +204,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementAttribute(".product [name='q']", "value", "1")
         assertElementAttribute(".product [name='p']", "value", "${product.id}")
         assertElementNotPresent("#quantity-out-of-stock")
-        assertElementNotPresent("#quantity-low-of-stock")
+        assertElementNotPresent("#quantity-low-stock")
 
         assertElementPresent("#product-delivery")
         assertElementPresent("#product-delivery-digital-download")
@@ -297,8 +297,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
 
         assertCurrentPageIs(Page.PRODUCT)
         assertElementPresent("#quantity-out-of-stock")
-        assertElementNotPresent(".product [name='q']")
-        assertElementNotPresent(".product [name='p']")
+        assertElementNotPresent("select[name='q']")
+        assertElementNotPresent("input[name='p']")
     }
 
     @Test
@@ -311,7 +311,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
             pictures = listOf(
                 Fixtures.createPictureSummary(1, "https://i.com/1.png"),
             ),
-            quantity = Mapper.QUANTITY_THRESHOLD,
+            quantity = Mapper.QUANTITY_THRESHOLD - 1,
         )
         val offer = Fixtures.createOffer(product = product)
         doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
@@ -320,7 +320,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         navigate(url("p/${product.id}"))
 
         assertCurrentPageIs(Page.PRODUCT)
-        assertElementPresent("#quantity-low-of-stock")
+        assertElementPresent("#quantity-low-stock")
         assertElementPresent(".product [name='q']")
         assertElementPresent(".product [name='p']")
     }
