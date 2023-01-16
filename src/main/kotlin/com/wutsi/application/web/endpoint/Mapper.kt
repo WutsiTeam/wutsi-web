@@ -32,6 +32,7 @@ import com.wutsi.platform.core.image.Dimension
 import com.wutsi.platform.core.image.ImageService
 import com.wutsi.platform.core.image.Transformation
 import com.wutsi.regulation.Country
+import com.wutsi.regulation.RegulationEngine
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Service
 import java.text.DecimalFormat
@@ -43,6 +44,7 @@ import java.time.format.DateTimeFormatter
 @Service
 class Mapper(
     private val imageService: ImageService,
+    private val regulationEngine: RegulationEngine,
 ) {
     companion object {
         const val PROFILE_PICTURE_WIDTH = 64
@@ -51,7 +53,6 @@ class Mapper(
         const val PRODUCT_THUMBNAIL_WIDTH = 300
         const val PRODUCT_PICTURE_HEIGHT = 512
         const val PRODUCT_PICTURE_WIDTH = 512
-        const val QUANTITY_THRESHOLD = 5
     }
 
     fun toOrderModel(order: Order, country: Country): OrderModel {
@@ -109,7 +110,7 @@ class Mapper(
         url = toProductUrl(product.id, product.title),
         quantity = product.quantity,
         outOfStock = product.outOfStock,
-        lowStock = !product.outOfStock && product.quantity != null && product.quantity!! <= QUANTITY_THRESHOLD,
+        lowStock = !product.outOfStock && product.quantity != null && product.quantity!! <= regulationEngine.lowStockThreshold(),
         thumbnailUrl = product.thumbnailUrl?.let {
             imageService.transform(
                 url = it,
@@ -134,7 +135,7 @@ class Mapper(
         description = toHtml(product.description),
         quantity = product.quantity,
         outOfStock = product.outOfStock,
-        lowStock = !product.outOfStock && product.quantity != null && product.quantity!! <= QUANTITY_THRESHOLD,
+        lowStock = !product.outOfStock && product.quantity != null && product.quantity!! <= regulationEngine.lowStockThreshold(),
         url = toProductUrl(product.id, product.title),
         thumbnailUrl = product.thumbnail?.url?.let {
             imageService.transform(
