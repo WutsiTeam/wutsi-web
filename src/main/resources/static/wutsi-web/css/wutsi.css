@@ -552,6 +552,7 @@ form .hint {
 .product-card .img-container img {
     border-radius: 10px 10px 10px 10px;
     margin: 0 auto;
+    max-width: 100%;
 }
 
 .product-card .img-container img {
