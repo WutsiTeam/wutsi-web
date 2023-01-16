@@ -553,9 +553,6 @@ form .hint {
     border-radius: 10px 10px 10px 10px;
     margin: 0 auto;
     max-width: 100%;
-}
-
-.product-card .img-container img {
     max-height: 246px;
     display: block;
 }
@@ -745,7 +742,6 @@ and (orientation: portrait) {
 
     .product-card .img-container img {
         max-height: 200px;
-        max-width: 100%;
     }
 
     .product .carousel-item img {
