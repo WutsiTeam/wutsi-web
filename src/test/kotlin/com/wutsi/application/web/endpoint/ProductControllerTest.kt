@@ -9,11 +9,16 @@ import com.wutsi.application.web.Page
 import com.wutsi.enums.ProductType
 import com.wutsi.error.ErrorURN
 import com.wutsi.marketplace.manager.dto.GetOfferResponse
+import com.wutsi.regulation.RegulationEngine
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
 import java.time.OffsetDateTime
 import java.time.ZoneId
 
 internal class ProductControllerTest : SeleniumTestSupport() {
+    @Autowired
+    private lateinit var regulationEngine: RegulationEngine
+
     @Test
     fun physicalProduct() {
         // Given
@@ -355,7 +360,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
             pictures = listOf(
                 Fixtures.createPictureSummary(1, "https://i.com/1.png"),
             ),
-            quantity = Mapper.QUANTITY_THRESHOLD - 1,
+            quantity = regulationEngine.lowStockThreshold() - 1,
         )
         val offer = Fixtures.createOffer(product = product)
         doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
