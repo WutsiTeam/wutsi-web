@@ -40,6 +40,9 @@ wutsi:
     server-url: http://localhost:${server.port}
     asset-url: ""
     #asset-url: https://int-wutsi.s3.amazonaws.com/static/wutsi-assets
+    google:
+      analytics:
+        id:
 
   platform:
     cache:

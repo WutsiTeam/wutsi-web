@@ -43,6 +43,9 @@ abstract class AbstractController {
     @Value("\${wutsi.application.server-url}")
     protected lateinit var serverUrl: String
 
+    @Value("\${wutsi.application.google.analytics.id}")
+    protected lateinit var gaId: String
+
     @Autowired
     protected lateinit var request: HttpServletRequest
 
@@ -54,6 +57,9 @@ abstract class AbstractController {
 
     @ModelAttribute("assetUrl")
     fun assetUrl() = assetUrl
+
+    @ModelAttribute("gaId")
+    fun googleAnalyticsId() = if (gaId.isNullOrEmpty()) null else gaId
 
     protected fun findMember(id: Long): Member {
         val member = membershipManagerApi.getMember(id).member

@@ -2,6 +2,9 @@ wutsi:
   application:
     asset-url: https://prod-wutsi.s3.amazonaws.com/static/wutsi-assets
     server-url: https://www.wutsi.me
+    google:
+      analytics:
+        id: ${GOOGLE_ANALYTICS_ID}
   platform:
     cache:
       type: memcached

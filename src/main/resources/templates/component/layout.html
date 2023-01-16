@@ -148,6 +148,22 @@
             track('error', value);
         };
     </script>
+
+    <script async th:if="${gaId}" th:src="'https://www.googletagmanager.com/gtag/js?id=' + ${gaId}"></script>
+    <script th:if="${gaId}" th:inline="javascript">
+        /*<![CDATA[*/
+
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', /*[[${gaId}]]*/ '');
+
+        /*]]>*/
+    </script>
 </footer>
 
 
@@ -207,9 +223,7 @@
             </a>
         </div>
 
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-
+        <script>
             function share() {
                 navigator.share(
                     {
@@ -218,8 +232,6 @@
                     }
                 );
             }
-
-            /*]]>*/
         </script>
     </div>
 </div>
