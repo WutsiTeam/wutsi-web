@@ -42,7 +42,7 @@ wutsi:
     #asset-url: https://int-wutsi.s3.amazonaws.com/static/wutsi-assets
     google:
       analytics:
-        id:
+        id: ""
 
   platform:
     cache:
