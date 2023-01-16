@@ -131,7 +131,7 @@ class Mapper(
         title = product.title,
         price = DecimalFormat(country.monetaryFormat).format(product.price),
         summary = toString(product.summary),
-        description = toString(product.description),
+        description = toHtml(product.description),
         quantity = product.quantity,
         outOfStock = product.outOfStock,
         lowStock = !product.outOfStock && product.quantity != null && product.quantity!! <= QUANTITY_THRESHOLD,
@@ -277,4 +277,7 @@ class Mapper(
         } else {
             str
         }
+
+    private fun toHtml(str: String?): String? =
+        toString(str)?.replace("\n", "<br/>")
 }

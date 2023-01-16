@@ -167,7 +167,7 @@
 
         <div class="row" th:if="${offer.product.description}">
             <div class="col">
-                <div class="description padding" th:text="${offer.product.description}">Description</div>
+                <div class="description padding" th:utext="${offer.product.description}">Description</div>
             </div>
         </div>
 
