@@ -47,7 +47,7 @@ internal class TrackControllerTest {
             time = System.currentTimeMillis(),
             url = "https://wutsi.com/p/1/30493-43094",
             ua = "43094309",
-            businessId = "111"
+            businessId = "111",
         )
         val response = rest.postForEntity(url(), request, Any::class.java)
 
