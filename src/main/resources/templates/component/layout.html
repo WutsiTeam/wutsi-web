@@ -75,6 +75,7 @@
     <meta name="wutsi:page_name" th:content="${page.name}"/>
     <meta name="wutsi:hit_id" th:content="${page.hitId}"/>
     <meta name="wutsi:product_id" th:content="${page.productId}" th:if="${page.productId}"/>
+    <meta name="wutsi:business_id" th:content="${page.businessId}" th:if="${page.businessId}"/>
 </div>
 
 
@@ -113,6 +114,7 @@
         function track(event, value) {
             const data = {
                 time: new Date().getTime(),
+                businessId: wutsi_meta("business_id"),
                 productId: wutsi_meta("product_id"),
                 hitId: wutsi_meta("hit_id"),
                 page: wutsi_meta("page_name"),

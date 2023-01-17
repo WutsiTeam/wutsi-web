@@ -36,7 +36,6 @@ internal class TrackControllerTest {
         // GIVEN
         val deviceId = UUID.randomUUID().toString()
         doReturn(deviceId).whenever(tracingContext).deviceId()
-//        doReturn(arrayOf(Cookie(ReferrerFilter.RFRR_COOKIE, "https://m.facebook.com"))).whenever(httpRequest).cookies
 
         // WHEN
         val request = SubmitUserInteractionRequest(
@@ -48,6 +47,7 @@ internal class TrackControllerTest {
             time = System.currentTimeMillis(),
             url = "https://wutsi.com/p/1/30493-43094",
             ua = "43094309",
+            businessId = "111"
         )
         val response = rest.postForEntity(url(), request, Any::class.java)
 
@@ -66,7 +66,7 @@ internal class TrackControllerTest {
                 ua = request.ua,
                 event = request.event,
                 deviceId = deviceId,
-//                referrer = "https://m.facebook.com",
+                businessId = request.businessId,
             ),
         )
     }

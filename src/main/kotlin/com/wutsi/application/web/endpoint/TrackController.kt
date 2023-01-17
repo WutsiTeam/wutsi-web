@@ -28,6 +28,8 @@ class TrackController(
         logger.add("request_event", request.event)
         logger.add("request_value", request.value)
         logger.add("request_time", request.time)
+        logger.add("request_business_id", request.businessId)
+        logger.add("request_product_id", request.productId)
 
         val httpRequest = (RequestContextHolder.getRequestAttributes() as ServletRequestAttributes).request
         eventStream.publish(
@@ -43,6 +45,7 @@ class TrackController(
                 page = request.page,
                 deviceId = tracingContext.deviceId(),
                 referrer = httpRequest.cookies?.find { it.name == ReferrerFilter.RFRR_COOKIE }?.value,
+                businessId = request.businessId,
             ),
         )
     }

@@ -5,6 +5,7 @@ import com.wutsi.application.web.model.PageModel
 import com.wutsi.application.web.model.ProductModel
 import com.wutsi.enums.ProductType
 import com.wutsi.marketplace.manager.dto.Product
+import com.wutsi.membership.manager.dto.Member
 import com.wutsi.platform.core.image.Dimension
 import com.wutsi.platform.core.image.ImageService
 import com.wutsi.platform.core.image.Transformation
@@ -27,7 +28,7 @@ class ProductController(
         val country = regulationEngine.country(merchant.country)
 
         val offerModel = mapper.toOfferModel(offer, country, merchant)
-        model.addAttribute("page", createPage(offerModel.product))
+        model.addAttribute("page", createPage(offerModel.product, merchant))
         model.addAttribute("offer", mapper.toOfferModel(offer, country, merchant))
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
 
@@ -48,13 +49,14 @@ class ProductController(
         (product.type == ProductType.EVENT.name) && (product.event?.online == true) ||
             (product.type == ProductType.DIGITAL_DOWNLOAD.name)
 
-    private fun createPage(product: ProductModel) = PageModel(
+    private fun createPage(product: ProductModel, merchant: Member) = PageModel(
         name = Page.PRODUCT,
         title = product.title,
         description = product.summary,
         url = "$serverUrl/${product.url}",
         canonicalUrl = "$serverUrl/p/${product.id}",
         productId = product.id,
+        businessId = merchant.businessId,
         imageUrl = product.thumbnailUrl?.let {
             imageService.transform(
                 url = it,

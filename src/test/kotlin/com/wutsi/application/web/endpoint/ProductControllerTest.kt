@@ -40,6 +40,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         navigate(url("p/${product.id}"))
         assertCurrentPageIs(Page.PRODUCT)
         assertElementAttribute("head meta[name='wutsi\\:product_id']", "content", product.id.toString())
+        assertElementAttribute("head meta[name='wutsi\\:business_id']", "content", merchant.businessId!!.toString())
         assertElementPresent("head meta[name='wutsi\\:hit_id']")
 
         assertElementAttribute("head title", "text", "${product.title} | Wutsi")

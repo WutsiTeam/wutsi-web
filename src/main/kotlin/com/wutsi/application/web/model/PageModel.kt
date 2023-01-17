@@ -29,4 +29,5 @@ data class PageModel(
     val preloadImageUrls: List<String> = emptyList(),
     val hitId: String = UUID.randomUUID().toString(),
     val productId: Long? = null,
+    val businessId: Long? = null,
 )
