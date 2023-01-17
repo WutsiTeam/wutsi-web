@@ -547,11 +547,13 @@ form .hint {
     overflow: hidden;
     border-radius: 10px 10px 10px 10px;
     margin-top: 5px;
+    display: flex;
+    justify-content: center;
 }
 
 .product-card .img-container img {
     border-radius: 10px 10px 10px 10px;
-    margin: 0 auto;
+    margin: auto;
     max-width: 100%;
     max-height: 246px;
     display: block;

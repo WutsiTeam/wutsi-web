@@ -49,9 +49,7 @@ class Mapper(
     companion object {
         const val PROFILE_PICTURE_WIDTH = 64
         const val PROFILE_PICTURE_HEIGHT = 64
-        const val PRODUCT_THUMBNAIL_HEIGHT = 300
         const val PRODUCT_THUMBNAIL_WIDTH = 300
-        const val PRODUCT_PICTURE_HEIGHT = 512
         const val PRODUCT_PICTURE_WIDTH = 512
     }
 
@@ -116,7 +114,6 @@ class Mapper(
                 url = it,
                 transformation = Transformation(
                     dimension = Dimension(
-                        height = PRODUCT_THUMBNAIL_HEIGHT,
                         width = PRODUCT_THUMBNAIL_WIDTH,
                     ),
                 ),
@@ -143,7 +140,6 @@ class Mapper(
                 transformation = Transformation(
                     dimension = Dimension(
                         height = PRODUCT_PICTURE_WIDTH,
-                        width = PRODUCT_PICTURE_HEIGHT,
                     ),
                 ),
             )
@@ -263,7 +259,6 @@ class Mapper(
             transformation = Transformation(
                 dimension = Dimension(
                     height = PRODUCT_PICTURE_WIDTH,
-                    width = PRODUCT_PICTURE_HEIGHT,
                 ),
             ),
         ),
