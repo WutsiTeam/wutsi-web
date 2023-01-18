@@ -6,9 +6,7 @@ import com.wutsi.application.web.model.ProductModel
 import com.wutsi.enums.ProductType
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.membership.manager.dto.Member
-import com.wutsi.platform.core.image.Dimension
 import com.wutsi.platform.core.image.ImageService
-import com.wutsi.platform.core.image.Transformation
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -61,13 +59,6 @@ class ProductController(
         canonicalUrl = "$serverUrl/p/${product.id}",
         productId = product.id,
         businessId = merchant.businessId,
-        imageUrl = product.thumbnailUrl?.let {
-            imageService.transform(
-                url = it,
-                transformation = Transformation(
-                    dimension = Dimension(width = PRODUCT_IMAGE_WIDTH), // See https://developers.facebook.com/docs/sharing/webmasters/images/
-                ),
-            )
-        },
+        imageUrl = product.thumbnailUrl,
     )
 }
