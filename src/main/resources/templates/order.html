@@ -79,20 +79,20 @@
 <script th:inline="javascript" type="text/javascript">
     /*<![CDATA[*/
 
-    window.onload = function () {
-        const email = document.getElementById("email");
-        const confirm = document.getElementById("email-confirm");
-
-        function ConfirmPassword() {
-            confirm.setCustomValidity("");
-            if (email.value != confirm.value) {
-                confirm.setCustomValidity(/*[[#{order.email-confirm-error}]]*/ '');
-            }
-        }
-
-        email.onchange = ConfirmPassword;
-        confirm.onkeyup = ConfirmPassword;
-    }
+    // window.onload = function () {
+    //     const email = document.getElementById("email");
+    //     const confirm = document.getElementById("email-confirm");
+    //
+    //     function ConfirmPassword() {
+    //         confirm.setCustomValidity("");
+    //         if (email.value != confirm.value) {
+    //             confirm.setCustomValidity(/*[[#{order.email-confirm-error}]]*/ '');
+    //         }
+    //     }
+    //
+    //     email.onchange = ConfirmPassword;
+    //     confirm.onkeyup = ConfirmPassword;
+    // }
 
     /*]]>*/
 </script>
