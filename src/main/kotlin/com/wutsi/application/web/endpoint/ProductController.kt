@@ -48,10 +48,10 @@ class ProductController : AbstractController() {
         name = Page.PRODUCT,
         title = product.title,
         description = product.summary,
-        url = "$serverUrl/${product.url}",
+        url = "$serverUrl${product.url}",
         canonicalUrl = "$serverUrl/p/${product.id}",
         productId = product.id,
         businessId = merchant.businessId,
-        imageUrl = product.thumbnailUrl,
+        imageUrl = product.thumbnail?.originalUrl,
     )
 }
