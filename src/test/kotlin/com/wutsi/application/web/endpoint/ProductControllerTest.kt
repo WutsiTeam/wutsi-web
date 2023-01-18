@@ -174,7 +174,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 discountId = null,
             ),
         )
-        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(any())
 
         // Goto product page
         navigate(url("p/${product.id}"))
@@ -239,7 +239,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 expires = OffsetDateTime.now(ZoneId.of("UTC")).plusHours(40),
             ),
         )
-        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(any())
 
         // Goto product page
         navigate(url("p/${product.id}"))
@@ -274,7 +274,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 expires = OffsetDateTime.now(ZoneId.of("UTC")).plusHours(23),
             ),
         )
-        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(any())
 
         // Goto product page
         navigate(url("p/${product.id}"))
@@ -309,7 +309,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
                 expires = OffsetDateTime.now(ZoneId.of("UTC")).plusMinutes(35),
             ),
         )
-        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(any())
 
         // Goto product page
         navigate(url("p/${product.id}"))
@@ -335,7 +335,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
             quantity = 0,
         )
         val offer = Fixtures.createOffer(product = product)
-        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(any())
 
         // Goto product page
         navigate(url("p/${product.id}"))
@@ -361,7 +361,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
             quantity = regulationEngine.lowStockThreshold() - 1,
         )
         val offer = Fixtures.createOffer(product = product)
-        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
+        doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(any())
 
         // Goto product page
         navigate(url("p/${product.id}"))

@@ -49,7 +49,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         doReturn(GetMemberResponse(merchant)).whenever(membershipManagerApi).getMember(any())
 
         doReturn(GetProductResponse(product)).whenever(marketplaceManagerApi).getProduct(any())
-
+        
         val offer = Fixtures.createOffer(product)
         doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(any())
 
