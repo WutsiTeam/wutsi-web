@@ -71,6 +71,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         // Enter data
         input("input[name=displayName]", "Ray Sponsible")
         input("input[name=email]", "ray.sponsible@gmail.com")
+        input("input[name=email-confirm]", "ray.sponsible@gmail.com")
         input("textarea[name=notes]", "This is a note :-)")
 
         // Submit the data
