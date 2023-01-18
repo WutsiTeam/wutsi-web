@@ -75,6 +75,8 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         input("textarea[name=notes]", "This is a note :-)")
 
         // Submit the data
+        scrollToBottom()
+        Thread.sleep(1000)
         click("#btn-submit")
 
         verify(checkoutManagerApi).createOrder(
