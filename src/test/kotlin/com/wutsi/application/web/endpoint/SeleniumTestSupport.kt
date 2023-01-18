@@ -65,12 +65,12 @@ abstract class SeleniumTestSupport {
             options.addArguments("--no-sandbox")
             options.addArguments("--disable-dev-shm-usage")
         }
-        options.setExperimentalOption(
-            "mobileEmulation",
-            mapOf(
-                "deviceName" to "Nexus 5",
-            ),
-        )
+//        options.setExperimentalOption(
+//            "mobileEmulation",
+//            mapOf(
+//                "deviceName" to "Nexus 5",
+//            ),
+//        )
 
         return options
     }
@@ -79,7 +79,7 @@ abstract class SeleniumTestSupport {
     fun setUp() {
 //        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver")
 //        System.setProperty("webdriver.chrome.whitelistedIps", "")
-//
+
         this.driver = ChromeDriver(driverOptions())
 
         this.url = "http://localhost:$port"

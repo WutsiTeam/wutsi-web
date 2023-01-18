@@ -377,7 +377,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
     @Test
     fun notFound() {
         val ex = createFeignNotFoundException(errorCode = ErrorURN.PRODUCT_NOT_FOUND.urn)
-        doThrow(ex).whenever(marketplaceManagerApi).getProduct(any())
+        doThrow(ex).whenever(marketplaceManagerApi).getOffer(any())
 
         navigate(url("p/99999"))
         assertCurrentPageIs(Page.ERROR)

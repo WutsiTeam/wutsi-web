@@ -78,7 +78,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         click("#btn-submit")
         verify(checkoutManagerApi).createOrder(
             CreateOrderRequest(
-                deviceType = DeviceType.MOBILE.name,
+                deviceType = DeviceType.DESKTOP.name,
                 channelType = ChannelType.WEB.name,
                 businessId = merchant.businessId!!,
                 notes = "This is a note :-)",
