@@ -15,6 +15,7 @@ import feign.RequestTemplate
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
@@ -165,6 +166,13 @@ abstract class SeleniumTestSupport {
 
     protected fun click(selector: String) {
         driver.findElement(By.cssSelector(selector)).click()
+    }
+
+    protected fun scrollToBottom() {
+        val js = driver as JavascriptExecutor
+        // Scroll down till the bottom of the page
+        // Scroll down till the bottom of the page
+        js.executeScript("window.scrollBy(0,document.body.scrollHeight)")
     }
 
     protected fun input(selector: String, value: String) {

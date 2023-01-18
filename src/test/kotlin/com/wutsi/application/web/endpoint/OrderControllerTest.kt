@@ -76,6 +76,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
 
         // Submit the data
         click("#btn-submit")
+
         verify(checkoutManagerApi).createOrder(
             CreateOrderRequest(
                 deviceType = DeviceType.DESKTOP.name,
