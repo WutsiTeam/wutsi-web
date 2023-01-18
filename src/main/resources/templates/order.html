@@ -23,12 +23,19 @@
                                required="true"
                                th:placeholder="#{order.displayName}"/>
 
-                        <input class="w-100" maxlength="100" name="email" required="true"
+                        <input class="w-100 margin-top" id="email" maxlength="100" name="email"
+                               required="true"
                                th:placeholder="#{order.email}"
                                type="email"/>
                         <div class="hint" th:text="#{order.email.hint}">Email hint online</div>
 
-                        <textarea class="w-100" maxlength="1000" name="notes"
+                        <input autocomplete="off" class="w-100" id="email-confirm" maxlength="100"
+                               name="confirm-email"
+                               required="true"
+                               th:placeholder="#{order.email-confirm}"
+                               type="email"/>
+
+                        <textarea class="w-100 margin-top" maxlength="1000" name="notes"
                                   rows="3"
                                   th:placeholder="#{order.notes}"></textarea>
 
@@ -69,5 +76,25 @@
 
 <div th:replace="component/layout :: footer"></div>
 
+<script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+
+    window.onload = function () {
+        const email = document.getElementById("email");
+        const confirm = document.getElementById("email-confirm");
+
+        function ConfirmPassword() {
+            confirm.setCustomValidity("");
+            if (email.value != confirm.value) {
+                confirm.setCustomValidity(/*[[#{order.email-confirm-error}]]*/ '');
+            }
+        }
+
+        email.onchange = ConfirmPassword;
+        confirm.onkeyup = ConfirmPassword;
+    }
+
+    /*]]>*/
+</script>
 </body>
 </html>
