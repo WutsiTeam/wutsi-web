@@ -62,7 +62,6 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementCount("#picture-carousel .carousel-item", product.pictures.size)
 
         assertElementText(".product .title", product.title)
-        assertElementText(".product .summary", product.summary!!)
         assertElementText(".product .description", product.description!!)
 
         assertElementPresent(".product .price")
@@ -126,7 +125,6 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementCount("#picture-carousel .carousel-item", product.pictures.size)
 
         assertElementText(".product .title", product.title)
-        assertElementText(".product .summary", product.summary!!)
         assertElementText(".product .description", product.description!!)
 
         assertElementPresent(".product .price")
@@ -203,7 +201,6 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementCount("#picture-carousel .carousel-item", product.pictures.size)
 
         assertElementText(".product .title", product.title)
-        assertElementText(".product .summary", product.summary!!)
         assertElementText(".product .description", product.description!!)
 
         assertElementText(".product .price", "50,000 FCFA")

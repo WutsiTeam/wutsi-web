@@ -55,7 +55,8 @@
                         <span id="quantity-low-stock" th:text="#{product.low-stock(${offer.product.quantity})}">Only 00 in stock</span>
                     </div>
 
-                    <form action="/order" class="padding-top" method="GET" th:if="!${offer.product.outOfStock}">
+                    <form action="/order" class="padding-top padding-bottom" method="GET"
+                          th:if="!${offer.product.outOfStock}">
                         <input name="p" th:value="${offer.product.id}" type="hidden"/>
 
                         <input name="q" th:if="!${quantities}" type="hidden" value="1"/>
@@ -72,9 +73,6 @@
                     </form>
 
                     <div th:replace="component/layout :: toolbar(${merchant})"></div>
-                    <div class="summary padding" th:if="${offer.product.summary}" th:text="${offer.product.summary}">
-                        This is the summary
-                    </div>
 
                     <!-- ========================= -->
                     <!-- EVENT                     -->
@@ -167,7 +165,7 @@
 
         <div class="row" th:if="${offer.product.description}">
             <div class="col">
-                <div class="description padding" th:utext="${offer.product.description}">Description</div>
+                <div class="description padding border-top" th:utext="${offer.product.description}">Description</div>
             </div>
         </div>
 
