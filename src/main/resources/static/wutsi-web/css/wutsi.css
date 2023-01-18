@@ -692,9 +692,18 @@ form .hint {
 }
 
 /*==== order item === */
-.order-item-card img {
-    width: 150px;
+.order-item-card .img-container {
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    max-width: 150px;
+}
+
+.order-item-card .img-container img {
     max-height: 150px;
+    max-width: 100%;
+    display: block;
+    margin: auto;
 }
 
 .order-item-card .title {

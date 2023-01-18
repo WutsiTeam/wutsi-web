@@ -9,6 +9,8 @@
     <meta charset="utf-8"/>
 
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link rel="apple-touch-icon" th:href="${assetUrl} + '/wutsi-web/images/logo/apple-touch-icon.png'"/>
+
     <title th:if="${page.title} == 'Wutsi'" th:text="${page.title}"></title>
     <title th:if="${page.title} != 'Wutsi'" th:text="${page.title} + ' | Wutsi'"></title>
 
@@ -290,7 +292,9 @@
 <!-- ################# -->
 <div class="order-item-card" th:fragment="order-item-card(offer, quantity)">
     <div class="flex">
-        <img th:src="${offer.product.thumbnailUrl}"/>
+        <div class="img-container">
+            <img th:src="${offer.product.thumbnailUrl}"/>
+        </div>
         <div class="padding">
             <div class="title" th:text="${offer.product.title}">Product Title</div>
             <div class="event-date" th:if="${offer.product.event} AND ${offer.product.event.startDate}">

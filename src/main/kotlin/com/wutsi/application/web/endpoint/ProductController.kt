@@ -6,7 +6,6 @@ import com.wutsi.application.web.model.ProductModel
 import com.wutsi.enums.ProductType
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.membership.manager.dto.Member
-import com.wutsi.platform.core.image.ImageService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -16,13 +15,7 @@ import kotlin.math.min
 
 @Controller
 @RequestMapping("/p")
-class ProductController(
-    private val imageService: ImageService,
-) : AbstractController() {
-    companion object {
-        const val PRODUCT_IMAGE_WIDTH = 1200
-    }
-
+class ProductController : AbstractController() {
     @GetMapping("/{id}")
     fun index(@PathVariable id: Long, model: Model): String {
         val offer = marketplaceManagerApi.getOffer(id).offer

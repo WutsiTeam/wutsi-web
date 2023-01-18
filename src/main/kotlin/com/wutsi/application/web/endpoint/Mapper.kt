@@ -64,7 +64,16 @@ class Mapper(
                 OrderItemModel(
                     productId = it.productId,
                     title = it.title,
-                    pictureUrl = it.pictureUrl,
+                    pictureUrl = it.pictureUrl?.let {
+                        imageService.transform(
+                            url = it,
+                            transformation = Transformation(
+                                dimension = Dimension(
+                                    width = PRODUCT_PICTURE_WIDTH,
+                                ),
+                            ),
+                        )
+                    },
                     quantity = it.quantity,
                     unitPrice = fmt.format(it.unitPrice),
                 )
@@ -107,16 +116,7 @@ class Mapper(
         quantity = product.quantity,
         outOfStock = product.outOfStock,
         lowStock = !product.outOfStock && product.quantity != null && product.quantity!! <= regulationEngine.lowStockThreshold(),
-        thumbnailUrl = product.thumbnailUrl?.let {
-            imageService.transform(
-                url = it,
-                transformation = Transformation(
-                    dimension = Dimension(
-                        width = PRODUCT_THUMBNAIL_WIDTH,
-                    ),
-                ),
-            )
-        },
+        thumbnail = product.thumbnailUrl?.let { toPictureMapper(it, true) },
         summary = toString(product.summary),
         type = product.type,
         event = if (product.type == ProductType.EVENT.name) toEvent(product.event, country, merchant) else null,
@@ -132,17 +132,8 @@ class Mapper(
         outOfStock = product.outOfStock,
         lowStock = !product.outOfStock && product.quantity != null && product.quantity!! <= regulationEngine.lowStockThreshold(),
         url = toProductUrl(product.id, product.title),
-        thumbnailUrl = product.thumbnail?.url?.let {
-            imageService.transform(
-                url = it,
-                transformation = Transformation(
-                    dimension = Dimension(
-                        height = PRODUCT_PICTURE_WIDTH,
-                    ),
-                ),
-            )
-        },
-        pictures = product.pictures.map { toPictureMapper(it) },
+        thumbnail = product.thumbnail?.let { toPictureMapper(it, true) },
+        pictures = product.pictures.map { toPictureMapper(it, false) },
         type = product.type,
         event = if (product.type == ProductType.EVENT.name) toEvent(product.event, country, merchant) else null,
         fileTypes = product.files.groupBy { toExtension(it.name) }
@@ -251,15 +242,19 @@ class Mapper(
         return Duration.between(now, date)
     }
 
-    private fun toPictureMapper(picture: PictureSummary) = PictureModel(
+    private fun toPictureMapper(picture: PictureSummary, thumbnail: Boolean): PictureModel =
+        toPictureMapper(picture.url, thumbnail)
+
+    private fun toPictureMapper(url: String, thumbnail: Boolean) = PictureModel(
         url = imageService.transform(
-            url = picture.url,
+            url = url,
             transformation = Transformation(
                 dimension = Dimension(
-                    width = PRODUCT_PICTURE_WIDTH,
+                    width = if (thumbnail) PRODUCT_THUMBNAIL_WIDTH else PRODUCT_PICTURE_WIDTH,
                 ),
             ),
         ),
+        originalUrl = url,
     )
 
     private fun toProductUrl(id: Long, title: String): String =

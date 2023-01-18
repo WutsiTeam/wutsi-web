@@ -4,7 +4,7 @@ data class ProductModel(
     val id: Long,
     val title: String,
     val price: String?,
-    val thumbnailUrl: String?,
+    val thumbnail: PictureModel?,
     val quantity: Int?,
     val url: String,
     val outOfStock: Boolean,
@@ -15,4 +15,7 @@ data class ProductModel(
     val description: String? = null,
     val pictures: List<PictureModel> = emptyList(),
     val fileTypes: List<FileType> = emptyList(),
-)
+) {
+    val thumbnailUrl: String?
+        get() = thumbnail?.url
+}
