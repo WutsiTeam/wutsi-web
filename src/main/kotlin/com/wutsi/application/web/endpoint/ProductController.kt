@@ -65,7 +65,7 @@ class ProductController(
             imageService.transform(
                 url = it,
                 transformation = Transformation(
-                    dimension = Dimension(width = PRODUCT_IMAGE_WIDTH) // See https://developers.facebook.com/docs/sharing/webmasters/images/
+                    dimension = Dimension(width = PRODUCT_IMAGE_WIDTH), // See https://developers.facebook.com/docs/sharing/webmasters/images/
                 ),
             )
         },
