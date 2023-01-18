@@ -71,7 +71,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         // Enter data
         input("input[name=displayName]", "Ray Sponsible")
         input("input[name=email]", "ray.sponsible@gmail.com")
-//        input("input[name=email-confirm]", "ray.sponsible@gmail.com")
+        input("input[name=confirm]", "ray.sponsible@gmail.com")
         input("textarea[name=notes]", "This is a note :-)")
 
         // Submit the data
@@ -100,9 +100,9 @@ internal class OrderControllerTest : SeleniumTestSupport() {
     @Test
     fun notFound() {
         val ex = createFeignNotFoundException(errorCode = "xx")
-        doThrow(ex).whenever(marketplaceManagerApi).getOffer(product.id)
+        doThrow(ex).whenever(marketplaceManagerApi).getOffer(any())
 
-        navigate(url("order?p=${product.id}&q=3"))
+        navigate(url("order?p=999999&q=3"))
         assertCurrentPageIs(Page.ERROR)
     }
 }

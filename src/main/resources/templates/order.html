@@ -29,11 +29,11 @@
                                type="email"/>
                         <div class="hint" th:text="#{order.email.hint}">Email hint online</div>
 
-                        <!--                        <input autocomplete="off" class="w-100" id="email-confirm" maxlength="100"-->
-                        <!--                               name="email-confirm"-->
-                        <!--                               required="true"-->
-                        <!--                               th:placeholder="#{order.email-confirm}"-->
-                        <!--                               type="email"/>-->
+                        <input autocomplete="off" class="w-100" id="confirm" maxlength="100"
+                               name="confirm"
+                               required="true"
+                               th:placeholder="#{order.email-confirm}"
+                               type="email"/>
 
                         <textarea class="w-100 margin-top" maxlength="1000" name="notes"
                                   rows="3"
@@ -79,20 +79,20 @@
 <script th:inline="javascript" type="text/javascript">
     /*<![CDATA[*/
 
-    // window.onload = function () {
-    //     const email = document.getElementById("email");
-    //     const confirm = document.getElementById("email-confirm");
-    //
-    //     function ConfirmPassword() {
-    //         confirm.setCustomValidity("");
-    //         if (email.value != confirm.value) {
-    //             confirm.setCustomValidity(/*[[#{order.email-confirm-error}]]*/ '');
-    //         }
-    //     }
-    //
-    //     email.onchange = ConfirmPassword;
-    //     confirm.onkeyup = ConfirmPassword;
-    // }
+    window.onload = function () {
+        const email = document.getElementById("email");
+        const confirm = document.getElementById("confirm");
+
+        function ConfirmPassword() {
+            confirm.setCustomValidity("");
+            if (email.value != confirm.value) {
+                confirm.setCustomValidity(/*[[#{order.email-confirm-error}]]*/ '');
+            }
+        }
+
+        email.onchange = ConfirmPassword;
+        confirm.onkeyup = ConfirmPassword;
+    }
 
     /*]]>*/
 </script>
