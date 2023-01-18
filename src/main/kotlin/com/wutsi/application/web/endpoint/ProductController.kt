@@ -21,6 +21,10 @@ import kotlin.math.min
 class ProductController(
     private val imageService: ImageService,
 ) : AbstractController() {
+    companion object {
+        const val PRODUCT_IMAGE_WIDTH = 1200
+    }
+
     @GetMapping("/{id}")
     fun index(@PathVariable id: Long, model: Model): String {
         val offer = marketplaceManagerApi.getOffer(id).offer
@@ -61,10 +65,7 @@ class ProductController(
             imageService.transform(
                 url = it,
                 transformation = Transformation(
-                    dimension = Dimension(
-                        600,
-                        315,
-                    ), // See https://developers.facebook.com/docs/sharing/webmasters/images/
+                    dimension = Dimension(width = PRODUCT_IMAGE_WIDTH) // See https://developers.facebook.com/docs/sharing/webmasters/images/
                 ),
             )
         },

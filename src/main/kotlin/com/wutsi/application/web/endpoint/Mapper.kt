@@ -47,8 +47,6 @@ class Mapper(
     private val regulationEngine: RegulationEngine,
 ) {
     companion object {
-        const val PROFILE_PICTURE_WIDTH = 64
-        const val PROFILE_PICTURE_HEIGHT = 64
         const val PRODUCT_THUMBNAIL_WIDTH = 300
         const val PRODUCT_PICTURE_WIDTH = 512
     }
@@ -258,7 +256,7 @@ class Mapper(
             url = picture.url,
             transformation = Transformation(
                 dimension = Dimension(
-                    height = PRODUCT_PICTURE_WIDTH,
+                    width = PRODUCT_PICTURE_WIDTH,
                 ),
             ),
         ),
