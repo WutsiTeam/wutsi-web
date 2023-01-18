@@ -77,6 +77,9 @@ abstract class SeleniumTestSupport {
 
     @BeforeEach
     fun setUp() {
+//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver")
+//        System.setProperty("webdriver.chrome.whitelistedIps", "")
+
         this.driver = ChromeDriver(driverOptions())
 
         this.url = "http://localhost:$port"
