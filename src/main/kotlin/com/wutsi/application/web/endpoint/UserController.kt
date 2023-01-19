@@ -40,7 +40,7 @@ class UserController : AbstractController() {
         title = member.displayName,
         description = member.biography,
         url = "$serverUrl/${member.url}",
-        imageUrl = null,
+        imageUrl = member.pictureUrl,
     )
 
     private fun findOffers(member: Member): List<OfferSummary> {
