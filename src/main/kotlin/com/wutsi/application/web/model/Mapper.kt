@@ -21,6 +21,7 @@ import com.wutsi.platform.core.image.ImageService
 import com.wutsi.platform.core.image.Transformation
 import com.wutsi.regulation.Country
 import com.wutsi.regulation.RegulationEngine
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Service
 import java.text.DecimalFormat
@@ -33,6 +34,7 @@ import java.time.format.DateTimeFormatter
 class Mapper(
     private val imageService: ImageService,
     private val regulationEngine: RegulationEngine,
+    @Value("\${wutsi.application.server-url}") private val serverUrl: String,
 ) {
     companion object {
         const val PRODUCT_THUMBNAIL_WIDTH = 300
@@ -40,11 +42,11 @@ class Mapper(
     }
 
     fun toUrlModel(product: ProductSummary) = UrlModel(
-        loc = toProductUrl(product.id, product.title),
+        loc = serverUrl + toProductUrl(product.id, product.title),
     )
 
     fun toUrlModel(member: Member) = UrlModel(
-        loc = toMemberUrl(member.id),
+        loc = serverUrl + toMemberUrl(member.id),
     )
 
     fun toOrderModel(order: Order, country: Country): OrderModel {
