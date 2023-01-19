@@ -108,6 +108,7 @@ class Mapper(
         id = product.id,
         title = product.title,
         price = DecimalFormat(country.monetaryFormat).format(product.price),
+        currency = product.currency,
         url = toProductUrl(product.id, product.title),
         quantity = product.quantity,
         outOfStock = product.outOfStock,
@@ -122,6 +123,7 @@ class Mapper(
         id = product.id,
         title = product.title,
         price = DecimalFormat(country.monetaryFormat).format(product.price),
+        currency = product.currency,
         summary = toString(product.summary),
         description = toHtml(product.description),
         quantity = product.quantity,
@@ -211,6 +213,7 @@ class Mapper(
         referencePrice = offerPrice.referencePrice?.let { DecimalFormat(country.monetaryFormat).format(it) },
         savings = if (offerPrice.savings > 0) DecimalFormat(country.monetaryFormat).format(offerPrice.savings) else null,
         savingsPercentage = if (offerPrice.savingsPercentage > 0) "${offerPrice.savingsPercentage}%" else null,
+        expires = offerPrice.expires,
         expiresHours = offerPrice.expires?.let { getExpiryHours(it) },
         expiresMinutes = offerPrice.expires?.let { getExpiryMinutes(it) },
     )

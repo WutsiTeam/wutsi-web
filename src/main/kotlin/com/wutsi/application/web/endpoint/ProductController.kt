@@ -1,8 +1,9 @@
 package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.Page
+import com.wutsi.application.web.model.OfferModel
 import com.wutsi.application.web.model.PageModel
-import com.wutsi.application.web.model.ProductModel
+import com.wutsi.application.web.service.schema.ProductSchemasGenerator
 import com.wutsi.enums.ProductType
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.membership.manager.dto.Member
@@ -15,7 +16,9 @@ import kotlin.math.min
 
 @Controller
 @RequestMapping("/p")
-class ProductController : AbstractController() {
+class ProductController(
+    private val schemasGenerator: ProductSchemasGenerator,
+) : AbstractController() {
     @GetMapping("/{id}")
     fun index(@PathVariable id: Long, model: Model): String {
         val offer = marketplaceManagerApi.getOffer(id).offer
@@ -23,7 +26,7 @@ class ProductController : AbstractController() {
         val country = regulationEngine.country(merchant.country)
 
         val offerModel = mapper.toOfferModel(offer, country, merchant)
-        model.addAttribute("page", createPage(offerModel.product, merchant))
+        model.addAttribute("page", createPage(offerModel, merchant))
         model.addAttribute("offer", mapper.toOfferModel(offer, country, merchant))
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
 
@@ -44,14 +47,15 @@ class ProductController : AbstractController() {
         (product.type == ProductType.EVENT.name) && (product.event?.online == true) ||
             (product.type == ProductType.DIGITAL_DOWNLOAD.name)
 
-    private fun createPage(product: ProductModel, merchant: Member) = PageModel(
+    private fun createPage(offer: OfferModel, merchant: Member) = PageModel(
         name = Page.PRODUCT,
-        title = product.title,
-        description = product.summary,
-        url = "$serverUrl${product.url}",
-        canonicalUrl = "$serverUrl/p/${product.id}",
-        productId = product.id,
+        title = offer.product.title,
+        description = offer.product.summary,
+        url = "$serverUrl${offer.product.url}",
+        canonicalUrl = "$serverUrl/p/${offer.product.id}",
+        productId = offer.product.id,
         businessId = merchant.businessId,
-        imageUrl = product.thumbnail?.originalUrl,
+        imageUrl = offer.product.thumbnail?.originalUrl,
+        schemas = schemasGenerator.generate(offer)
     )
 }

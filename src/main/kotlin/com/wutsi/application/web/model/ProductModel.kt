@@ -4,6 +4,7 @@ data class ProductModel(
     val id: Long,
     val title: String,
     val price: String?,
+    val currency: String?,
     val thumbnail: PictureModel?,
     val quantity: Int?,
     val url: String,

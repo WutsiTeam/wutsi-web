@@ -39,10 +39,9 @@
 
     <meta name="robots" th:content="${page.robots}"/>
 
+    <link rel="shortcut icon" th:href="${assetUrl} + '/wutsi-web/images/favicon/favicon.ico'"/>
     <link rel="canonical" th:href="${page.canonicalUrl}" th:if="${page.canonicalUrl}"/>
     <link rel="sitemap" th:href="${page.sitemapUrl}" th:if="${page.sitemapUrl}" type="application/xml"/>
-
-    <link rel="shortcut icon" th:href="${assetUrl} + '/wutsi-web/images/favicon/favicon.ico'"/>
 
     <!-- BEGIN: Google Fonts -->
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
@@ -72,13 +71,14 @@
 
     <link crossorigin="anonymous"
           href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css"
-          integrity="sha512-gxWow8Mo6q6pLa1XH/CcH8JyiSDEtiwJV78E+D+QP0EVasFs8wKXq16G8CLD4CJ2SnonHr4Lm/yY2fSI2+cbmw=="
           referrerpolicy="no-referrer" rel="stylesheet"/>
 
     <meta name="wutsi:page_name" th:content="${page.name}"/>
     <meta name="wutsi:hit_id" th:content="${page.hitId}"/>
     <meta name="wutsi:product_id" th:content="${page.productId}" th:if="${page.productId}"/>
     <meta name="wutsi:business_id" th:content="${page.businessId}" th:if="${page.businessId}"/>
+
+    <script th:if="${page.schemas}" th:utext="${page.schemas}" type="application/ld+json"></script>
 </div>
 
 
