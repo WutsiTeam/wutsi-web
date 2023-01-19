@@ -201,7 +201,7 @@
 <!-- Toolbar               -->
 <!-- ##################### -->
 <div th:fragment="toolbar(member)">
-    <div class="border-top border-bottom padding toolbar" th:if="${device.isMobile()} AND ${member}">
+    <div class="border-top border-bottom padding toolbar" th:if="${member}">
         <div class="button" id="button-phone">
             <a th:href="'tel:' + ${member.phoneNumber}">
                 <div class="icon">
