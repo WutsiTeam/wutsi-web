@@ -364,6 +364,25 @@ nav.super-user {
     background: lightsalmon;
 }
 
+.carousel-control-next, .carousel-control-prev {
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 1.25em 1.25em 1.25em 1.25em;
+    opacity: 1;
+    margin: auto;
+    background: gray;
+}
+
+.carousel-indicators [data-bs-target] {
+    height: 6px;
+    width: 6px;
+    border-radius: 3px 3px 3px 3px;
+    background-color: #fff;
+    opacity: 1;
+    box-shadow: 2px 2px 2px 2px gray;
+    border-top: none;
+    border-bottom: none;
+}
 
 /* ==== FOOTER ==== */
 footer.page-footer {

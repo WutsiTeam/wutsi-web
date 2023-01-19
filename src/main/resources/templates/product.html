@@ -15,6 +15,15 @@
         <div class="row">
             <div class="col-12 col-sm-12 col-md-6">
                 <div class="carousel slide" data-bs-interval="300000" data-bs-ride="carousel" id="picture-carousel">
+                    <div class="carousel-indicators" th:if="${offer.product.pictures.size()} GT 1">
+                        <button data-bs-target="#picture-carousel"
+                                th:classappend="${idx.index == 0} ? active"
+                                th:data-bs-slide-to="${idx.index}"
+                                th:each="picture,idx: ${offer.product.pictures}"
+                                type="button"
+                        ></button>
+                    </div>
+
                     <div class="carousel-inner">
                         <div class="carousel-item"
                              th:classappend="${idx.index == 0} ? active"
@@ -24,7 +33,6 @@
                         </div>
                     </div>
 
-                    <!-- Controls -->
                     <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#picture-carousel"
                             th:if="${offer.product.pictures.size()} GT 1" type="button">
                         <span aria-hidden="true" class="carousel-control-prev-icon"></span>
