@@ -56,6 +56,6 @@ class ProductController(
         productId = offer.product.id,
         businessId = merchant.businessId,
         imageUrl = offer.product.thumbnail?.originalUrl,
-        schemas = schemasGenerator.generate(offer)
+        schemas = schemasGenerator.generate(offer),
     )
 }
