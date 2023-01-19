@@ -3,7 +3,7 @@ package com.wutsi.application.web.endpoint
 import com.wutsi.application.web.Page
 import com.wutsi.application.web.model.OfferModel
 import com.wutsi.application.web.model.PageModel
-import com.wutsi.application.web.service.schema.ProductSchemasGenerator
+import com.wutsi.application.web.service.ProductSchemasGenerator
 import com.wutsi.enums.ProductType
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.membership.manager.dto.Member

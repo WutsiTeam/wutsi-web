@@ -1,4 +1,4 @@
-package com.wutsi.application.web.service.schema
+package com.wutsi.application.web.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.application.web.model.OfferModel
@@ -21,6 +21,7 @@ class ProductSchemasGenerator(
         schemas["description"] = offer.product.description
         schemas["url"] = "$serverUrl${offer.product.url}"
         schemas["image"] = offer.product.pictures.map { it.originalUrl }
+        schemas["sku"] = offer.product.id.toString()
         schemas["offer"] = mapOf(
             "@type" to "Offer",
             "priceCurrency" to offer.product.currency,
