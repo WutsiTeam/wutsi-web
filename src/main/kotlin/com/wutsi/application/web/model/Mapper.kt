@@ -1,17 +1,5 @@
-package com.wutsi.application.web.endpoint
+package com.wutsi.application.web.model
 
-import com.wutsi.application.web.model.BusinessModel
-import com.wutsi.application.web.model.EventModel
-import com.wutsi.application.web.model.FileType
-import com.wutsi.application.web.model.MemberModel
-import com.wutsi.application.web.model.OfferModel
-import com.wutsi.application.web.model.OfferPriceModel
-import com.wutsi.application.web.model.OrderItemModel
-import com.wutsi.application.web.model.OrderModel
-import com.wutsi.application.web.model.PaymentProviderModel
-import com.wutsi.application.web.model.PictureModel
-import com.wutsi.application.web.model.ProductModel
-import com.wutsi.application.web.model.TransactionModel
 import com.wutsi.application.web.util.DateTimeUtil
 import com.wutsi.application.web.util.HandleGenerator
 import com.wutsi.checkout.manager.dto.Business
@@ -50,6 +38,14 @@ class Mapper(
         const val PRODUCT_THUMBNAIL_WIDTH = 300
         const val PRODUCT_PICTURE_WIDTH = 512
     }
+
+    fun toUrlModel(product: ProductSummary) = UrlModel(
+        loc = toProductUrl(product.id, product.title),
+    )
+
+    fun toUrlModel(member: Member) = UrlModel(
+        loc = toMemberUrl(member.id),
+    )
 
     fun toOrderModel(order: Order, country: Country): OrderModel {
         val fmt = DecimalFormat(country.monetaryFormat)

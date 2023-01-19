@@ -53,16 +53,15 @@ internal class ProductControllerTest : SeleniumTestSupport() {
             "content",
             product.thumbnail?.url,
         )
-
         assertElementAttributeContains(
-            "head link[rel='canonical']",
-            "href",
+            "head meta[property='og:url']",
+            "content",
             "/p/${product.id}",
         )
 
         assertElementAttributeContains(
-            "head meta[property='og:url']",
-            "content",
+            "head link[rel='canonical']",
+            "href",
             "/p/${product.id}",
         )
 

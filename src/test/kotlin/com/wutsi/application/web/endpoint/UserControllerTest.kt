@@ -85,10 +85,16 @@ internal class UserControllerTest : SeleniumTestSupport() {
             "content",
             "/u/${merchant.id}",
         )
+
         assertElementAttributeContains(
             "head link[rel='canonical']",
             "href",
             "/u/${merchant.id}",
+        )
+        assertElementAttributeContains(
+            "head link[rel='sitemap']",
+            "href",
+            "/sitemap.xml?id=${merchant.id}",
         )
 
         assertElementPresent("#button-facebook")

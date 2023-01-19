@@ -1,5 +1,6 @@
 package com.wutsi.application.web.endpoint
 
+import com.wutsi.application.web.model.Mapper
 import com.wutsi.checkout.manager.CheckoutManagerApi
 import com.wutsi.enums.ProductStatus
 import com.wutsi.error.ErrorURN

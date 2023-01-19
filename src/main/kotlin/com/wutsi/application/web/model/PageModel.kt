@@ -30,4 +30,5 @@ data class PageModel(
     val hitId: String = UUID.randomUUID().toString(),
     val productId: Long? = null,
     val businessId: Long? = null,
+    val sitemapUrl: String? = null,
 )

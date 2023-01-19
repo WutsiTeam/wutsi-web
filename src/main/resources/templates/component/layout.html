@@ -40,6 +40,7 @@
     <meta name="robots" th:content="${page.robots}"/>
 
     <link rel="canonical" th:href="${page.canonicalUrl}" th:if="${page.canonicalUrl}"/>
+    <link rel="sitemap" th:href="${page.sitemapUrl}" th:if="${page.sitemapUrl}" type="application/xml"/>
 
     <link rel="shortcut icon" th:href="${assetUrl} + '/wutsi-web/images/favicon/favicon.ico'"/>
 
