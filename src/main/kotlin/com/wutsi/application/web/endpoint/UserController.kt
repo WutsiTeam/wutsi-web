@@ -39,8 +39,9 @@ class UserController : AbstractController() {
         name = Page.PROFILE,
         title = member.displayName,
         description = member.biography,
-        url = "$serverUrl/${member.url}",
+        url = "$serverUrl${member.url}",
         imageUrl = member.pictureUrl,
+        canonicalUrl = "$serverUrl/u/${member.id}",
     )
 
     private fun findOffers(member: Member): List<OfferSummary> {

@@ -37,7 +37,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         doReturn(GetOfferResponse(offer)).whenever(marketplaceManagerApi).getOffer(product.id)
 
         // Goto product page
-        navigate(url("p/${product.id}"))
+        navigate(url("p/${product.id}/title-of-product"))
         assertCurrentPageIs(Page.PRODUCT)
         assertElementAttribute("head meta[name='wutsi\\:product_id']", "content", product.id.toString())
         assertElementAttribute("head meta[name='wutsi\\:business_id']", "content", merchant.businessId!!.toString())
@@ -53,6 +53,13 @@ internal class ProductControllerTest : SeleniumTestSupport() {
             "content",
             product.thumbnail?.url,
         )
+
+        assertElementAttributeContains(
+            "head link[rel='canonical']",
+            "href",
+            "/p/${product.id}",
+        )
+
         assertElementAttributeContains(
             "head meta[property='og:url']",
             "content",

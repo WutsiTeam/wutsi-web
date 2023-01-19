@@ -232,7 +232,7 @@
                 navigator.share(
                     {
                         title: document.title,
-                        url: document.querySelector("link[rel='canonical']").getAttribute("href")
+                        url: document.location.href
                     }
                 );
             }
@@ -290,7 +290,8 @@
 <!-- ################# -->
 <!-- Order Item        -->
 <!-- ################# -->
-<div class="order-item-card" th:fragment="order-item-card(offer, quantity)">
+<div class="order-item-card" th:fragment="order-item-card(offer, quantity)"
+>
     <div class="flex">
         <div class="img-container">
             <img th:src="${offer.product.thumbnailUrl}"/>

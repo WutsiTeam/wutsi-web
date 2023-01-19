@@ -76,11 +76,18 @@ internal class UserControllerTest : SeleniumTestSupport() {
         assertElementAttribute("head meta[property='og:title']", "content", merchant.displayName)
         assertElementAttribute("head meta[property='og:description']", "content", merchant.biography)
         assertElementAttribute(
-            "head meta[property='og:image']", "content", merchant.pictureUrl
+            "head meta[property='og:image']",
+            "content",
+            merchant.pictureUrl,
         )
         assertElementAttributeEndsWith(
             "head meta[property='og:url']",
             "content",
+            "/u/${merchant.id}",
+        )
+        assertElementAttributeContains(
+            "head link[rel='canonical']",
+            "href",
             "/u/${merchant.id}",
         )
 
