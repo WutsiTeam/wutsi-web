@@ -1,7 +1,6 @@
 package com.wutsi.application.web.model
 
 import com.wutsi.application.web.util.DateTimeUtil
-import com.wutsi.application.web.util.HandleGenerator
 import com.wutsi.checkout.manager.dto.Business
 import com.wutsi.checkout.manager.dto.BusinessSummary
 import com.wutsi.checkout.manager.dto.Order
@@ -42,7 +41,7 @@ class Mapper(
     }
 
     fun toUrlModel(product: ProductSummary) = UrlModel(
-        loc = serverUrl + toProductUrl(product.id, product.title),
+        loc = serverUrl + product.url,
     )
 
     fun toUrlModel(member: Member) = UrlModel(
@@ -111,7 +110,7 @@ class Mapper(
         title = product.title,
         price = DecimalFormat(country.monetaryFormat).format(product.price),
         currency = product.currency,
-        url = toProductUrl(product.id, product.title),
+        url = product.url,
         quantity = product.quantity,
         outOfStock = product.outOfStock,
         lowStock = !product.outOfStock && product.quantity != null && product.quantity!! <= regulationEngine.lowStockThreshold(),
@@ -131,7 +130,7 @@ class Mapper(
         quantity = product.quantity,
         outOfStock = product.outOfStock,
         lowStock = !product.outOfStock && product.quantity != null && product.quantity!! <= regulationEngine.lowStockThreshold(),
-        url = toProductUrl(product.id, product.title),
+        url = product.url,
         thumbnail = product.thumbnail?.let { toPictureMapper(it, true) },
         pictures = product.pictures.map { toPictureMapper(it, false) },
         type = product.type,
@@ -257,9 +256,6 @@ class Mapper(
         ),
         originalUrl = url,
     )
-
-    private fun toProductUrl(id: Long, title: String): String =
-        "/p/$id/" + HandleGenerator.generate(title)
 
     private fun toString(str: String?): String? =
         if (str.isNullOrEmpty()) {
