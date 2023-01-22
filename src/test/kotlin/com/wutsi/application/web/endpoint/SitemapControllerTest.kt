@@ -55,8 +55,8 @@ internal class SitemapControllerTest {
 
         assertEquals(3, sitemap.url.size)
         assertHasUrl("/u/1", sitemap)
-        assertHasUrl("/p/10/hello-world", sitemap)
-        assertHasUrl("/p/20/yo-man", sitemap)
+        assertHasUrl("/p/10", sitemap)
+        assertHasUrl("/p/20", sitemap)
 
         verify(membershipManagerApi).getMember(member.id)
         verify(marketplaceManagerApi).searchProduct(
