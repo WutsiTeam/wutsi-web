@@ -116,6 +116,7 @@ object Fixtures {
         event = event,
         outOfStock = quantity <= 0,
         quantity = quantity,
+        url = "/p/$id",
     )
 
     fun createFileSummary(
@@ -166,6 +167,7 @@ object Fixtures {
         event = event,
         files = files,
         outOfStock = quantity <= 0,
+        url = "/p/$id",
     )
 
     fun createEvent(
