@@ -57,5 +57,6 @@ class ProductController(
         businessId = merchant.businessId,
         imageUrl = offer.product.thumbnail?.originalUrl,
         schemas = schemasGenerator.generate(offer),
+        twitterUserId = merchant.twitterId,
     )
 }

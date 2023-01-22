@@ -43,6 +43,7 @@ class UserController : AbstractController() {
         imageUrl = member.pictureUrl,
         canonicalUrl = "$serverUrl/u/${member.id}",
         sitemapUrl = "$serverUrl/sitemap.xml?id=${member.id}",
+        twitterUserId = member.twitterId,
     )
 
     private fun findOffers(member: Member): List<OfferSummary> {
