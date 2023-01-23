@@ -22,10 +22,6 @@
     <meta property="og:title" th:content="${page.title}"/>
     <meta property="og:description" th:content="${page.description}"/>
     <meta property="og:image" th:content="${page.imageUrl}" th:if="${page.imageUrl}"/>
-    <meta property="article:author" th:content="${page.author}" th:if="${page.author}"/>
-    <meta property="article:published_time" th:content="${page.publishedTime}" th:if="${page.publishedTime}"/>
-    <meta property="article:modified_time" th:content="${page.modifiedTime}" th:if="${page.modifiedTime}"/>
-    <meta property="article:tag" th:content="${tag}" th:each="tag : ${page.tags}"/>
 
     <meta name="twitter:card" th:content="${page.imageUrl} ? 'summary_large_image' : 'summary'"/>
     <meta name="twitter:site" th:content="'@' + ${page.twitterUserId}" th:if="${page.twitterUserId}"/>
@@ -77,6 +73,7 @@
     <meta name="wutsi:hit_id" th:content="${page.hitId}"/>
     <meta name="wutsi:product_id" th:content="${page.productId}" th:if="${page.productId}"/>
     <meta name="wutsi:business_id" th:content="${page.businessId}" th:if="${page.businessId}"/>
+    <meta name="p:domain_verify" th:content="${page.pinterestVerifCode}" th:if="${page.pinterestVerifCode}"/>
 
     <script th:if="${page.schemas}" th:utext="${page.schemas}" type="application/ld+json"></script>
 </div>

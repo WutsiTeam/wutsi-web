@@ -5,6 +5,8 @@ wutsi:
     google:
       analytics:
         id: ${GOOGLE_ANALYTICS_ID}
+    pinterest:
+      verif-code: "${PINTEREST_VERIF_CODE}"
   platform:
     cache:
       type: memcached

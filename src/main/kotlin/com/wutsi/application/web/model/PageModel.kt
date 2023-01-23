@@ -31,4 +31,5 @@ data class PageModel(
     val productId: Long? = null,
     val businessId: Long? = null,
     val sitemapUrl: String? = null,
+    val pinterestVerifCode: String? = null,
 )

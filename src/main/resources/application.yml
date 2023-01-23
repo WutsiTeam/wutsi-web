@@ -43,6 +43,8 @@ wutsi:
     google:
       analytics:
         id: ""
+    pinterest:
+      verif-code: "xxxxxx"
 
   platform:
     cache:
