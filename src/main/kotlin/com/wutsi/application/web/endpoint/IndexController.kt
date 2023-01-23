@@ -20,6 +20,6 @@ class IndexController(
     private fun createPage() = PageModel(
         name = Page.HOME,
         title = "Wutsi",
-        pinterestVerifCode = if (pinterestVerifCode.isNullOrEmpty()) null else pinterestVerifCode
+        pinterestVerifCode = if (pinterestVerifCode.isNullOrEmpty()) null else pinterestVerifCode,
     )
 }
