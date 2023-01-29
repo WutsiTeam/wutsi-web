@@ -24,7 +24,6 @@ class SuccessController : AbstractController() {
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
         model.addAttribute("tx", mapper.toTransactionModel(tx, country))
 
-        setLocale(merchant)
         return "success"
     }
 

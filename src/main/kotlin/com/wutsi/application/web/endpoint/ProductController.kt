@@ -22,7 +22,7 @@ class ProductController(
     @GetMapping("/{id}")
     fun index(@PathVariable id: Long, model: Model): String {
         val offer = marketplaceManagerApi.getOffer(id).offer
-        val merchant = findMember(offer.product.store.accountId)
+        val merchant = resolveCurrentMerchant(offer.product.store.accountId)
         val store = marketplaceManagerApi.getStore(merchant.storeId!!).store
         val country = regulationEngine.country(merchant.country)
 
@@ -38,7 +38,6 @@ class ProductController(
             model.addAttribute("quantities", quantities)
         }
 
-        setLocale(merchant)
         return "product"
     }
 

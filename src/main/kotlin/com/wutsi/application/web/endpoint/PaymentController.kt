@@ -73,7 +73,6 @@ class PaymentController(
                 .map { mapper.toPaymentProviderModel(it) },
         )
 
-        setLocale(merchant)
         return "payment"
     }
 

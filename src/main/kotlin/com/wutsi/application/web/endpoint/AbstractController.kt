@@ -1,6 +1,7 @@
 package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.model.Mapper
+import com.wutsi.application.web.service.MerchantHolder
 import com.wutsi.checkout.manager.CheckoutManagerApi
 import com.wutsi.enums.ProductStatus
 import com.wutsi.error.ErrorURN
@@ -15,12 +16,10 @@ import com.wutsi.regulation.RegulationEngine
 import feign.FeignException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.mobile.device.Device
 import org.springframework.mobile.device.DeviceUtils
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ModelAttribute
-import java.util.Locale
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -55,6 +54,9 @@ abstract class AbstractController {
     @Autowired
     protected lateinit var logger: KVLogger
 
+    @Autowired
+    protected lateinit var merchantHolder: MerchantHolder
+
     @ModelAttribute("device")
     fun device(): Device = DeviceUtils.getCurrentDevice(request)
 
@@ -64,23 +66,25 @@ abstract class AbstractController {
     @ModelAttribute("gaId")
     fun googleAnalyticsId() = if (gaId.isNullOrEmpty()) null else gaId
 
-    protected fun findMember(id: Long): Member {
-        val member = membershipManagerApi.getMember(id).member
-        if (!member.active) { // Must be active
+    protected fun resolveCurrentMerchant(id: Long): Member {
+        val merchant = membershipManagerApi.getMember(id).member
+        if (!merchant.active) { // Must be active
             throw NotFoundException(
                 error = Error(
                     code = ErrorURN.MEMBER_NOT_ACTIVE.urn,
                 ),
             )
         }
-        if (!member.business) { // Must be a business account
+        if (!merchant.business) { // Must be a business account
             throw NotFoundException(
                 error = Error(
                     code = ErrorURN.MEMBER_NOT_BUSINESS.urn,
                 ),
             )
         }
-        return member
+
+        merchantHolder.set(merchant)
+        return merchant
     }
 
     @Deprecated("")
@@ -112,9 +116,5 @@ abstract class AbstractController {
     fun onThrowable(response: HttpServletResponse, ex: Throwable) {
         logger.setException(ex)
         response.sendError(500, ex.message)
-    }
-
-    protected fun setLocale(member: Member) {
-        LocaleContextHolder.setLocale(Locale(member.language))
     }
 }

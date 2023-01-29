@@ -28,7 +28,6 @@ class ProcessingController : AbstractController() {
         model.addAttribute("transactionUrl", toTransactionUrl(tx))
         model.addAttribute("idempotencyKey", UUID.randomUUID().toString())
 
-        setLocale(merchant)
         return "processing"
     }
 

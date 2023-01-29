@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 class UserController : AbstractController() {
     @GetMapping("/{id}")
     fun index(@PathVariable id: Long, model: Model): String {
-        val merchant = findMember(id)
+        val merchant = resolveCurrentMerchant(id)
         val country = regulationEngine.country(merchant.country)
         val memberModel = mapper.toMemberModel(merchant)
         val offers = findOffers(merchant)
@@ -32,7 +32,6 @@ class UserController : AbstractController() {
             },
         )
 
-        setLocale(merchant)
         return "user"
     }
 

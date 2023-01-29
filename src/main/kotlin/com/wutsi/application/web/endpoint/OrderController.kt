@@ -30,7 +30,7 @@ class OrderController(
         model: Model,
     ): String {
         val offer = marketplaceManagerApi.getOffer(productId).offer
-        val merchant = findMember(offer.product.store.accountId)
+        val merchant = resolveCurrentMerchant(offer.product.store.accountId)
         val store = marketplaceManagerApi.getStore(merchant.storeId!!).store
         val business = checkoutManagerApi.getBusiness(merchant.businessId!!).business
         val country = regulationEngine.country(business.country)
