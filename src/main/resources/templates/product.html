@@ -187,9 +187,9 @@
                             <div th:if="!${offer.cancellationPolicy.accepted}">
                                 <h5 th:text="#{product.policy-not-accepted}">Not Accepted</h5>
                             </div>
-                            <div th:if="${offer.cancellationPolicy.message}"
-                                 th:utext="${offer.returnPolicy.message}">...
-                            </div>
+                            <ul th:if="${offer.cancellationPolicy.message}">
+                                <li th:utext="${offer.returnPolicy.message}">...</li>
+                            </ul>
                         </div>
 
                         <div class="padding-top">
@@ -204,9 +204,9 @@
                             <div th:if="!${offer.returnPolicy.accepted}">
                                 <h5 th:text="#{product.policy-not-accepted}">Not Accepted</h5>
                             </div>
-                            <div th:if="${offer.returnPolicy.message}"
-                                 th:utext="${offer.returnPolicy.message}">...
-                            </div>
+                            <ul th:if="${offer.returnPolicy.message}">
+                                <li th:utext="${offer.returnPolicy.message}">...</li>
+                            </ul>
                         </div>
                     </div>
                 </div>

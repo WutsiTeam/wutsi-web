@@ -45,6 +45,11 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Lora', serif;
 }
 
+ul, ol {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
 .flex {
     display: flex;
     flex-wrap: wrap;
