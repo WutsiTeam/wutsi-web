@@ -7,6 +7,7 @@ import com.wutsi.checkout.manager.dto.Order
 import com.wutsi.checkout.manager.dto.PaymentProviderSummary
 import com.wutsi.checkout.manager.dto.Transaction
 import com.wutsi.enums.ProductType
+import com.wutsi.marketplace.manager.dto.CancellationPolicy
 import com.wutsi.marketplace.manager.dto.Event
 import com.wutsi.marketplace.manager.dto.Offer
 import com.wutsi.marketplace.manager.dto.OfferPrice
@@ -14,6 +15,8 @@ import com.wutsi.marketplace.manager.dto.OfferSummary
 import com.wutsi.marketplace.manager.dto.PictureSummary
 import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.marketplace.manager.dto.ProductSummary
+import com.wutsi.marketplace.manager.dto.ReturnPolicy
+import com.wutsi.marketplace.manager.dto.Store
 import com.wutsi.membership.manager.dto.Member
 import com.wutsi.platform.core.image.Dimension
 import com.wutsi.platform.core.image.ImageService
@@ -135,6 +138,7 @@ class Mapper(
         pictures = product.pictures.map { toPictureMapper(it, false) },
         type = product.type,
         event = if (product.type == ProductType.EVENT.name) toEvent(product.event, country, merchant) else null,
+
         fileTypes = product.files.groupBy { toExtension(it.name) }
             .filter { it.key != null }
             .map {
@@ -144,6 +148,25 @@ class Mapper(
                 )
             },
     )
+
+    fun toCancellationPolicyModel(policy: CancellationPolicy) = CancellationPolicyModel(
+        accepted = policy.accepted,
+        message = policy.message,
+        windowHours = policy.window,
+    )
+
+    fun toReturnPolicyModel(policy: ReturnPolicy) = ReturnPolicyModel(
+        accepted = policy.accepted,
+        message = policy.message,
+        contactWindowDays = policy.contactWindow / 24,
+        shipBackWindowDays = policy.shipBackWindow / 24,
+    )
+
+    private fun canCancel(product: Product): Boolean =
+        product.type != ProductType.DIGITAL_DOWNLOAD.name
+
+    private fun canReturn(product: Product): Boolean =
+        product.type == ProductType.PHYSICAL_PRODUCT.name
 
     private fun toExtension(name: String): String? {
         val i = name.lastIndexOf(".")
@@ -204,9 +227,20 @@ class Mapper(
         price = toOfferPriceModel(offer.price, country),
     )
 
-    fun toOfferModel(offer: Offer, country: Country, member: Member) = OfferModel(
+    fun toOfferModel(offer: Offer, country: Country, member: Member, store: Store) = OfferModel(
         product = toProductModel(offer.product, country, member),
         price = toOfferPriceModel(offer.price, country),
+        cancellationPolicy = if (canCancel(offer.product)) {
+            toCancellationPolicyModel(store.cancellationPolicy)
+        } else {
+            CancellationPolicyModel(accepted = false)
+        },
+
+        returnPolicy = if (canReturn(offer.product)) {
+            toReturnPolicyModel(store.returnPolicy)
+        } else {
+            ReturnPolicyModel(accepted = false)
+        },
     )
 
     fun toOfferPriceModel(offerPrice: OfferPrice, country: Country) = OfferPriceModel(

@@ -23,11 +23,12 @@ class ProductController(
     fun index(@PathVariable id: Long, model: Model): String {
         val offer = marketplaceManagerApi.getOffer(id).offer
         val merchant = findMember(offer.product.store.accountId)
+        val store = marketplaceManagerApi.getStore(merchant.storeId!!).store
         val country = regulationEngine.country(merchant.country)
 
-        val offerModel = mapper.toOfferModel(offer, country, merchant)
+        val offerModel = mapper.toOfferModel(offer, country, merchant, store)
         model.addAttribute("page", createPage(offerModel, merchant))
-        model.addAttribute("offer", mapper.toOfferModel(offer, country, merchant))
+        model.addAttribute("offer", offerModel)
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
 
         if (cannotOrderMultipleItems(offer.product)) {
@@ -36,6 +37,8 @@ class ProductController(
             val quantities = 1..min(10, (offer.product.quantity ?: Integer.MAX_VALUE))
             model.addAttribute("quantities", quantities)
         }
+
+        setLocale(merchant)
         return "product"
     }
 

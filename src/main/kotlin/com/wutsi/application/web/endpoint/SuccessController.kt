@@ -23,6 +23,8 @@ class SuccessController : AbstractController() {
         model.addAttribute("page", createPage())
         model.addAttribute("merchant", mapper.toMemberModel(merchant))
         model.addAttribute("tx", mapper.toTransactionModel(tx, country))
+
+        setLocale(merchant)
         return "success"
     }
 

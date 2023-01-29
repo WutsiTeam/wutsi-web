@@ -72,6 +72,8 @@ class PaymentController(
                 .filter { it.type == PaymentMethodType.MOBILE_MONEY.name }
                 .map { mapper.toPaymentProviderModel(it) },
         )
+
+        setLocale(merchant)
         return "payment"
     }
 

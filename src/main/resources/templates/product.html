@@ -125,20 +125,21 @@
                                 </tr>
                             </table>
                         </div>
+
                         <div class="padding border-top" id="product-delivery">
                             <h2 th:text="#{product.delivery}">Delivery</h2>
                             <h4 th:text="#{product.delivery-email}">Delivery</h4>
                             <div>
-                            <span id="product-delivery-event-online"
-                                  th:if="${offer.product.event.online}"
-                                  th:text="#{product.delivery-event-online}">
-                                Details...
-                            </span>
+                                <span id="product-delivery-event-online"
+                                      th:if="${offer.product.event.online}"
+                                      th:text="#{product.delivery-event-online}">
+                                    Details...
+                                </span>
                                 <span id="product-delivery-event-offline"
                                       th:if="!${offer.product.event.online}"
                                       th:text="#{product.delivery-event-offline}">
-                                Details...
-                            </span>
+                                    Details...
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -164,6 +165,47 @@
                             <h4 th:text="#{product.delivery-instant-download}">Delivery</h4>
                             <div id="product-delivery-digital-download" th:text="#{product.delivery-digital-download}">
                                 Details...
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========================= -->
+                    <!-- POLICIES                  -->
+                    <!-- ========================= -->
+                    <div class="padding border-top" id="product-policies">
+                        <h2 th:text="#{product.policies}">Policies</h2>
+
+                        <div>
+                            <h4 th:text="#{product.cancellation-policy}">Cancellation</h4>
+                            <div th:if="${offer.cancellationPolicy.accepted}">
+                                <h5 th:text="#{product.policy-accepted}">Accepted</h5>
+                                <div
+                                    th:utext="#{product.cancellation-policy-message(${offer.cancellationPolicy.windowHours})}">
+                                    ...
+                                </div>
+                            </div>
+                            <div th:if="!${offer.cancellationPolicy.accepted}">
+                                <h5 th:text="#{product.policy-not-accepted}">Not Accepted</h5>
+                            </div>
+                            <div th:if="${offer.cancellationPolicy.message}"
+                                 th:utext="${offer.returnPolicy.message}">...
+                            </div>
+                        </div>
+
+                        <div class="padding-top">
+                            <h4 th:text="#{product.return-policy}">Returns</h4>
+                            <div th:if="${offer.returnPolicy.accepted}">
+                                <h5 th:text="#{product.policy-accepted}">Accepted</h5>
+                                <div
+                                    th:utext="#{product.return-policy-message(${offer.returnPolicy.contactWindowDays}, ${offer.returnPolicy.shipBackWindowDays})}">
+                                    ...
+                                </div>
+                            </div>
+                            <div th:if="!${offer.returnPolicy.accepted}">
+                                <h5 th:text="#{product.policy-not-accepted}">Not Accepted</h5>
+                            </div>
+                            <div th:if="${offer.returnPolicy.message}"
+                                 th:utext="${offer.returnPolicy.message}">...
                             </div>
                         </div>
                     </div>

@@ -31,9 +31,10 @@ class OrderController(
     ): String {
         val offer = marketplaceManagerApi.getOffer(productId).offer
         val merchant = findMember(offer.product.store.accountId)
+        val store = marketplaceManagerApi.getStore(merchant.storeId!!).store
         val business = checkoutManagerApi.getBusiness(merchant.businessId!!).business
         val country = regulationEngine.country(business.country)
-        val offerModel = mapper.toOfferModel(offer, country, merchant)
+        val offerModel = mapper.toOfferModel(offer, country, merchant, store)
 
         val subTotal = offer.product.price?.let {
             DecimalFormat(country.monetaryFormat).format(it * quantity)

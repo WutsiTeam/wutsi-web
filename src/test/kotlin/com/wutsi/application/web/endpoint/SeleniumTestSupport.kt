@@ -7,6 +7,7 @@ import com.wutsi.application.web.Fixtures
 import com.wutsi.checkout.manager.CheckoutManagerApi
 import com.wutsi.checkout.manager.dto.GetBusinessResponse
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
+import com.wutsi.marketplace.manager.dto.GetStoreResponse
 import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import feign.FeignException
@@ -89,6 +90,7 @@ abstract class SeleniumTestSupport {
 
         doReturn(GetMemberResponse(merchant)).whenever(membershipManagerApi).getMember(any())
         doReturn(GetBusinessResponse(business)).whenever(checkoutManagerApi).getBusiness(any())
+        doReturn(GetStoreResponse(store)).whenever(marketplaceManagerApi).getStore(any())
     }
 
     @AfterEach
