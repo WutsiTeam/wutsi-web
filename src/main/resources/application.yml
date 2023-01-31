@@ -43,6 +43,9 @@ wutsi:
     google:
       analytics:
         id: ""
+      recaptcha:
+        site-key: "6Lfo9UAkAAAAAPsaQejbTiVSPbP8VkZqJWj7r2tF"
+        secret-key: "6Lfo9UAkAAAAAOSJ4EznW9hY5qNW5ncVOLnVtVAW"
     pinterest:
       verif-code: "xxxxxx"
 

@@ -2,10 +2,14 @@ package com.wutsi.application.web.endpoint
 
 import com.wutsi.application.web.Page
 import com.wutsi.application.web.model.PageModel
+import com.wutsi.application.web.service.recaptcha.Recaptcha
 import com.wutsi.application.web.servlet.ChannelFilter
+import com.wutsi.application.web.util.ErrorCode
 import com.wutsi.checkout.manager.dto.CreateOrderItemRequest
 import com.wutsi.enums.ChannelType
 import com.wutsi.enums.DeviceType
+import org.springframework.context.MessageSource
+import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.mobile.device.DeviceUtils
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -22,11 +26,14 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/order")
 class OrderController(
     private val httpRequest: HttpServletRequest,
+    private val recaptcha: Recaptcha,
+    private val messages: MessageSource,
 ) : AbstractController() {
     @GetMapping
     fun index(
         @RequestParam(name = "p") productId: Long,
         @RequestParam(name = "q") quantity: Int,
+        @RequestParam(name = "e", required = false) error: Long? = null,
         model: Model,
     ): String {
         val offer = marketplaceManagerApi.getOffer(productId).offer
@@ -55,6 +62,7 @@ class OrderController(
         model.addAttribute("subTotal", subTotal)
         model.addAttribute("totalSavings", totalSavings)
         model.addAttribute("totalPrice", totalPrice)
+        model.addAttribute("error", error?.let { toError(it) })
 
         return "order"
     }
@@ -70,6 +78,14 @@ class OrderController(
         logger.add("request_email", request.email)
         logger.add("request_display_name", request.displayName)
 
+        // Recaptcha
+        val recaptchaResponse = httpRequest.getParameter(Recaptcha.REQUEST_PARAMETER)
+        logger.add("request_g-recaptcha-response", recaptchaResponse)
+        if (!recaptcha.verify(recaptchaResponse)) {
+            return "redirect:/order?p=${request.productId}&q=${request.quantity}&e=${ErrorCode.RECAPTCHA}"
+        }
+
+        // Order
         val orderId = checkoutManagerApi.createOrder(
             request = com.wutsi.checkout.manager.dto.CreateOrderRequest(
                 deviceType = toDeviceType().toString(),
@@ -119,5 +135,17 @@ class OrderController(
         name = Page.ORDER,
         title = "Order",
         robots = "noindex",
+        recaptchaSiteKey = recaptchaSiteKey,
     )
+
+    private fun toError(error: Long): String? = when (error) {
+        ErrorCode.RECAPTCHA -> {
+            messages.getMessage(
+                "error-message.recaptcha-error",
+                emptyArray(),
+                LocaleContextHolder.getLocale(),
+            )
+        }
+        else -> messages.getMessage("error-message.unexpected", emptyArray(), LocaleContextHolder.getLocale())
+    }
 }

@@ -19,6 +19,8 @@
                     <div class="padding">
                         <h1 th:text="#{order.title}">Your Information</h1>
 
+                        <div class="error alert alert-danger padding" th:if="${error}" th:text="${error}">Error</div>
+
                         <input class="w-100" maxlength="100" name="displayName"
                                required="true"
                                th:placeholder="#{order.displayName}"/>
@@ -38,6 +40,11 @@
                         <textarea class="w-100 margin-top" maxlength="1000" name="notes"
                                   rows="3"
                                   th:placeholder="#{order.notes}"></textarea>
+
+                        <div class="g-recaptcha margin-top margin-bottom"
+                             th:data-sitekey="${page.recaptchaSiteKey}"
+                             th:if="${page.recaptchaSiteKey}"
+                        ></div>
 
                         <button class="btn btn-lg btn-primary w-100" id="btn-submit" th:text="#{order.submit}"
                                 type="submit">

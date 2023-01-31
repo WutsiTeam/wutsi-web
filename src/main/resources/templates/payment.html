@@ -45,6 +45,11 @@
                                  width="48"/>
                         </div>
 
+                        <div class="g-recaptcha margin-top margin-bottom"
+                             th:data-sitekey="${page.recaptchaSiteKey}"
+                             th:if="${page.recaptchaSiteKey}"
+                        ></div>
+
                         <button class="btn btn-lg btn-primary w-100" id="btn-submit"
                                 th:text="#{payment.submit(${order.totalPrice})}"
                                 type="submit">

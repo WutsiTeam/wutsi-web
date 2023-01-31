@@ -2,6 +2,10 @@ wutsi:
   application:
     asset-url: https://int-wutsi.s3.amazonaws.com/static/wutsi-assets
     server-url: https://wutsi-web-test.herokuapp.com
+    google:
+      recaptcha:
+        site-key: ${RECAPTCHA_SITE_KEY}
+        secret-key: ${RECAPTCHA_SECRET_KEY}
     pinterest:
       verif-code: "${PINTEREST_VERIF_CODE}"
   platform:

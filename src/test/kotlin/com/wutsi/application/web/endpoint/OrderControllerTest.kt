@@ -3,10 +3,12 @@ package com.wutsi.application.web.endpoint
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
+import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
+import com.wutsi.application.web.service.recaptcha.Recaptcha
 import com.wutsi.checkout.manager.dto.CreateOrderItemRequest
 import com.wutsi.checkout.manager.dto.CreateOrderRequest
 import com.wutsi.checkout.manager.dto.CreateOrderResponse
@@ -20,9 +22,13 @@ import com.wutsi.marketplace.manager.dto.GetProductResponse
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.boot.test.mock.mockito.MockBean
 import java.util.UUID
 
 internal class OrderControllerTest : SeleniumTestSupport() {
+    @MockBean
+    private lateinit var recaptcha: Recaptcha
+
     private val orderId = UUID.randomUUID().toString()
     private val product = Fixtures.createProduct(
         id = 11,
@@ -60,6 +66,8 @@ internal class OrderControllerTest : SeleniumTestSupport() {
 
         doReturn(SearchPaymentProviderResponse(listOf(mtn, orange))).whenever(checkoutManagerApi)
             .searchPaymentProvider(any())
+
+        doReturn(true).whenever(recaptcha).verify(any())
     }
 
     @Test
@@ -67,6 +75,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         // Goto order page
         navigate(url("order?p=${product.id}&q=3"))
         assertCurrentPageIs(Page.ORDER)
+        assertElementNotPresent(".error")
 
         // Enter data
         input("input[name=displayName]", "Ray Sponsible")
@@ -98,6 +107,33 @@ internal class OrderControllerTest : SeleniumTestSupport() {
 
         // Check payment page
         assertCurrentPageIs(Page.PAYMENT)
+    }
+
+    @Test
+    fun `recaptcha error`() {
+        // Given
+        doReturn(false).whenever(recaptcha).verify(any())
+
+        // Goto order page
+        navigate(url("order?p=${product.id}&q=3"))
+        assertCurrentPageIs(Page.ORDER)
+
+        // Enter data
+        input("input[name=displayName]", "Ray Sponsible")
+        input("input[name=email]", "ray.sponsible@gmail.com")
+        input("input[name=confirm]", "ray.sponsible@gmail.com")
+        input("textarea[name=notes]", "This is a note :-)")
+
+        // Submit the data
+        scrollToBottom()
+        Thread.sleep(1000)
+        click("#btn-submit")
+
+        verify(checkoutManagerApi, never()).createOrder(any())
+
+        // Check payment page
+        assertCurrentPageIs(Page.ORDER)
+        assertElementPresent(".error")
     }
 
     @Test

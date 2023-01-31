@@ -4,6 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.application.web.Page
 import com.wutsi.application.web.dto.ChargeOrderRequest
 import com.wutsi.application.web.model.PageModel
+import com.wutsi.application.web.service.recaptcha.Recaptcha
+import com.wutsi.application.web.util.ErrorCode
+import com.wutsi.application.web.util.ErrorCode.INVALID_PHONE_NUMBER
+import com.wutsi.application.web.util.ErrorCode.ORDER_EXPIRED
+import com.wutsi.application.web.util.ErrorCode.RECAPTCHA
+import com.wutsi.application.web.util.ErrorCode.TRANSACTION_FAILED
+import com.wutsi.application.web.util.ErrorCode.UNEXPECTED
 import com.wutsi.checkout.manager.dto.CreateChargeRequest
 import com.wutsi.checkout.manager.dto.SearchPaymentProviderRequest
 import com.wutsi.enums.PaymentMethodType
@@ -26,19 +33,17 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.util.UUID
+import javax.servlet.http.HttpServletRequest
 
 @Controller
 @RequestMapping("/payment")
 class PaymentController(
     private val objectMapper: ObjectMapper,
     private val messages: MessageSource,
+    private val recaptcha: Recaptcha,
+    private val httpRequest: HttpServletRequest,
 ) : AbstractController() {
     companion object {
-        const val ERROR_UNEXPECTED = 1000010L
-        const val ERROR_INVALID_PHONE_NUMBER = 1000011L
-        const val ERROR_TRANSACTION_FAILED = 1000012L
-        const val ERROR_ORDER_EXPIRED = 1000013L
-
         private val LOGGER = LoggerFactory.getLogger(PaymentController::class.java)
     }
 
@@ -84,6 +89,13 @@ class PaymentController(
         logger.add("request_order_id", request.orderId)
         logger.add("request_business_id", request.businessId)
 
+        // Recaptcha
+        val recaptchaResponse = httpRequest.getParameter(Recaptcha.REQUEST_PARAMETER)
+        logger.add("request_g-recaptcha-response", recaptchaResponse)
+        if (!recaptcha.verify(recaptchaResponse)) {
+            return redirectToError(request.orderId, RECAPTCHA)
+        }
+
         // Get provider
         val providers = checkoutManagerApi.searchPaymentProvider(
             request = SearchPaymentProviderRequest(
@@ -93,7 +105,7 @@ class PaymentController(
         ).paymentProviders
         logger.add("payment_providers", providers.map { it.code })
         if (providers.size != 1) {
-            return redirectToError(request.orderId, ERROR_INVALID_PHONE_NUMBER)
+            return redirectToError(request.orderId, INVALID_PHONE_NUMBER)
         }
 
         // Charge
@@ -124,29 +136,29 @@ class PaymentController(
             try {
                 val response = objectMapper.readValue(ex.contentUTF8(), ErrorResponse::class.java)
                 return when (response.error.code) {
-                    ErrorURN.ORDER_EXPIRED.urn -> redirectToError(request.orderId, ERROR_ORDER_EXPIRED, ex)
-                    else -> redirectToError(request.orderId, ERROR_TRANSACTION_FAILED, ex)
+                    ErrorURN.ORDER_EXPIRED.urn -> redirectToError(request.orderId, ORDER_EXPIRED, ex)
+                    else -> redirectToError(request.orderId, TRANSACTION_FAILED, ex)
                 }
             } catch (ex1: Throwable) {
-                return redirectToError(request.orderId, ERROR_TRANSACTION_FAILED, ex)
+                return redirectToError(request.orderId, TRANSACTION_FAILED, ex)
             }
         } catch (ex: Exception) {
-            return redirectToError(request.orderId, ERROR_UNEXPECTED, ex)
+            return redirectToError(request.orderId, UNEXPECTED, ex)
         }
     }
 
     fun redirectToError(orderId: String, error: Long, ex: Exception? = null): String {
         val idempotencyKey = UUID.randomUUID().toString()
-        if (error == ERROR_INVALID_PHONE_NUMBER) {
+        if (error == INVALID_PHONE_NUMBER) {
             return "redirect:/payment?o=$orderId&e=$error&i=$idempotencyKey"
         } else {
             if (ex is FeignException) {
                 try {
                     val response = objectMapper.readValue(ex.contentUTF8(), ErrorResponse::class.java)
                     val err = when (response.error.code) {
-                        ErrorURN.ORDER_EXPIRED.urn -> ERROR_ORDER_EXPIRED
-                        ErrorURN.TRANSACTION_FAILED.urn -> ERROR_TRANSACTION_FAILED
-                        else -> ERROR_UNEXPECTED
+                        ErrorURN.ORDER_EXPIRED.urn -> ORDER_EXPIRED
+                        ErrorURN.TRANSACTION_FAILED.urn -> TRANSACTION_FAILED
+                        else -> UNEXPECTED
                     }
                     return "redirect:/payment?o=$orderId&e=$err&i=$idempotencyKey" +
                         "&code=" + (response.error.downstreamCode ?: "")
@@ -154,9 +166,9 @@ class PaymentController(
                     // Nothing
                 }
 
-                return "redirect:/payment?o=$orderId&e=$ERROR_UNEXPECTED&i=$idempotencyKey"
+                return "redirect:/payment?o=$orderId&e=$UNEXPECTED&i=$idempotencyKey"
             } else {
-                return "redirect:/payment?o=$orderId&e=$ERROR_UNEXPECTED&i=$idempotencyKey"
+                return "redirect:/payment?o=$orderId&e=$UNEXPECTED&i=$idempotencyKey"
             }
         }
     }
@@ -178,7 +190,7 @@ class PaymentController(
     }
 
     private fun toError(error: Long, code: String?): String? = when (error) {
-        ERROR_TRANSACTION_FAILED -> {
+        TRANSACTION_FAILED -> {
             val message1 = messages.getMessage(
                 "error-message.transaction-failed",
                 emptyArray(),
@@ -199,16 +211,23 @@ class PaymentController(
             }
             "$message1 $message2"
         }
-        ERROR_INVALID_PHONE_NUMBER -> messages.getMessage(
+        INVALID_PHONE_NUMBER -> messages.getMessage(
             "error-message.no-provider-for-phone-number",
             emptyArray(),
             LocaleContextHolder.getLocale(),
         )
-        ERROR_ORDER_EXPIRED -> messages.getMessage(
+        ORDER_EXPIRED -> messages.getMessage(
             "error-message.order-expired",
             emptyArray(),
             LocaleContextHolder.getLocale(),
         )
+        ErrorCode.RECAPTCHA -> {
+            messages.getMessage(
+                "error-message.recaptcha-error",
+                emptyArray(),
+                LocaleContextHolder.getLocale(),
+            )
+        }
         else -> messages.getMessage("error-message.unexpected", emptyArray(), LocaleContextHolder.getLocale())
     }
 
@@ -216,5 +235,6 @@ class PaymentController(
         name = Page.PAYMENT,
         title = "Order",
         robots = "noindex",
+        recaptchaSiteKey = recaptchaSiteKey,
     )
 }
