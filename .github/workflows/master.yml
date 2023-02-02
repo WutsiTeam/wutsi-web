@@ -62,6 +62,7 @@ jobs:
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY_TEST}}
           RECAPTCHA_SITE_KEY: ${{secrets.RECAPTCHA_SITE_KEY_TEST}}
           RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY_TEST}}
+          PINTEREST_VERIF_CODE: ${{ secrets.PINTEREST_VERIF_CODE_TEST}}
           HEROKU_APP: wutsi-web-test
         run: |
           heroku apps | grep ${HEROKU_APP} && echo 'app: ${HEROKU_APP} exists' ||  heroku apps:create ${HEROKU_APP}
@@ -74,6 +75,7 @@ jobs:
           heroku config:set --app ${HEROKU_APP} CLOUDAMQP_URL=${CLOUDAMQP_URL}
           heroku config:set --app ${HEROKU_APP} RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY}
           heroku config:set --app ${HEROKU_APP} RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY}
+          heroku config:set --app ${HEROKU_APP} PINTEREST_VERIF_CODE=${PINTEREST_VERIF_CODE}
           heroku addons -a ${HEROKU_APP} | grep papertrail && echo 'addon: papertrail exists' ||  heroku addons:create papertrail -a ${HEROKU_APP}
           heroku addons -a ${HEROKU_APP} | grep memcachier && echo 'addon: memcachier exists' ||  heroku addons:create memcachier -a ${HEROKU_APP}
           heroku deploy:jar wutsi-web.jar --app ${HEROKU_APP}
@@ -121,6 +123,7 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY_PROD }}
           RECAPTCHA_SITE_KEY: ${{secrets.RECAPTCHA_SITE_KEY_PROD}}
           RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY_PROD}}
+          PINTEREST_VERIF_CODE: ${{ secrets.PINTEREST_VERIF_CODE_PROD}}
           HEROKU_APP: wutsi-web-prod
         run: |
           heroku apps | grep ${HEROKU_APP} && echo 'app: ${HEROKU_APP} exists' ||  heroku apps:create ${HEROKU_APP}
@@ -133,6 +136,7 @@ jobs:
           heroku config:set --app ${HEROKU_APP} CLOUDAMQP_URL=${CLOUDAMQP_URL}
           heroku config:set --app ${HEROKU_APP} RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY}
           heroku config:set --app ${HEROKU_APP} RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY}
+          heroku config:set --app ${HEROKU_APP} PINTEREST_VERIF_CODE=${PINTEREST_VERIF_CODE}
           heroku addons -a ${HEROKU_APP} | grep papertrail && echo 'addon: papertrail exists' ||  heroku addons:create papertrail -a ${HEROKU_APP}
           heroku addons -a ${HEROKU_APP} | grep memcachier && echo 'addon: memcachier exists' ||  heroku addons:create memcachier -a ${HEROKU_APP}
           heroku deploy:jar wutsi-web.jar --app ${HEROKU_APP}
