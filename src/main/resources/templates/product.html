@@ -59,8 +59,14 @@
                         <span id="quantity-out-of-stock" th:text="#{product.out-of-stock}">In Stock</span>
                     </div>
                     <div class="quantity low-stock padding-bottom"
-                         th:if="${offer.product.lowStock}">
-                        <span id="quantity-low-stock" th:text="#{product.low-stock(${offer.product.quantity})}">Only 00 in stock</span>
+                         th:if="${offer.product.lowStock}"
+                    >
+                        <span th:if="${offer.product.quantity} == 1"
+                              th:text="#{product.low-stock-1}"
+                        >Low stock</span>
+                        <span th:if="${offer.product.quantity} GT 1"
+                              th:text="#{product.low-stock-n(${offer.product.quantity})}"
+                        >Low stock</span>
                     </div>
 
                     <form action="/order" class="padding-top padding-bottom" method="GET"
