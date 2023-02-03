@@ -150,13 +150,13 @@ class Mapper(
 
     fun toCancellationPolicyModel(policy: CancellationPolicy) = CancellationPolicyModel(
         accepted = policy.accepted,
-        message = policy.message,
+        message = toString(policy.message),
         windowHours = policy.window,
     )
 
     fun toReturnPolicyModel(policy: ReturnPolicy) = ReturnPolicyModel(
         accepted = policy.accepted,
-        message = policy.message,
+        message = toString(policy.message),
         contactWindowDays = policy.contactWindow / 24,
         shipBackWindowDays = policy.shipBackWindow / 24,
     )
