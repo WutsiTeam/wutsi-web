@@ -26,7 +26,6 @@ import com.wutsi.regulation.RegulationEngine
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Service
-import java.text.DecimalFormat
 import java.time.Duration
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
@@ -52,7 +51,7 @@ class Mapper(
     )
 
     fun toOrderModel(order: Order, country: Country): OrderModel {
-        val fmt = DecimalFormat(country.monetaryFormat)
+        val fmt = country.createMoneyFormat()
         return OrderModel(
             id = order.id,
             business = toBusinessModel(order.business),
