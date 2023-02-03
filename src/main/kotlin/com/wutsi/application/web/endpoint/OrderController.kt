@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
-import java.text.DecimalFormat
 import java.util.UUID
 import javax.servlet.http.HttpServletRequest
 
@@ -43,17 +42,18 @@ class OrderController(
         val country = regulationEngine.country(business.country)
         val offerModel = mapper.toOfferModel(offer, country, merchant, store)
 
+        val fmt = country.createMoneyFormat()
         val subTotal = offer.product.price?.let {
-            DecimalFormat(country.monetaryFormat).format(it * quantity)
+            fmt.format(it * quantity)
         }
 
         val totalSavings = if (offer.price.savings > 0) {
-            DecimalFormat(country.monetaryFormat).format(offer.price.savings * quantity)
+            fmt.format(offer.price.savings * quantity)
         } else {
             null
         }
 
-        val totalPrice = DecimalFormat(country.monetaryFormat).format(offer.price.price * quantity)
+        val totalPrice = fmt.format(offer.price.price * quantity)
 
         model.addAttribute("page", createPage())
         model.addAttribute("offer", offerModel)

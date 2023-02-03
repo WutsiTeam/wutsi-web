@@ -111,7 +111,7 @@ class Mapper(
     fun toProductModel(product: ProductSummary, country: Country, merchant: Member) = ProductModel(
         id = product.id,
         title = product.title,
-        price = DecimalFormat(country.monetaryFormat).format(product.price),
+        price = country.createMoneyFormat().format(product.price),
         currency = product.currency,
         url = product.url,
         quantity = product.quantity,
@@ -126,7 +126,7 @@ class Mapper(
     fun toProductModel(product: Product, country: Country, merchant: Member) = ProductModel(
         id = product.id,
         title = product.title,
-        price = DecimalFormat(country.monetaryFormat).format(product.price),
+        price = country.createMoneyFormat().format(product.price),
         currency = product.currency,
         summary = toString(product.summary),
         description = toHtml(product.description),
@@ -204,7 +204,7 @@ class Mapper(
         id = tx.id,
         type = tx.type,
         status = tx.status,
-        amount = DecimalFormat(country.monetaryFormat).format(tx.amount),
+        amount = country.monetaryFormat.format(tx.amount),
         email = tx.email,
     )
 
@@ -243,15 +243,18 @@ class Mapper(
         },
     )
 
-    fun toOfferPriceModel(offerPrice: OfferPrice, country: Country) = OfferPriceModel(
-        price = DecimalFormat(country.monetaryFormat).format(offerPrice.price),
-        referencePrice = offerPrice.referencePrice?.let { DecimalFormat(country.monetaryFormat).format(it) },
-        savings = if (offerPrice.savings > 0) DecimalFormat(country.monetaryFormat).format(offerPrice.savings) else null,
-        savingsPercentage = if (offerPrice.savingsPercentage > 0) "${offerPrice.savingsPercentage}%" else null,
-        expires = offerPrice.expires,
-        expiresHours = offerPrice.expires?.let { getExpiryHours(it) },
-        expiresMinutes = offerPrice.expires?.let { getExpiryMinutes(it) },
-    )
+    fun toOfferPriceModel(offerPrice: OfferPrice, country: Country): OfferPriceModel {
+        val fmt = country.createMoneyFormat()
+        return OfferPriceModel(
+            price = fmt.format(offerPrice.price),
+            referencePrice = offerPrice.referencePrice?.let { fmt.format(it) },
+            savings = if (offerPrice.savings > 0) fmt.format(offerPrice.savings) else null,
+            savingsPercentage = if (offerPrice.savingsPercentage > 0) "${offerPrice.savingsPercentage}%" else null,
+            expires = offerPrice.expires,
+            expiresHours = offerPrice.expires?.let { getExpiryHours(it) },
+            expiresMinutes = offerPrice.expires?.let { getExpiryMinutes(it) },
+        )
+    }
 
     fun getExpiryHours(date: OffsetDateTime): Int? {
         val hours = getExpiryDuration(date).toHours()

@@ -209,7 +209,7 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementText(".product .title", product.title)
         assertElementText(".product .description", product.description!!)
 
-        assertElementText(".product .price", "50,000 FCFA")
+        assertElementText(".product .price", "50 000 FCFA")
         assertElementNotPresent(".product .reference-price")
         assertElementNotPresent(".product .discount-percent")
 
@@ -251,8 +251,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         navigate(url("p/${product.id}"))
 
         assertCurrentPageIs(Page.PRODUCT)
-        assertElementText(".product .price", "40,000 FCFA")
-        assertElementText(".product .reference-price", "50,000 FCFA")
+        assertElementText(".product .price", "40 000 FCFA")
+        assertElementText(".product .reference-price", "50 000 FCFA")
         assertElementText(".product .discount-percent", "20%")
         assertElementNotPresent(".product .urgency")
         assertElementNotPresent(".product .urgency-countdown")
@@ -286,8 +286,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         navigate(url("p/${product.id}"))
 
         assertCurrentPageIs(Page.PRODUCT)
-        assertElementText(".product .price", "40,000 FCFA")
-        assertElementText(".product .reference-price", "50,000 FCFA")
+        assertElementText(".product .price", "40 000 FCFA")
+        assertElementText(".product .reference-price", "50 000 FCFA")
         assertElementText(".product .discount-percent", "20%")
         assertElementPresent(".product .urgency")
         assertElementNotPresent(".product .urgency-countdown")
@@ -321,8 +321,8 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         navigate(url("p/${product.id}"))
 
         assertCurrentPageIs(Page.PRODUCT)
-        assertElementText(".product .price", "40,000 FCFA")
-        assertElementText(".product .reference-price", "50,000 FCFA")
+        assertElementText(".product .price", "40 000 FCFA")
+        assertElementText(".product .reference-price", "50 000 FCFA")
         assertElementText(".product .discount-percent", "20%")
 //        assertElementPresent(".product .urgency")
 //        assertElementPresent(".product .urgency-countdown script")
