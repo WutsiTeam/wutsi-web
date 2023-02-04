@@ -58,11 +58,11 @@
                         <div th:replace="component/layout :: offer-urgency-badge(${offer})"></div>
                     </div>
 
-                    <div class="quantity out-of-stock padding-bottom" th:if="${offer.product.outOfStock}">
+                    <div class="quantity out-of-stock" th:if="${offer.product.outOfStock}">
                         <i class="fa-solid fa-ban"></i>
                         <span id="quantity-out-of-stock" th:text="#{product.out-of-stock}">In Stock</span>
                     </div>
-                    <div class="quantity low-stock padding-bottom"
+                    <div class="quantity low-stock"
                          th:if="${offer.product.lowStock}"
                     >
                         <span id="quantity-low-stock"
