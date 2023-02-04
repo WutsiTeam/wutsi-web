@@ -51,6 +51,10 @@
                     <h1 class="title margin-top" th:text="${offer.product.title}">Title</h1>
                     <div class="price-container">
                         <div th:replace="component/layout :: offer-price(${offer})"></div>
+                        <div th:if="${offer.price.savings}">
+                            <span th:text="#{product.you-save}">You Save</span>:
+                            <b class="savings" th:text="${offer.price.savings}">1000 FCFA</b>
+                        </div>
                         <div th:replace="component/layout :: offer-urgency-badge(${offer})"></div>
                     </div>
 
@@ -192,19 +196,19 @@
         <div class="row">
             <div class="col">
                 <div class="padding border-top" id="product-policies">
-                    <h2 th:text="#{product.policies}">Policies</h2>
+                    <h4 th:text="#{product.policies}">Policies</h4>
 
                     <div>
-                        <h4 th:text="#{product.cancellation-policy}">Cancellation</h4>
+                        <h5 th:text="#{product.cancellation-policy}">Cancellation</h5>
                         <div th:if="${offer.cancellationPolicy.accepted}">
-                            <h5 th:text="#{product.policy-accepted}">Accepted</h5>
+                            <h6 th:text="#{product.policy-accepted}">Accepted</h6>
                             <div
                                 th:utext="#{product.cancellation-policy-message(${offer.cancellationPolicy.windowHours})}">
                                 ...
                             </div>
                         </div>
                         <div th:if="!${offer.cancellationPolicy.accepted}">
-                            <h5 th:text="#{product.policy-not-accepted}">Not Accepted</h5>
+                            <h6 th:text="#{product.policy-not-accepted}">Not Accepted</h6>
                         </div>
                         <ul th:if="${offer.cancellationPolicy.message}">
                             <li th:utext="${offer.returnPolicy.message}">...</li>
@@ -217,16 +221,16 @@
                     </div>
 
                     <div class="padding-top">
-                        <h4 th:text="#{product.return-policy}">Returns</h4>
+                        <h5 th:text="#{product.return-policy}">Returns</h5>
                         <div th:if="${offer.returnPolicy.accepted}">
-                            <h5 th:text="#{product.policy-accepted}">Accepted</h5>
+                            <h6 th:text="#{product.policy-accepted}">Accepted</h6>
                             <div
                                 th:utext="#{product.return-policy-message(${offer.returnPolicy.contactWindowDays}, ${offer.returnPolicy.shipBackWindowDays})}">
                                 ...
                             </div>
                         </div>
                         <div th:if="!${offer.returnPolicy.accepted}">
-                            <h5 th:text="#{product.policy-not-accepted}">Not Accepted</h5>
+                            <h6 th:text="#{product.policy-not-accepted}">Not Accepted</h6>
                         </div>
                         <ul th:if="${offer.returnPolicy.message}">
                             <li th:utext="${offer.returnPolicy.message}">...</li>

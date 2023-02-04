@@ -176,23 +176,23 @@
 <!-- ##################### -->
 <div class="padding toolbar" th:fragment="social-toolbar(member)">
     <div class="button" id="button-instagram" th:if="${member} AND ${member.instagramId}">
-        <a th:href="'https://www.instagram.com/' + ${member.instagramId}">
+        <a target="_blank" th:href="'https://www.instagram.com/' + ${member.instagramId}">
             <img th:src="${assetUrl} + '/images/social/instagram.png'"></a>
     </div>
     <div class="button" id="button-youtube" th:if="${member} AND ${member.youtubeId}">
-        <a th:href="'https://www.youtube.com/' + ${member.youtubeId}">
+        <a target="_blank" th:href="'https://www.youtube.com/' + ${member.youtubeId}">
             <img th:src="${assetUrl} + '/images/social/youtube.png'"></a>
     </div>
     <div class="button" id="button-facebook" th:if="${member} AND ${member.facebookId}">
-        <a th:href="'https://www.facebook.com/' + ${member.facebookId}">
+        <a target="_blank" th:href="'https://www.facebook.com/' + ${member.facebookId}">
             <img th:src="${assetUrl} + '/images/social/facebook.png'"></a>
     </div>
     <div class="button" id="button-twitter" th:if="${member} AND ${member.twitterId}">
-        <a th:href="'https://www.twitter.com/' + ${member.twitterId}">
+        <a target="_blank" th:href="'https://www.twitter.com/' + ${member.twitterId}">
             <img th:src="${assetUrl} + '/images/social/twitter.png'"></a>
     </div>
     <div class="button" id="button-website" th:if="${member} AND ${member.website}">
-        <a th:href="${member.website}">
+        <a target="_blank" th:href="${member.website}">
             <img th:src="${assetUrl} + '/images/social/website.png'"></a>
     </div>
 </div>

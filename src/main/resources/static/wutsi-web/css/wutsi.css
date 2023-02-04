@@ -545,6 +545,12 @@ form .hint {
     white-space: nowrap;
 }
 
+.savings {
+    color: var(--text-color-success);
+    white-space: nowrap;
+    font-size: 1.2em;
+}
+
 .discount-percent {
     color: var(--text-color-success);
     font-width: bold;
