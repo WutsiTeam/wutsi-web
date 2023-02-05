@@ -53,7 +53,7 @@ class PaymentController(
 
         val order = checkoutManagerApi.getOrder(orderId).order
         val country = regulationEngine.country(order.business.country)
-        val merchant = membershipManagerApi.getMember(order.business.accountId).member
+        val merchant = resolveCurrentMerchant(order.business.accountId)
         val paymentProviders = checkoutManagerApi.searchPaymentProvider(
             request = SearchPaymentProviderRequest(
                 country = order.business.country,

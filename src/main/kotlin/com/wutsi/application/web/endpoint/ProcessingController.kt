@@ -19,7 +19,7 @@ class ProcessingController : AbstractController() {
         model: Model,
     ): String {
         val tx = checkoutManagerApi.getTransaction(transactionId).transaction
-        val merchant = membershipManagerApi.getMember(tx.business.accountId).member
+        val merchant = resolveCurrentMerchant(tx.business.accountId)
         val country = regulationEngine.country(tx.business.country)
 
         model.addAttribute("page", createPage())
