@@ -672,6 +672,7 @@ form .hint {
 
 .product .carousel-item img {
     max-height: 512px;
+    max-width: 100%;
     margin: auto;
 }
 
