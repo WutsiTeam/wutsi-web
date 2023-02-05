@@ -211,7 +211,7 @@
                             <h6 th:text="#{product.policy-not-accepted}">Not Accepted</h6>
                         </div>
                         <ul th:if="${offer.cancellationPolicy.message}">
-                            <li th:utext="${offer.returnPolicy.message}">...</li>
+                            <li th:utext="${offer.cancellationPolicy.message}">...</li>
                         </ul>
                         <div
                             th:if="${offer.product.type} == 'DIGITAL_DOWNLOAD'"

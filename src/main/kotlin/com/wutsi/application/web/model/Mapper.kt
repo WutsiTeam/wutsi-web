@@ -294,7 +294,7 @@ class Mapper(
     )
 
     private fun toString(str: String?): String? =
-        if (str.isNullOrEmpty()) {
+        if (str?.trim().isNullOrEmpty()) {
             null
         } else {
             str
