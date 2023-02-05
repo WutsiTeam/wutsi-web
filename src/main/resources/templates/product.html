@@ -75,7 +75,7 @@
                         >Low stock</span>
                     </div>
 
-                    <form action="/order" class="padding-top padding-bottom" method="GET"
+                    <form action="/order" class="margin-top" method="GET"
                           th:if="!${offer.product.outOfStock}">
                         <input name="p" th:value="${offer.product.id}" type="hidden"/>
 
@@ -92,7 +92,9 @@
                         </button>
                     </form>
 
-                    <div th:replace="component/layout :: toolbar(${merchant})"></div>
+                    <div class="margin-top">
+                        <div th:replace="component/layout :: toolbar(${merchant})"></div>
+                    </div>
 
                     <!-- ========================= -->
                     <!-- EVENT                     -->
@@ -190,55 +192,70 @@
             </div>
         </div>
 
-        <!-- ========================= -->
-        <!-- POLICIES                  -->
-        <!-- ========================= -->
         <div class="row">
             <div class="col">
-                <div class="padding border-top" id="product-policies">
-                    <h4 th:text="#{product.policies}">Policies</h4>
+                <div class="accordion accordion-flush" id="more-infos">
 
-                    <div>
-                        <h5 th:text="#{product.cancellation-policy}">Cancellation</h5>
-                        <div th:if="${offer.cancellationPolicy.accepted}">
-                            <h6 th:text="#{product.policy-accepted}">Accepted</h6>
-                            <div
-                                th:utext="#{product.cancellation-policy-message(${offer.cancellationPolicy.windowHours})}">
-                                ...
-                            </div>
-                        </div>
-                        <div th:if="!${offer.cancellationPolicy.accepted}">
-                            <h6 th:text="#{product.policy-not-accepted}">Not Accepted</h6>
-                        </div>
-                        <ul th:if="${offer.cancellationPolicy.message}">
-                            <li th:utext="${offer.cancellationPolicy.message}">...</li>
-                        </ul>
-                        <div
-                            th:if="${offer.product.type} == 'DIGITAL_DOWNLOAD'"
-                            th:utext="#{product.cancellation-policy-digital-download}"
-                        >...
-                        </div>
-                    </div>
+                    <!-- ========================= -->
+                    <!-- POLICIES                  -->
+                    <!-- ========================= -->
+                    <div class="accordion-item border" id="product-policies">
+                        <h4 class="accordion-header" id="flush-headingOne">
+                            <button aria-controls="flush-collapseOne" aria-expanded="false"
+                                    class="accordion-button collapsed"
+                                    data-bs-target="#flush-collapseOne" data-bs-toggle="collapse"
+                                    th:text="#{product.policies}"
+                                    type="button"
+                            >
+                            </button>
+                        </h4>
+                        <div aria-labelledby="flush-headingOne" class="accordion-collapse collapse"
+                             data-bs-parent="#more-infos" id="flush-collapseOne">
+                            <div class="accordion-body">
+                                <div>
+                                    <h6 th:text="#{product.cancellation-policy}">Cancellation</h6>
+                                    <div th:if="${offer.cancellationPolicy.accepted}">
+                                        <div th:text="#{product.policy-accepted}">Accepted</div>
+                                        <div
+                                            th:utext="#{product.cancellation-policy-message(${offer.cancellationPolicy.windowHours})}">
+                                            ...
+                                        </div>
+                                    </div>
+                                    <div th:if="!${offer.cancellationPolicy.accepted}">
+                                        <div th:text="#{product.policy-not-accepted}">Not Accepted</div>
+                                    </div>
+                                    <ul th:if="${offer.cancellationPolicy.message}">
+                                        <li th:utext="${offer.cancellationPolicy.message}">...</li>
+                                    </ul>
+                                    <div
+                                        th:if="${offer.product.type} == 'DIGITAL_DOWNLOAD'"
+                                        th:utext="#{product.cancellation-policy-digital-download}"
+                                    >...
+                                    </div>
+                                </div>
 
-                    <div class="padding-top">
-                        <h5 th:text="#{product.return-policy}">Returns</h5>
-                        <div th:if="${offer.returnPolicy.accepted}">
-                            <h6 th:text="#{product.policy-accepted}">Accepted</h6>
-                            <div
-                                th:utext="#{product.return-policy-message(${offer.returnPolicy.contactWindowDays}, ${offer.returnPolicy.shipBackWindowDays})}">
-                                ...
+                                <div class="padding-top">
+                                    <h6 th:text="#{product.return-policy}">Returns</h6>
+                                    <div th:if="${offer.returnPolicy.accepted}">
+                                        <div th:text="#{product.policy-accepted}">Accepted</div>
+                                        <div
+                                            th:utext="#{product.return-policy-message(${offer.returnPolicy.contactWindowDays}, ${offer.returnPolicy.shipBackWindowDays})}">
+                                            ...
+                                        </div>
+                                    </div>
+                                    <div th:if="!${offer.returnPolicy.accepted}">
+                                        <div th:text="#{product.policy-not-accepted}">Not Accepted</div>
+                                    </div>
+                                    <ul th:if="${offer.returnPolicy.message}">
+                                        <li th:utext="${offer.returnPolicy.message}">...</li>
+                                    </ul>
+                                    <div
+                                        th:if="${offer.product.type} == 'DIGITAL_DOWNLOAD'"
+                                        th:utext="#{product.return-policy-digital-download}"
+                                    >...
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div th:if="!${offer.returnPolicy.accepted}">
-                            <h6 th:text="#{product.policy-not-accepted}">Not Accepted</h6>
-                        </div>
-                        <ul th:if="${offer.returnPolicy.message}">
-                            <li th:utext="${offer.returnPolicy.message}">...</li>
-                        </ul>
-                        <div
-                            th:if="${offer.product.type} == 'DIGITAL_DOWNLOAD'"
-                            th:utext="#{product.return-policy-digital-download}"
-                        >...
                         </div>
                     </div>
                 </div>
