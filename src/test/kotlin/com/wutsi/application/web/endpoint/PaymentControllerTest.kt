@@ -3,12 +3,10 @@ package com.wutsi.application.web.endpoint
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
-import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.Page
-import com.wutsi.application.web.service.recaptcha.Recaptcha
 import com.wutsi.checkout.manager.dto.CreateChargeRequest
 import com.wutsi.checkout.manager.dto.CreateChargeResponse
 import com.wutsi.checkout.manager.dto.CreateOrderResponse
@@ -23,13 +21,9 @@ import com.wutsi.membership.manager.dto.GetMemberResponse
 import com.wutsi.platform.payment.core.Status
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.mock.mockito.MockBean
 import java.util.UUID
 
 internal class PaymentControllerTest : SeleniumTestSupport() {
-    @MockBean
-    private lateinit var recaptcha: Recaptcha
-
     private val orderId = UUID.randomUUID().toString()
     private val transactionId = UUID.randomUUID().toString()
     private val localPhoneNumber = "670000010"
@@ -71,8 +65,6 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
         doReturn(SearchPaymentProviderResponse(listOf(mtn))).whenever(checkoutManagerApi).searchPaymentProvider(any())
 
         doReturn(GetTransactionResponse(tx)).whenever(checkoutManagerApi).getTransaction(transactionId)
-
-        doReturn(true).whenever(recaptcha).verify(any())
     }
 
     @Test
@@ -176,27 +168,6 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
 
         // Submit the data
         click("#btn-submit")
-
-        // Check payment page
-        assertCurrentPageIs(Page.PAYMENT)
-        assertElementPresent(".error")
-    }
-
-    @Test
-    fun `submit payment - recatptcha Error`() {
-        // Given
-        doReturn(false).whenever(recaptcha).verify(any())
-
-        // Goto order page
-        navigate(url("payment?o=${order.id}&i=$idempotencyKey"))
-        assertCurrentPageIs(Page.PAYMENT)
-
-        // Enter data
-        input("input[name=localPhoneNumber]", phoneNumber)
-
-        // Submit the data
-        click("#btn-submit")
-        verify(checkoutManagerApi, never()).createCharge(any())
 
         // Check payment page
         assertCurrentPageIs(Page.PAYMENT)

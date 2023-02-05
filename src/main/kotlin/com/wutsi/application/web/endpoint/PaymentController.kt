@@ -4,11 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.application.web.Page
 import com.wutsi.application.web.dto.ChargeOrderRequest
 import com.wutsi.application.web.model.PageModel
-import com.wutsi.application.web.service.recaptcha.Recaptcha
-import com.wutsi.application.web.util.ErrorCode
 import com.wutsi.application.web.util.ErrorCode.INVALID_PHONE_NUMBER
 import com.wutsi.application.web.util.ErrorCode.ORDER_EXPIRED
-import com.wutsi.application.web.util.ErrorCode.RECAPTCHA
 import com.wutsi.application.web.util.ErrorCode.TRANSACTION_FAILED
 import com.wutsi.application.web.util.ErrorCode.UNEXPECTED
 import com.wutsi.checkout.manager.dto.CreateChargeRequest
@@ -33,15 +30,12 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.util.UUID
-import javax.servlet.http.HttpServletRequest
 
 @Controller
 @RequestMapping("/payment")
 class PaymentController(
     private val objectMapper: ObjectMapper,
     private val messages: MessageSource,
-    private val recaptcha: Recaptcha,
-    private val httpRequest: HttpServletRequest,
 ) : AbstractController() {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(PaymentController::class.java)
@@ -88,13 +82,6 @@ class PaymentController(
         logger.add("request_idempotency_key", request.idempotencyKey)
         logger.add("request_order_id", request.orderId)
         logger.add("request_business_id", request.businessId)
-
-        // Recaptcha
-        val recaptchaResponse = httpRequest.getParameter(Recaptcha.REQUEST_PARAMETER)
-        logger.add("request_g-recaptcha-response", recaptchaResponse)
-        if (!recaptcha.verify(recaptchaResponse)) {
-            return redirectToError(request.orderId, RECAPTCHA)
-        }
 
         // Get provider
         val providers = checkoutManagerApi.searchPaymentProvider(
@@ -221,13 +208,6 @@ class PaymentController(
             emptyArray(),
             LocaleContextHolder.getLocale(),
         )
-        ErrorCode.RECAPTCHA -> {
-            messages.getMessage(
-                "error-message.recaptcha-error",
-                emptyArray(),
-                LocaleContextHolder.getLocale(),
-            )
-        }
         else -> messages.getMessage("error-message.unexpected", emptyArray(), LocaleContextHolder.getLocale())
     }
 
@@ -235,6 +215,5 @@ class PaymentController(
         name = Page.PAYMENT,
         title = "Order",
         robots = "noindex",
-        recaptchaSiteKey = recaptchaSiteKey,
     )
 }
