@@ -7,12 +7,15 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.web.Fixtures
 import com.wutsi.application.web.model.SitemapModel
+import com.wutsi.application.web.view.SitemapView
 import com.wutsi.enums.ProductStatus
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
 import com.wutsi.marketplace.manager.dto.SearchProductRequest
 import com.wutsi.marketplace.manager.dto.SearchProductResponse
 import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.GetMemberResponse
+import com.wutsi.membership.manager.dto.SearchMemberRequest
+import com.wutsi.membership.manager.dto.SearchMemberResponse
 import com.wutsi.regulation.RegulationEngine
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -37,6 +40,34 @@ internal class SitemapControllerTest {
 
     @Autowired
     private lateinit var regulationEngine: RegulationEngine
+
+    @Test
+    fun merchants() {
+        // GIVEN
+        val members = listOf(
+            Fixtures.createMemberSummary(1),
+            Fixtures.createMemberSummary(2),
+            Fixtures.createMemberSummary(3),
+        )
+        doReturn(SearchMemberResponse(members)).whenever(membershipManagerApi).searchMember(any())
+
+        // THEN
+        val sitemap = JAXB.unmarshal(URL(url()), SitemapModel::class.java)
+
+        assertEquals(3, sitemap.url.size)
+        assertHasUrl("/u/1", sitemap)
+        assertHasUrl("/u/2", sitemap)
+        assertHasUrl("/u/3", sitemap)
+
+        verify(membershipManagerApi).searchMember(
+            SearchMemberRequest(
+                offset = 0,
+                limit = SitemapView.LIMIT,
+                business = true,
+                store = true,
+            ),
+        )
+    }
 
     @Test
     fun store() {
@@ -95,6 +126,8 @@ internal class SitemapControllerTest {
 
         assertEquals(0, sitemap.url.size)
     }
+
+    private fun url(): String = "http://localhost:$port/sitemap.xml"
 
     private fun url(id: Long): String = "http://localhost:$port/sitemap.xml?id=$id"
 

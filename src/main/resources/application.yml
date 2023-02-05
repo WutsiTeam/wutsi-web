@@ -42,7 +42,9 @@ wutsi:
     #asset-url: https://int-wutsi.s3.amazonaws.com/static/wutsi-assets
     google:
       analytics:
-        id: ""
+        id: "zzzzzz"
+      site-verification:
+        id: "yyyyy"
       recaptcha:
         site-key: "6Lfo9UAkAAAAAPsaQejbTiVSPbP8VkZqJWj7r2tF"
         secret-key: "6Lfo9UAkAAAAAOSJ4EznW9hY5qNW5ncVOLnVtVAW"

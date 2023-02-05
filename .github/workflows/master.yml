@@ -60,6 +60,8 @@ jobs:
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY_TEST }}
           CLOUDAMQP_URL: ${{secrets.CLOUDAMQP_URL_TEST}}
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY_TEST}}
+          GOOGLE_SITE_VERIFICATION_ID: ${{secrets.GOOGLE_SITE_VERIFICATION_ID_TEST}}
+          GOOGLE_ANALYTICS_ID: ${{secrets.GOOGLE_ANALYTICS_ID_TEST}}
           RECAPTCHA_SITE_KEY: ${{secrets.RECAPTCHA_SITE_KEY_TEST}}
           RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY_TEST}}
           PINTEREST_VERIF_CODE: ${{ secrets.PINTEREST_VERIF_CODE_TEST}}
@@ -73,6 +75,8 @@ jobs:
           heroku config:set --app ${HEROKU_APP} AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
           heroku config:set --app ${HEROKU_APP} AWS_SECRET_KEY=${AWS_SECRET_KEY}
           heroku config:set --app ${HEROKU_APP} CLOUDAMQP_URL=${CLOUDAMQP_URL}
+          heroku config:set --app ${HEROKU_APP} GOOGLE_SITE_VERIFICATION_ID=${GOOGLE_SITE_VERIFICATION_ID}
+          heroku config:set --app ${HEROKU_APP} GOOGLE_ANALYTICS_ID=${GOOGLE_ANALYTICS_ID}
           heroku config:set --app ${HEROKU_APP} RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY}
           heroku config:set --app ${HEROKU_APP} RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY}
           heroku config:set --app ${HEROKU_APP} PINTEREST_VERIF_CODE=${PINTEREST_VERIF_CODE}
@@ -121,6 +125,8 @@ jobs:
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY_PROD }}
           CLOUDAMQP_URL: ${{secrets.CLOUDAMQP_URL_PROD}}
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY_PROD }}
+          GOOGLE_SITE_VERIFICATION_ID: ${{secrets.GOOGLE_SITE_VERIFICATION_ID_PROD}}
+          GOOGLE_ANALYTICS_ID: ${{secrets.GOOGLE_ANALYTICS_ID_PROD}}
           RECAPTCHA_SITE_KEY: ${{secrets.RECAPTCHA_SITE_KEY_PROD}}
           RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY_PROD}}
           PINTEREST_VERIF_CODE: ${{ secrets.PINTEREST_VERIF_CODE_PROD}}
@@ -134,6 +140,8 @@ jobs:
           heroku config:set --app ${HEROKU_APP} AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
           heroku config:set --app ${HEROKU_APP} AWS_SECRET_KEY=${AWS_SECRET_KEY}
           heroku config:set --app ${HEROKU_APP} CLOUDAMQP_URL=${CLOUDAMQP_URL}
+          heroku config:set --app ${HEROKU_APP} GOOGLE_SITE_VERIFICATION_ID=${GOOGLE_SITE_VERIFICATION_ID}
+          heroku config:set --app ${HEROKU_APP} GOOGLE_ANALYTICS_ID=${GOOGLE_ANALYTICS_ID}
           heroku config:set --app ${HEROKU_APP} RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY}
           heroku config:set --app ${HEROKU_APP} RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY}
           heroku config:set --app ${HEROKU_APP} PINTEREST_VERIF_CODE=${PINTEREST_VERIF_CODE}

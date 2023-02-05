@@ -8,6 +8,7 @@ import com.wutsi.application.web.util.ErrorCode
 import com.wutsi.checkout.manager.dto.CreateOrderItemRequest
 import com.wutsi.enums.ChannelType
 import com.wutsi.enums.DeviceType
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.mobile.device.DeviceUtils
@@ -27,6 +28,8 @@ class OrderController(
     private val httpRequest: HttpServletRequest,
     private val recaptcha: Recaptcha,
     private val messages: MessageSource,
+
+    @Value("\${wutsi.application.google.recaptcha.site-key}") private val recaptchaSiteKey: String,
 ) : AbstractController() {
     @GetMapping
     fun index(

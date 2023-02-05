@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping
 @Controller
 class IndexController(
     @Value("\${wutsi.application.pinterest.verif-code}") private val pinterestVerifCode: String,
+    @Value("\${wutsi.application.google.site-verification.id}") private val googleSiteVerificationId: String,
 ) : AbstractController() {
     @GetMapping
     fun index(model: Model): String {
@@ -20,6 +21,8 @@ class IndexController(
     private fun createPage() = PageModel(
         name = Page.HOME,
         title = "Wutsi",
+        sitemapUrl = "$serverUrl/sitemap.xml",
         pinterestVerifCode = if (pinterestVerifCode.isNullOrEmpty()) null else pinterestVerifCode,
+        googleSiteVerificationId = if (googleSiteVerificationId.isNullOrEmpty()) null else googleSiteVerificationId,
     )
 }

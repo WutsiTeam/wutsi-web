@@ -48,9 +48,6 @@ abstract class AbstractController {
     @Value("\${wutsi.application.google.analytics.id}")
     protected lateinit var gaId: String
 
-    @Value("\${wutsi.application.google.recaptcha.site-key}")
-    protected lateinit var recaptchaSiteKey: String
-
     @Autowired
     protected lateinit var request: HttpServletRequest
 

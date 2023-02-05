@@ -43,7 +43,7 @@ import java.time.ZoneOffset
 import java.util.UUID
 
 object Fixtures {
-    fun createMemberSummary() = MemberSummary()
+    fun createMemberSummary(id: Long = -1) = MemberSummary(id)
 
     fun createMember(
         id: Long = -1,

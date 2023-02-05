@@ -8,6 +8,8 @@ wutsi:
       recaptcha:
         site-key: ${RECAPTCHA_SITE_KEY}
         secret-key: ${RECAPTCHA_SECRET_KEY}
+      site-verification:
+        id: ${GOOGLE_SITE_VERIFICATION_ID}
     pinterest:
       verif-code: "${PINTEREST_VERIF_CODE}"
   platform:

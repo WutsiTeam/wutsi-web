@@ -18,6 +18,7 @@ import com.wutsi.marketplace.manager.dto.ProductSummary
 import com.wutsi.marketplace.manager.dto.ReturnPolicy
 import com.wutsi.marketplace.manager.dto.Store
 import com.wutsi.membership.manager.dto.Member
+import com.wutsi.membership.manager.dto.MemberSummary
 import com.wutsi.platform.core.image.Dimension
 import com.wutsi.platform.core.image.ImageService
 import com.wutsi.platform.core.image.Transformation
@@ -47,6 +48,10 @@ class Mapper(
     )
 
     fun toUrlModel(member: Member) = UrlModel(
+        loc = serverUrl + toMemberUrl(member.id),
+    )
+
+    fun toUrlModel(member: MemberSummary) = UrlModel(
         loc = serverUrl + toMemberUrl(member.id),
     )
 

@@ -76,6 +76,9 @@
     <meta name="p:domain_verify" th:content="${page.pinterestVerifCode}" th:if="${page.pinterestVerifCode}"/>
 
     <script th:if="${page.schemas}" th:utext="${page.schemas}" type="application/ld+json"></script>
+
+    <meta name="google-site-verification" th:content="${page.googleSiteVerificationId}"
+          th:if="${page.googleSiteVerificationId}"/>
 </div>
 
 
