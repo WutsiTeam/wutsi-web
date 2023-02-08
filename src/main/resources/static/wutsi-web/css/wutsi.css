@@ -270,6 +270,11 @@ ul, ol {
     text-align: right;
 }
 
+.text-warning {
+    color: var(--text-color-warning);
+}
+
+
 .uppercase {
     text-transform: uppercase;
 }
