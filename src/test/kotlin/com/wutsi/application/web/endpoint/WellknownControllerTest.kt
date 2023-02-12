@@ -33,7 +33,7 @@ internal class WellknownControllerTest {
                 ]
 
             """.trimIndent(),
-            txt
+            txt,
         )
     }
 
