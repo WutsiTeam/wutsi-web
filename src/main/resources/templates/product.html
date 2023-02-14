@@ -222,7 +222,7 @@
                                 Accepted
                             </span>
                         </b>
-                        <ul>
+                        <ul th:if="${offer.cancellationPolicy.accepted}">
                             <li th:utext="#{product.cancellation-policy-message(${offer.cancellationPolicy.windowHours})}">
                                 You have <b>{0} hour(s)</b> after your purchase to cancel your order.
                             </li>
@@ -242,7 +242,7 @@
                                 Accepted
                             </span>
                         </b>
-                        <ul>
+                        <ul th:if="${offer.returnPolicy.accepted}">
                             <li th:utext="#{product.return-policy-message(${offer.returnPolicy.contactWindowDays}, ${offer.returnPolicy.shipBackWindowDays})}">
                                 You have <b>{0} day(s)</b> from the item delivery to contact the merchant, <b>{1}
                                 day(s)</b> from delivery to ship this item back to the merchant.
