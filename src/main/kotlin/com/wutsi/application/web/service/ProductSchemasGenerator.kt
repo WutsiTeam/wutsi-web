@@ -22,7 +22,7 @@ class ProductSchemasGenerator(
         schemas["url"] = "$serverUrl${offer.product.url}"
         schemas["image"] = offer.product.pictures.map { it.originalUrl }
         schemas["sku"] = offer.product.id.toString()
-        schemas["offer"] = mapOf(
+        schemas["offers"] = mapOf(
             "@type" to "Offer",
             "priceCurrency" to offer.product.currency,
             "price" to offer.price.price,
