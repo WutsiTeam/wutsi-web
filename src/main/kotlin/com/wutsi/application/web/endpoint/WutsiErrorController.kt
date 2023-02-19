@@ -57,7 +57,7 @@ class WutsiErrorController : ErrorController, AbstractController() {
 
     private fun getMerchant(memberId: Long): Member? =
         try {
-            membershipManagerApi.getMember(memberId).member
+            resolveCurrentMerchant(memberId)
         } catch (ex: Exception) {
             LOGGER.warn("Unable to resolve user#$memberId", ex)
             null
