@@ -51,7 +51,6 @@ internal class ProcessingControllerTest : SeleniumTestSupport() {
 
         val mtn = Fixtures.createPaymentProviderSummary(1, "MTN")
         doReturn(SearchPaymentProviderResponse(listOf(mtn))).whenever(checkoutManagerApi).searchPaymentProvider(any())
-
     }
 
     @Test
