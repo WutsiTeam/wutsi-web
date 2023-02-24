@@ -48,11 +48,11 @@ class Mapper(
     )
 
     fun toUrlModel(member: Member) = UrlModel(
-        loc = serverUrl + toMemberUrl(member.id),
+        loc = serverUrl + toMemberUrl(member.id, member.name),
     )
 
     fun toUrlModel(member: MemberSummary) = UrlModel(
-        loc = serverUrl + toMemberUrl(member.id),
+        loc = serverUrl + toMemberUrl(member.id, member.name),
     )
 
     fun toOrderModel(order: Order, country: Country): OrderModel {
@@ -92,6 +92,7 @@ class Mapper(
 
     fun toMemberModel(member: Member, business: Business? = null) = MemberModel(
         id = member.id,
+        name = member.name,
         businessId = member.businessId,
         displayName = member.displayName,
         biography = toString(member.biography),
@@ -104,13 +105,13 @@ class Mapper(
         twitterId = member.twitterId,
         youtubeId = member.youtubeId,
         website = member.website,
-        url = toMemberUrl(member.id),
+        url = toMemberUrl(member.id, member.name),
         pictureUrl = member.pictureUrl,
         business = business?.let { toBusinessModel(it) },
     )
 
-    fun toMemberUrl(memberId: Long): String =
-        "/u/$memberId"
+    fun toMemberUrl(memberId: Long, name: String?): String =
+        name?.let { "/@$name" } ?: "/u/$memberId"
 
     fun toProductModel(product: ProductSummary, country: Country, merchant: Member) = ProductModel(
         id = product.id,

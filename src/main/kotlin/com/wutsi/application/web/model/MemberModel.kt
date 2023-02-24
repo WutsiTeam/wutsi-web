@@ -2,6 +2,7 @@ package com.wutsi.application.web.model
 
 data class MemberModel(
     val id: Long = -1,
+    val name: String? = null,
     val displayName: String = "",
     val category: String? = null,
     val pictureUrl: String? = null,

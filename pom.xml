@@ -37,11 +37,11 @@
     <wutsi-platform-payment.version>0.0.109</wutsi-platform-payment.version>
     <wutsi-enums.version>1.0.26</wutsi-enums.version>
     <wutsi-events.version>1.0.18</wutsi-events.version>
-    <wutsi-errors.version>1.0.18</wutsi-errors.version>
+    <wutsi-errors.version>1.0.20</wutsi-errors.version>
     <wutsi-regulation.version>1.0.20</wutsi-regulation.version>
     <wutsi-checkout-manager.version>1.0.29</wutsi-checkout-manager.version>
     <wutsi-marketplace-manager.version>1.0.32</wutsi-marketplace-manager.version>
-    <wutsi-membership-manager.version>1.0.32</wutsi-membership-manager.version>
+    <wutsi-membership-manager.version>1.0.33</wutsi-membership-manager.version>
   </properties>
 
   <dependencies>

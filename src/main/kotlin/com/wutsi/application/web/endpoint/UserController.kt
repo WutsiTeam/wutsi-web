@@ -53,7 +53,6 @@ class UserController : AbstractController() {
         description = member.biography,
         url = "$serverUrl${member.url}",
         imageUrl = member.pictureUrl,
-        canonicalUrl = "$serverUrl/u/${member.id}",
         sitemapUrl = "$serverUrl/sitemap.xml?id=${member.id}",
         twitterUserId = member.twitterId,
     )

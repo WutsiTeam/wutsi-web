@@ -47,7 +47,7 @@ internal class SitemapControllerTest {
         val members = listOf(
             Fixtures.createMemberSummary(1),
             Fixtures.createMemberSummary(2),
-            Fixtures.createMemberSummary(3),
+            Fixtures.createMemberSummary(3, "ray.sponsible"),
         )
         doReturn(SearchMemberResponse(members)).whenever(membershipManagerApi).searchMember(any())
 
@@ -57,7 +57,7 @@ internal class SitemapControllerTest {
         assertEquals(3, sitemap.url.size)
         assertHasUrl("/u/1", sitemap)
         assertHasUrl("/u/2", sitemap)
-        assertHasUrl("/u/3", sitemap)
+        assertHasUrl("/@ray.sponsible", sitemap)
 
         verify(membershipManagerApi).searchMember(
             SearchMemberRequest(
