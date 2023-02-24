@@ -3,10 +3,8 @@ package com.wutsi.application.web.endpoint
 import com.wutsi.application.web.model.Mapper
 import com.wutsi.application.web.service.MerchantHolder
 import com.wutsi.checkout.manager.CheckoutManagerApi
-import com.wutsi.enums.ProductStatus
 import com.wutsi.error.ErrorURN
 import com.wutsi.marketplace.manager.MarketplaceManagerApi
-import com.wutsi.marketplace.manager.dto.Product
 import com.wutsi.membership.manager.MembershipManagerApi
 import com.wutsi.membership.manager.dto.Member
 import com.wutsi.platform.core.error.Error
@@ -66,8 +64,17 @@ abstract class AbstractController {
     @ModelAttribute("gaId")
     fun googleAnalyticsId() = if (gaId.isNullOrEmpty()) null else gaId
 
-    protected fun resolveCurrentMerchant(id: Long): Member {
-        val merchant = membershipManagerApi.getMember(id).member
+    protected fun resolveCurrentMerchant(id: Long): Member =
+        validateMerchant(
+            membershipManagerApi.getMember(id).member,
+        )
+
+    protected fun resolveCurrentMerchant(name: String): Member =
+        validateMerchant(
+            membershipManagerApi.getMemberByName(name).member,
+        )
+
+    private fun validateMerchant(merchant: Member): Member {
         if (!merchant.active) { // Must be active
             throw NotFoundException(
                 error = Error(
@@ -85,19 +92,6 @@ abstract class AbstractController {
 
         merchantHolder.set(merchant)
         return merchant
-    }
-
-    @Deprecated("")
-    protected fun findProduct(id: Long): Product {
-        val product = marketplaceManagerApi.getProduct(id).product
-        if (product.status != ProductStatus.PUBLISHED.name) {
-            throw NotFoundException(
-                error = Error(
-                    code = ErrorURN.PRODUCT_NOT_PUBLISHED.urn,
-                ),
-            )
-        }
-        return product
     }
 
     @ExceptionHandler(FeignException::class)

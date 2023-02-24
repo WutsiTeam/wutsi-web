@@ -14,11 +14,23 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/u")
+@RequestMapping
 class UserController : AbstractController() {
-    @GetMapping("/{id}")
-    fun index(@PathVariable id: Long, model: Model): String {
-        val merchant = resolveCurrentMerchant(id)
+    @GetMapping("/@{name}")
+    fun index(@PathVariable name: String, model: Model): String =
+        render(
+            resolveCurrentMerchant(name),
+            model,
+        )
+
+    @GetMapping("/u/{id}")
+    fun index(@PathVariable id: Long, model: Model): String =
+        render(
+            resolveCurrentMerchant(id),
+            model,
+        )
+
+    private fun render(merchant: Member, model: Model): String {
         val country = regulationEngine.country(merchant.country)
         val memberModel = mapper.toMemberModel(merchant)
         val offers = findOffers(merchant)

@@ -10,6 +10,7 @@ import com.wutsi.enums.ProductType
 import com.wutsi.error.ErrorURN
 import com.wutsi.marketplace.manager.dto.SearchOfferResponse
 import com.wutsi.membership.manager.dto.GetMemberResponse
+import com.wutsi.membership.manager.dto.Member
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -60,15 +61,26 @@ internal class UserControllerTest : SeleniumTestSupport() {
         super.setUp()
 
         doReturn(GetMemberResponse(merchant)).whenever(membershipManagerApi).getMember(merchant.id)
+        doReturn(GetMemberResponse(merchant)).whenever(membershipManagerApi).getMemberByName(merchant.name!!)
 
         doReturn(SearchOfferResponse(offers)).whenever(marketplaceManagerApi).searchOffer(any())
     }
 
     @Test
-    fun index() {
+    fun byId() {
         // Goto user page
         navigate(url("u/${merchant.id}"))
+        verify(merchant)
+    }
 
+    @Test
+    fun byName() {
+        // Goto user page
+        navigate(url("@${merchant.name}"))
+        verify(merchant)
+    }
+
+    private fun verify(merchant: Member) {
         assertCurrentPageIs(Page.PROFILE)
         assertElementAttribute("head title", "text", "${merchant.displayName} | Wutsi")
         assertElementAttribute("head meta[name='description']", "content", merchant.biography)

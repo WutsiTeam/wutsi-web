@@ -52,7 +52,8 @@ abstract class SeleniumTestSupport {
     @MockBean
     protected lateinit var checkoutManagerApi: CheckoutManagerApi
 
-    protected val merchant = Fixtures.createMember(id = 1, business = true, storeId = 111L, businessId = 333L)
+    protected val merchant =
+        Fixtures.createMember(id = 1, business = true, storeId = 111L, businessId = 333L, name = "ray-sponsible")
     protected val business = Fixtures.createBusiness(id = 333L, accountId = 1L, country = "CM", currency = "XAF")
     protected val store = Fixtures.createStore(id = 111L, accountId = 1L)
 

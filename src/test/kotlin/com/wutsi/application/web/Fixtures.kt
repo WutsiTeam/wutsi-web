@@ -56,9 +56,11 @@ object Fixtures {
         superUser: Boolean = false,
         active: Boolean = true,
         pictureUrl: String = "https://static6.depositphotos.com/1005993/633/v/450/depositphotos_6338152-stock-illustration-real-estate-logo.jpg",
+        name: String? = null,
     ) = Member(
         id = id,
         active = active,
+        name = name,
         phoneNumber = phoneNumber,
         business = business,
         storeId = storeId,
