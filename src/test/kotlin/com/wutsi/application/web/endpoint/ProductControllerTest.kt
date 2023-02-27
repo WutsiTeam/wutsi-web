@@ -76,7 +76,6 @@ internal class ProductControllerTest : SeleniumTestSupport() {
         assertElementPresent(".product [name='q']")
         assertElementAttribute(".product input[name='p']", "value", "${product.id}")
         assertElementPresent("#btn-buy")
-        assertElementAttribute("#btn-buy", "wutsi-track-event", "order")
 
         assertElementPresent("#button-facebook")
         assertElementPresent("#button-twitter")

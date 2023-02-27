@@ -86,6 +86,7 @@ internal class OrderControllerTest : SeleniumTestSupport() {
         // Submit the data
         scrollToBottom()
         Thread.sleep(1000)
+        assertElementAttribute("#btn-submit", "wutsi-track-event", "order")
         click("#btn-submit")
 
         verify(checkoutManagerApi).createOrder(
