@@ -32,5 +32,8 @@
 
 <div th:replace="component/layout :: footer"></div>
 
+<script th:inline="javascript">
+    ga_track(wutsi_meta('page_name'), 'purchase', /*[[${tx.amountValue}]]*/ '');
+</script>
 </body>
 </html>

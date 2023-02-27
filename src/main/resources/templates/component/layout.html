@@ -169,6 +169,43 @@
 
         /*]]>*/
     </script>
+    <script>
+        function ga_track(category, event, value, label) {
+            console.log('ga_track', category, event, value, label);
+
+            if (typeof gtag != 'function') {
+                return
+            }
+
+            try {
+                gtag('event', event, {
+                    'event_category': category,
+                    'event_label': label,
+                    'value': (value ? value : null)
+                });
+            } catch (err) {
+                console.error('Unable to push event to Google Analytics', err);
+            }
+        }
+
+        // Handle all errors
+        window.onerror = function (message, source, line, col, error) {
+            const label = source + ' - ' + line + ':' + col + ' ' + message;
+            ga_track('error', 'error', null, label)
+        };
+
+        // Handle clicks
+        $(document).ready(function () {
+            $('[wutsi-track-event]').click(function () {
+                const category = wutsi_meta("page_name")
+                const event = $(this).attr("wutsi-track-event");
+                const value = $(this).attr("wutsi-track-value");
+                const title = $(this).attr("title");
+
+                ga_track(category, event, value, title);
+            });
+        });
+    </script>
 
     <script src="https://www.google.com/recaptcha/api.js" th:if="${page.recaptchaSiteKey}"></script>
 </footer>

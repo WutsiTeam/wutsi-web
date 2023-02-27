@@ -6,6 +6,7 @@ data class OrderModel(
     val customerName: String,
     val customerEmail: String,
     val totalPrice: String,
+    val totalPriceValue: Long,
     val totalDiscount: String,
     val items: List<OrderItemModel>,
 )

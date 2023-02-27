@@ -76,6 +76,8 @@ internal class PaymentControllerTest : SeleniumTestSupport() {
         // Goto order page
         navigate(url("payment?o=${order.id}&i=$idempotencyKey"))
         assertCurrentPageIs(Page.PAYMENT)
+        assertElementAttribute("#btn-submit", "wutsi-track-event", "payment")
+        assertElementAttribute("#btn-submit", "wutsi-track-value", "${order.totalPrice}")
 
         // Enter data
         input("input[name=localPhoneNumber]", phoneNumber)

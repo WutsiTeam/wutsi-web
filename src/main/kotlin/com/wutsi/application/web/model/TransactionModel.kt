@@ -5,5 +5,6 @@ data class TransactionModel(
     val type: String,
     val status: String,
     val amount: String,
+    val amountValue: Long,
     val email: String?,
 )

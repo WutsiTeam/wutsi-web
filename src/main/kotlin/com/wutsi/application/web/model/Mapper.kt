@@ -64,6 +64,7 @@ class Mapper(
             customerName = order.customerName,
             totalPrice = fmt.format(order.totalPrice),
             totalDiscount = fmt.format(order.totalDiscount),
+            totalPriceValue = order.totalPrice,
             items = order.items.map {
                 OrderItemModel(
                     productId = it.productId,
@@ -210,6 +211,7 @@ class Mapper(
         type = tx.type,
         status = tx.status,
         amount = country.monetaryFormat.format(tx.amount),
+        amountValue = tx.amount,
         email = tx.email,
     )
 

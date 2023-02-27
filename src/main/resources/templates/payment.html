@@ -47,7 +47,10 @@
 
                         <button class="btn btn-lg btn-primary w-100" id="btn-submit"
                                 th:text="#{payment.submit(${order.totalPrice})}"
-                                type="submit">
+                                th:wutsi-track-value="${order.totalPriceValue}"
+                                type="submit"
+                                wutsi-track-event="payment"
+                        >
                             Pay 30,000 FCFA
                         </button>
                     </div>
